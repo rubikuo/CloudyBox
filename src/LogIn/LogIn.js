@@ -1,4 +1,5 @@
 import React from "react";
+import { tokenUrl } from "../getToken";
 
 const LogIn = () => {
   return (
@@ -7,7 +8,7 @@ const LogIn = () => {
 
       <div className="">Image</div>
 
-      <button>Log In</button>
+      <a href={tokenUrl}>log in</a>
     </>
   );
 };
