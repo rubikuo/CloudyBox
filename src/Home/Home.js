@@ -18,11 +18,11 @@ const Home = ({ location }) => {
   return (
         <div className = "container">
             <div className = "header">
-                
+               
             </div>
             <div className = "content">
                 <div className ="sidebar menu">
-                  
+
                 </div>
                 <div className ="mainArea">
                     <Main />
