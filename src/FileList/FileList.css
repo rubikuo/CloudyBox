@@ -1,6 +1,14 @@
 .item{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(235, 235, 235);
+}
+
+.itemSmlCtn{
+    width: 35%;
+    display: flex;
+    justify-content: space-around;
     align-items: center;
 }
 

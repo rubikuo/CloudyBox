@@ -5,7 +5,6 @@ main{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid grey;
 
 }
 
@@ -17,7 +16,8 @@ main{
 }
 
 .tabsCtn{
-    width: 65%;
+    width: 40%;
+    height: 30%;
     display: flex;
 }
 
@@ -25,6 +25,26 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px;
+    margin: 20px 0px -17px 10px;
     width: 100px;
+    border-radius: 15px 15px 0px 0px;
+    cursor: pointer;
+}
+
+.tagCtn{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+
+}
+
+.metaTag, .modifiedTag{
+    margin: 20px 0 -17px 0;
+
+}
+
+ul{
+    width: 90%;
+    padding: 0;
 }
