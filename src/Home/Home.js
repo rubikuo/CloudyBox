@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dropbox } from "dropbox";
 import { token$, updateToken } from "../store";
+import Main from "../Main/Main";
 
 const Home = ({ location }) => {
   const [localToken, updateLocalToken] = useState(token$.value);
@@ -16,6 +17,7 @@ const Home = ({ location }) => {
   return (
     <>
       <h1>Home</h1>
+      <Main />
     </>
   );
 };
