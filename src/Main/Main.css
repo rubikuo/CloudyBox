@@ -1,0 +1,50 @@
+main{
+    width: 55%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.titleBar{
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.tabsCtn{
+    width: 40%;
+    height: 30%;
+    display: flex;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px -17px 10px;
+    width: 100px;
+    border-radius: 15px 15px 0px 0px;
+    cursor: pointer;
+}
+
+.tagCtn{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+
+}
+
+.metaTag, .modifiedTag{
+    margin: 20px 0 -17px 0;
+
+}
+
+ul{
+    width: 90%;
+    padding: 0;
+}
