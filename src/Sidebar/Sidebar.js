@@ -41,7 +41,7 @@ class Sidebar extends React.PureComponent {
     let elements;
     if (this.props.name === "sidebarMenu") {
       elements = (
-        <div className="menu_list left">
+        <div className="menu_list">
           <ul>
             <li>Home</li>
             <li>Files</li>

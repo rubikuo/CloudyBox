@@ -22,7 +22,7 @@ const Home = ({ location }) => {
   return (<>
             <div className="image-top">
                 <span className="imageTop-Span"></span>
-                <img className="imageTop" src={topImage}/>
+                <img className="imageTop" src={topImage} alt="header-image-background"/>
             </div>
             <div className = "container">
                 <div className = "header">
