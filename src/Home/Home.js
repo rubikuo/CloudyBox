@@ -36,7 +36,7 @@ const Home = ({ location }) => {
                         <Main />
                     </div>
                     <div className ="sidebar buttons">
-                        <Sidebar name = "sidebarButtons"/>
+                        <Sidebar localToken={localToken} name = "sidebarButtons"/>
                     </div>
                 </div>  
                 <Footer />
