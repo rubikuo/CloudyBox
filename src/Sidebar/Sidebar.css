@@ -7,8 +7,15 @@
     color: #1293D6;
 }
 
-.menu_list > ul > li:hover {
+.menu_list > ul > li > button:hover {
     cursor: pointer;
     font-weight: 600;
     
+}
+
+.menu_list > ul > li > button  {
+    border: none;
+    background-color: #ffffff;
+    font-size: 14px;
+    color: #1293D6;
 }
