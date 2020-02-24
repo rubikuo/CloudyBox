@@ -5,6 +5,7 @@ import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
+import Footer from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
 
 const Home = ({ location }) => {
@@ -38,9 +39,7 @@ const Home = ({ location }) => {
                         <Sidebar localToken={localToken} name = "sidebarButtons"/>
                     </div>
                 </div>  
-                <div className = "footer">
-
-                </div>
+                <Footer />
             </div>
         </>
   );
