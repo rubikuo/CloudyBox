@@ -16,15 +16,13 @@
 .content {
     width: 100%;
     height: 75%;
-    background-color: blue;
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-flow: row wrap;
 }
 
 .sidebar {
     width: 15%;
-    height: 100%;
-    background-color: yellow;
 }
 
 .mainArea {
