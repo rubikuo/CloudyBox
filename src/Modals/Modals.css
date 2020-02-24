@@ -1,0 +1,27 @@
+/*bright blue = #1293D6, dark blue = #106BAC, orange = #F5A012*/
+
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.modalHeadline {
+    display: flex;
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: right;
+}
+
+/*---the Create and the Delete buttons on the portals---*/
+.blueButtons {
+    color: #fff;
+    font-weight: 500;
+    background-color: #1293D6;
+    letter-spacing: 0.06rem;
+    border: 1px solid #1293D6;
+    border-radius: 0.3rem;
+    padding: 0 1.5%;
+}
