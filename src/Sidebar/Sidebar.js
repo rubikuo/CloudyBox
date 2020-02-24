@@ -25,9 +25,9 @@ class Sidebar extends React.PureComponent {
             elements = (
                 <div className ="menu_list">
                     <ul>
-                        <li><MdNoteAdd size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}} />Upload files</li>
-                        <li><MdFileUpload size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}}/>Upload folder</li>
-                        <li><MdCreateNewFolder size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}}/>New Folder</li>
+                        <li><button><MdNoteAdd size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}} />Upload files</button></li>
+                        <li><button><MdFileUpload size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}}/>Upload folder</button></li>
+                        <li><button><MdCreateNewFolder size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}}/>New Folder</button></li>
                     </ul>
                 </div>
             )
