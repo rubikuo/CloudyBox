@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+
+h1, p, h2 ,h3, h4, li, ul {
+  font-family: "Open Sans", sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
 .App {
   text-align: center;
   width: 100vw;
