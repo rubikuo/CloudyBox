@@ -15,8 +15,10 @@ const Remove = (props) => {
             <p>Are you sure you want to delete FILENAME from your CloudyBox?</p>
             
             <div>
-                <button type="submit" className="modalButtons">Cancel</button>
-                <button type="submit" className="modalButtons blueButton">Delete</button>
+                <button type="submit" 
+                className="modalButtons">Cancel</button>
+                <button type="submit" 
+                className="modalButtons blueButton">Delete</button>
             </div>
         </div>
     )

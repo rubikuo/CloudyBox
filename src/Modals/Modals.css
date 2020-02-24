@@ -1,5 +1,11 @@
 /*bright blue = #1293D6, dark blue = #106BAC, orange = #F5A012*/
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+* {
+    font-family: "Open Sans", sans-serif;
+}
+
 .modalContainer {
     display: flex;
     flex-direction: column;
