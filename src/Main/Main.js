@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileList from "../FileList/FileList";
 import "./Main.css";
 import { FaLanguage, FaStar } from "react-icons/fa";
+import { Dropbox } from "dropbox";
 
-const Main = () => {
+const Main = ({localToken}) => {
   const [tab, updateTab] = useState("name");
+  const [documents, updateDocs] = useState([]);
+  console.log(localToken)
+
+  useEffect(()=>{
+    let dropbox = new Dropbox({accessToken:localToken});
+    dropbox.filesListFolder({path:""})
+    .then((response)=>{
+      console.log(response.entries)
+      updateDocs(response.entries)
+    })
+
+
+  },[])
+
+
   const showTab = tabName => {
     updateTab(tabName);
   };
@@ -13,8 +29,9 @@ const Main = () => {
     backgroundColor: "rgb(235, 235, 235)",
     color: "rgb(34, 138, 208)"
   };
-
+ 
   return (
+   
     <main>
       <div className="titleBar">
         <div className="tabsCtn">
@@ -42,7 +59,12 @@ const Main = () => {
       </div>
       <ul>
         {/* map out the FileLsit, now just example*/}
-        <FileList />
+        {documents.map(doc=>{
+          return(
+            <FileList key={doc.id} doc={doc} />
+          )
+        })}
+       
       </ul>
     </main>
   );

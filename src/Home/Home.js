@@ -33,7 +33,7 @@ const Home = ({ location }) => {
                         <Sidebar name = "sidebarMenu"/>
                     </div>
                     <div className ="mainArea">
-                        <Main />
+                        <Main localToken={localToken} />
                     </div>
                     <div className ="sidebar buttons">
                         <Sidebar localToken={localToken} name = "sidebarButtons"/>
