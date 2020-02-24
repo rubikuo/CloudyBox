@@ -1,20 +1,9 @@
 import React from "react";
 import { FaFolder, FaStar, FaTrash } from "react-icons/fa";
 import "./FileList.css";
+import {convertDate} from "./convertDate.js";
 
 const FileList = ({ doc }) => {
-  const convertDate =(isoDate)=> {
-    if(isoDate){
-    var timeStr = isoDate;
-    var date = new Date(timeStr);
-    var day = date.getDate();
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var dateStr = month + "/" + day + "/" + year;
-    return dateStr;
-  }
-  }
-
   return (
     <li className="item">
       <div className="itemSmlCtn">
