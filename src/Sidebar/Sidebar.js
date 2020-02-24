@@ -41,7 +41,7 @@ class Sidebar extends React.PureComponent {
     let elements;
     if (this.props.name === "sidebarMenu") {
       elements = (
-        <div className="menu_list">
+        <div className="menu_list left">
           <ul>
             <li>Home</li>
             <li>Files</li>
@@ -85,15 +85,7 @@ class Sidebar extends React.PureComponent {
                     marginRight: "5px"
                   }}
                 />
-                New Folder
-                <input
-                  style={{ display: "none" }}
-                  multiple
-                  onChange={this.uploadFiles}
-                  value={this.state.choosedFile}
-                  type="file"
-                  accept=".pdf, .jpg"
-                />
+               <button>Create Folder</button>
               </label>
             </li>
           </ul>
