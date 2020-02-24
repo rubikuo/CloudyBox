@@ -3,7 +3,9 @@ import { Dropbox } from "dropbox";
 import { token$, updateToken } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
+import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
+import topImage from "../Home/image/cloud-header-right.svg";
 
 const Home = ({ location }) => {
   const [localToken, updateLocalToken] = useState(token$.value);
@@ -16,26 +18,31 @@ const Home = ({ location }) => {
     return () => subscribe.unsubscribe();
   }, []);
 
-  return (
-        <div className = "container">
-            <div className = "header">
-               
+  return (<>
+            <div className="image-top">
+                <span className="imageTop-Span"></span>
+                <img className="imageTop" src={topImage}/>
             </div>
-            <div className = "content">
-                <div className ="sidebar menu">
-                    <Sidebar name = "sidebarMenu"/>
+            <div className = "container">
+                <div className = "header">
+                    <Header />
                 </div>
-                <div className ="mainArea">
-                    <Main />
-                </div>
-                 <div className ="sidebar buttons">
-                     <Sidebar name = "sidebarButtons"/>
-                 </div>
-            </div>  
-            <div className = "footer">
+                <div className = "content">
+                    <div className ="sidebar menu">
+                        <Sidebar name = "sidebarMenu"/>
+                    </div>
+                    <div className ="mainArea">
+                        <Main />
+                    </div>
+                    <div className ="sidebar buttons">
+                        <Sidebar name = "sidebarButtons"/>
+                    </div>
+                </div>  
+                <div className = "footer">
 
+                </div>
             </div>
-        </div>
+        </>
   );
 };
 
