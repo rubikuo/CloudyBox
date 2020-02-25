@@ -1,7 +1,8 @@
 import React from "react";
-import { MdCreateNewFolder, MdFileUpload, MdNoteAdd } from "react-icons/md";
+import { MdCreateNewFolder, MdFileUpload } from "react-icons/md";
 import "./Sidebar.css";
 import { Dropbox } from "dropbox";
+
 class Sidebar extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -9,7 +10,6 @@ class Sidebar extends React.PureComponent {
       choosedFiles: []
     };
   }
-    
 
   uploadFiles = e => {
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
@@ -38,7 +38,7 @@ class Sidebar extends React.PureComponent {
 
   render() {
     console.log(this.props.localToken);
-    console.log(this.props.modals)
+    console.log(this.props.modals);
 
     let elements;
     if (this.props.name === "sidebarMenu") {
@@ -87,7 +87,7 @@ class Sidebar extends React.PureComponent {
                     marginRight: "5px"
                   }}
                 />
-               <button>Create Folder</button>
+                <button>Create Folder</button>
               </label>
             </li>
           </ul>
