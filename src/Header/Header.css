@@ -4,21 +4,38 @@
     font-family: "Open Sans", sans-serif;
 }
 
-
 .headerContainer {
     height: 100%;
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
+    z-index: 10;
 }
 
-.logo-header {
-        width: 200px;
-        margin: 50px 0 0 100px;
+.logoContainer {
+    width: 20%;
 }
 
-/*.headerPathSearchContainer {
-   
-}*/
+.logoHeader {
+    width: 200px;
+    margin: 50px 0 0 -10px;
+}
+
+.headerPathSearchContainer {
+   width: 80%;
+   display: flex;
+   justify-content: space-between;
+   margin: 75px 0 0 10px;
+}
+
+.headerSearchContainer {
+    border-radius: 0.3rem;
+    padding: 1%;
+    width: 200px;
+}
+
+.searchInput {
+    margin-left: 4px;
+}

@@ -1,23 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from './LOGO.png';
 import { GoSearch } from 'react-icons/go';
 import "./Header.css";
 
 const Header = () => {
     return (
         <div className='headerContainer'>
-            <img src={logo} alt="logo with clouds" className="logo-header" />
+
+            <div className="logoContainer">
+                <img src={logo} alt="cloudbox logo uploading files" className="logoHeader" />
+            </div>
 
             <div className="headerPathSearchContainer">
                 {/*each part of the path should be clickable*/}
-                <nav>Home >> Folder </nav>
+                <nav>
+                    <span>Home</span>
+                    <span> > Folder</span>
+                </nav>
 
                 <div className='headerSearchContainer' style={{ border: '1px solid #ddd' }}>
                     <GoSearch />
                     <input
+                    className="searchInput"
                         style={{ border: 'none' }}
                         type='text'
-                        placeholder='Search folder or file...'
+                        placeholder='Search folder'
                         name='search'
                         id='search'
                     />
