@@ -7,6 +7,7 @@ import { updateToken } from "./store";
 const Auth = () => {
   const [tokenSaved, updateTokenSaved] = useState(false);
 
+
   useEffect(() => {
     // for the user to get to thier own dropBox
     const accessToken = queryString.parse(window.location.hash).access_token;
