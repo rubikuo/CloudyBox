@@ -8,7 +8,7 @@ import { useDebounce } from "use-debounce";
 const Main = ({ localToken }) => {
   const [tab, updateTab] = useState("name");
   const [documents, updateDocs] = useState([]);
-  const [debounced] = useDebounce(documents, 8000);
+  const [debounced] = useDebounce(documents, 5000);
   console.log(localToken);
 
   useEffect(() => {
