@@ -21,6 +21,18 @@ const Main = ({ localToken }) => {
     });
   }, [localToken, debounced]);
 
+  const deleteItem = path => {
+    let dropbox = new Dropbox({ accessToken: localToken });
+    dropbox
+      .filesDeleteV2({ path: `/${path}` })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const showTab = tabName => {
     updateTab(tabName);
   };
@@ -59,7 +71,7 @@ const Main = ({ localToken }) => {
       <ul>
         {/* map out the FileLsit, now just example*/}
         {documents.map(doc => {
-          return <FileList key={doc.id} doc={doc} />;
+          return <FileList key={doc.id} doc={doc} deleteItem={deleteItem} />;
         })}
       </ul>
     </main>
