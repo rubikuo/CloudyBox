@@ -1,5 +1,6 @@
 import React from "react";
-import { FaFolder, FaStar, FaTrash } from "react-icons/fa";
+import { FaFolder, FaStar} from "react-icons/fa";
+import { MdMenu } from "react-icons/md";
 import "./FileList.css";
 import { convertDate } from "./convertDate.js";
 import {convertBytes} from "./convertBytes.js";
@@ -17,7 +18,7 @@ const FileList = ({ doc }) => {
       </div>
       <p>{doc[".tag"]=== "file"? convertBytes(doc.size): "--"}</p>
       <p>{convertDate(doc.client_modified)}</p>
-      <FaTrash />
+      <button> <MdMenu /> </button>
     </li>
   );
 };
