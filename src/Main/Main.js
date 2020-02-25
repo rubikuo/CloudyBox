@@ -3,26 +3,37 @@ import FileList from "../FileList/FileList";
 import "./Main.css";
 import { FaLanguage, FaStar } from "react-icons/fa";
 import { Dropbox } from "dropbox";
-import {useDebounce} from "use-debounce";
+import { useDebounce } from "use-debounce";
 
-const Main = ({localToken}) => {
+const convertBytes = function(bytes) {
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+
+  if (bytes > 0) {
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+
+    if (i === 0) {
+      return bytes + " " + sizes[i];
+    }
+
+    return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizes[i];
+  }
+};
+
+const Main = ({ localToken }) => {
   const [tab, updateTab] = useState("name");
   const [documents, updateDocs] = useState([]);
   const [debounced] = useDebounce(documents, 8000);
-  console.log(localToken)
+  console.log(localToken);
 
-  useEffect(()=>{
-    let dropbox = new Dropbox({accessToken:localToken});
-    console.log(debounced)
+  useEffect(() => {
+    let dropbox = new Dropbox({ accessToken: localToken });
+    console.log(debounced);
 
-    dropbox.filesListFolder({path:""})
-    .then((response)=>{
-      console.log(response.entries)
-      updateDocs(response.entries)
-    })
-
-  },[localToken, debounced])
-
+    dropbox.filesListFolder({ path: "" }).then(response => {
+      console.log(response.entries);
+      updateDocs(response.entries);
+    });
+  }, [localToken, debounced]);
 
   const showTab = tabName => {
     updateTab(tabName);
@@ -32,9 +43,8 @@ const Main = ({localToken}) => {
     backgroundColor: "rgb(235, 235, 235)",
     color: "rgb(34, 138, 208)"
   };
- 
+
   return (
-   
     <main>
       <div className="titleBar">
         <div className="tabsCtn">
@@ -62,12 +72,9 @@ const Main = ({localToken}) => {
       </div>
       <ul>
         {/* map out the FileLsit, now just example*/}
-        {documents.map(doc=>{
-          return(
-            <FileList key={doc.id} doc={doc} />
-          )
+        {documents.map(doc => {
+          return <FileList key={doc.id} doc={doc} />;
         })}
-       
       </ul>
     </main>
   );
