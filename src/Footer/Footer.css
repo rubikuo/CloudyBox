@@ -1,0 +1,9 @@
+footer {
+    width: 100%;
+    height: 5%;
+}
+
+footer > p {
+    color: #106BAC;
+    font-size: 0.7rem;
+}

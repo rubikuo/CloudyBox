@@ -1,16 +1,24 @@
 .menu_list > ul  {
     text-align: left;
     padding: 0 0 0 20px;
-    margin: 0;
+    margin: 70px 0 0 0;
     line-height: 30px;
     font-size: 14px;
     color: #1293D6;
 }
 
-.menu_list > ul > li > button:hover {
+.menu_list > ul > li > label > button {
+    font-size: 14px;
+    color: #1293D6;
+    border: none;
+    padding: 0;
+}
+
+
+
+.menu_list > ul > li:hover, .menu_list > ul > li > label > button:hover {
     cursor: pointer;
-    font-weight: 600;
-    
+    font-weight: 600;  
 }
 
 .menu_list > ul > li > button  {
@@ -18,4 +26,8 @@
     background-color: #ffffff;
     font-size: 14px;
     color: #1293D6;
+}
+
+.menu_list.left > ul {
+    margin-left: 80px;
 }

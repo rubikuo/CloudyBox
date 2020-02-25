@@ -5,6 +5,7 @@ import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
+import Footer from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
 
 const Home = ({ location }) => {
@@ -21,7 +22,7 @@ const Home = ({ location }) => {
   return (<>
             <div className="image-top">
                 <span className="imageTop-Span"></span>
-                <img className="imageTop" src={topImage}/>
+                <img className="imageTop" src={topImage} alt="header-image-background"/>
             </div>
             <div className = "container">
                 <div className = "header">
@@ -35,12 +36,10 @@ const Home = ({ location }) => {
                         <Main />
                     </div>
                     <div className ="sidebar buttons">
-                        <Sidebar name = "sidebarButtons"/>
+                        <Sidebar localToken={localToken} name = "sidebarButtons"/>
                     </div>
                 </div>  
-                <div className = "footer">
-
-                </div>
+                <Footer />
             </div>
         </>
   );

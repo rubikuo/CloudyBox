@@ -1,43 +1,100 @@
 import React from "react";
 import { MdCreateNewFolder, MdFileUpload, MdNoteAdd } from "react-icons/md";
 import "./Sidebar.css";
-
+import { Dropbox } from "dropbox";
 class Sidebar extends React.PureComponent {
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      choosedFiles: []
+    };
+  }
+
+  uploadFiles = e => {
+    const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
+    let dropBox = new Dropbox({ accessToken: this.props.localToken });
+    let files = Array.from(e.target.files);
+
+    if (files.length === 0) {
+      return;
+    }
+    this.setState({ choosedFiles: files });
+    const file = files[0];
+    console.log("file", file.name);
+    if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
+      dropBox
+        .filesUpload({ path: "/" + file.name, contents: file })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    } else {
+      alert("the file is too big");
+    }
+  };
+
+  render() {
+    console.log(this.props.localToken);
+
+    let elements;
+    if (this.props.name === "sidebarMenu") {
+      elements = (
+        <div className="menu_list">
+          <ul>
+            <li>Home</li>
+            <li>Files</li>
+          </ul>
+        </div>
+      );
     }
 
-    render() {
-
-        let elements;
-        if(this.props.name === "sidebarMenu") {
-            elements = (
-                <div className ="menu_list">
-                    <ul>
-                        <li>Home</li>
-                        <li>Files</li>
-                    </ul>
-                </div>
-            )
-        }
-
-        if ( this.props.name === "sidebarButtons") {
-            elements = (
-                <div className ="menu_list">
-                    <ul>
-                        <li><button><MdNoteAdd size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}} />Upload files</button></li>
-                        <li><button><MdFileUpload size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}}/>Upload folder</button></li>
-                        <li><button><MdCreateNewFolder size="20px" style ={{position: "relative", top: "4px", marginRight: "5px"}}/>New Folder</button></li>
-                    </ul>
-                </div>
-            )
-        }
-
-        return <>
-                {elements}
-               </>
-        
+    if (this.props.name === "sidebarButtons") {
+      elements = (
+        <div className="menu_list">
+          <ul>
+            <li>
+              <label>
+                <MdFileUpload
+                  size="20px"
+                  style={{
+                    position: "relative",
+                    top: "4px",
+                    marginRight: "5px"
+                  }}
+                />
+                Upload files
+                <input
+                  style={{ display: "none" }}
+                  multiple
+                  onChange={this.uploadFiles}
+                  value={this.state.choosedFile}
+                  type="file"
+                  accept=".pdf, .jpg"
+                />
+              </label>
+            </li>
+            <li>
+              <label>
+                <MdCreateNewFolder
+                  size="20px"
+                  style={{
+                    position: "relative",
+                    top: "4px",
+                    marginRight: "5px"
+                  }}
+                />
+               <button>Create Folder</button>
+              </label>
+            </li>
+          </ul>
+        </div>
+      );
     }
+
+    return <>{elements}</>;
+  }
 }
 
 export default Sidebar;
