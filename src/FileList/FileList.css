@@ -21,3 +21,7 @@
     font-size: 2.5rem;
     color:rgb(34, 98, 208);
 }
+
+.documentLink{
+    text-decoration: none;
+}

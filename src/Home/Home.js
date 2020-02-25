@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from "react";
 import ReactDOM from 'react-dom';
 import { Dropbox } from "dropbox";
-import { token$, updateToken } from "../store";
+import { token$ } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";
@@ -11,7 +11,6 @@ import topImage from "../Home/image/cloud-header-right.svg";
 import Remove from "../Modals/Remove";
 import Create from "../Modals/Create";
 import "../Modals/Modals.css";
-
 
 const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
@@ -25,8 +24,8 @@ const Home = ({ location }) => {
             updateLocalToken(token);
         });
 
-        return () => subscribe.unsubscribe();
-    }, []);
+    return () => subscribe.unsubscribe();
+  }, []);
 
     if (modals){
      
@@ -66,7 +65,7 @@ const Home = ({ location }) => {
         </div>
      {ReactDOM.createPortal(printModal, document.body)} 
     </>
-    );
+  );
 };
 
 export default Home;
