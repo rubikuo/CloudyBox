@@ -7,42 +7,48 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
+import Remove from "../Modals/Remove";
+import Create from "../Modals/Create";
+import "../Modals/Modals.css";
+
 
 const Home = ({ location }) => {
-  const [localToken, updateLocalToken] = useState(token$.value);
-  console.log(location);
-  useEffect(() => {
-    const subscribe = token$.subscribe(token => {
-      updateLocalToken(token);
-    });
+    const [localToken, updateLocalToken] = useState(token$.value);
 
-    return () => subscribe.unsubscribe();
-  }, []);
+    console.log(location);
+    useEffect(() => {
+        const subscribe = token$.subscribe(token => {
+            updateLocalToken(token);
+        });
 
-  return (<>
-            <div className="image-top">
-                <span className="imageTop-Span"></span>
-                <img className="imageTop" src={topImage} alt="header-image-background"/>
+        return () => subscribe.unsubscribe();
+    }, []);
+
+    return (<>
+        <div className="image-top">
+            <span className="imageTop-Span"></span>
+            <img className="imageTop" src={topImage} alt="background" />
+        </div>
+        <div className="container">
+            <div className="header">
+                <Header />
             </div>
-            <div className = "container">
-                <div className = "header">
-                    <Header />
+            <div className="content">
+                <div className="sidebar menu">
+                    <Sidebar name="sidebarMenu" />
                 </div>
-                <div className = "content">
-                    <div className ="sidebar menu">
-                        <Sidebar name = "sidebarMenu"/>
-                    </div>
-                    <div className ="mainArea">
-                        <Main />
-                    </div>
-                    <div className ="sidebar buttons">
-                        <Sidebar localToken={localToken} name = "sidebarButtons"/>
-                    </div>
-                </div>  
-                <Footer />
+                <div className="mainArea">
+                    <Main />
+                </div>
+                <div className="sidebar buttons">
+                    <Sidebar localToken={localToken} name="sidebarButtons" />
+                </div>
             </div>
-        </>
-  );
+            <Footer />
+            
+        </div>
+    </>
+    );
 };
 
 export default Home;

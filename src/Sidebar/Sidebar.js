@@ -12,6 +12,7 @@ class Sidebar extends React.PureComponent {
 
     this.createFolder = this.createFolder.bind(this)
   }
+    
 
   createFolder() {
     var dbx = new Dropbox({ accessToken: this.props.localToken  });
@@ -53,6 +54,7 @@ class Sidebar extends React.PureComponent {
 
   render() {
     console.log(this.props.localToken);
+    console.log(this.props.modals)
 
     let elements;
     if (this.props.name === "sidebarMenu") {
