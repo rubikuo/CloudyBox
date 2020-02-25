@@ -5,20 +5,6 @@ import { FaLanguage, FaStar } from "react-icons/fa";
 import { Dropbox } from "dropbox";
 import { useDebounce } from "use-debounce";
 
-const convertBytes = function(bytes) {
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
-
-  if (bytes > 0) {
-    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-
-    if (i === 0) {
-      return bytes + " " + sizes[i];
-    }
-
-    return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizes[i];
-  }
-};
-
 const Main = ({ localToken }) => {
   const [tab, updateTab] = useState("name");
   const [documents, updateDocs] = useState([]);
