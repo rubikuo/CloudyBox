@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileList from "../FileList/FileList";
 import "./Main.css";
 import { FaLanguage, FaStar } from "react-icons/fa";
+import { Dropbox } from "dropbox";
+import { useDebounce } from "use-debounce";
 
-const Main = () => {
+const Main = ({ localToken }) => {
   const [tab, updateTab] = useState("name");
+  const [documents, updateDocs] = useState([]);
+  const [debounced] = useDebounce(documents, 8000);
+  console.log(localToken);
+
+  useEffect(() => {
+    let dropbox = new Dropbox({ accessToken: localToken });
+    console.log(debounced);
+
+    dropbox.filesListFolder({ path: "" }).then(response => {
+      console.log(response.entries);
+      updateDocs(response.entries);
+    });
+  }, [localToken, debounced]);
+
   const showTab = tabName => {
     updateTab(tabName);
   };
@@ -42,7 +58,9 @@ const Main = () => {
       </div>
       <ul>
         {/* map out the FileLsit, now just example*/}
-        <FileList />
+        {documents.map(doc => {
+          return <FileList key={doc.id} doc={doc} />;
+        })}
       </ul>
     </main>
   );
