@@ -9,6 +9,7 @@ class Sidebar extends React.PureComponent {
       choosedFiles: []
     };
   }
+    
 
   uploadFiles = e => {
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
@@ -37,6 +38,7 @@ class Sidebar extends React.PureComponent {
 
   render() {
     console.log(this.props.localToken);
+    console.log(this.props.modals)
 
     let elements;
     if (this.props.name === "sidebarMenu") {
