@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import ReactDOM from 'react-dom';
 import { Dropbox } from "dropbox";
 import { token$, updateToken } from "../store";
 import Main from "../Main/Main";
@@ -14,7 +15,10 @@ import "../Modals/Modals.css";
 
 const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
+    const [modals, updateModals] = useState(false);
+    const [modalType, updateModalType] = useState("");
 
+    let printModal;
     console.log(location);
     useEffect(() => {
         const subscribe = token$.subscribe(token => {
@@ -23,6 +27,20 @@ const Home = ({ location }) => {
 
         return () => subscribe.unsubscribe();
     }, []);
+
+    if (modals){
+     
+     console.log("modal type", modalType)
+        if(modalType === "create") {
+            printModal = <Create updateModals = {updateModals} localToken={localToken}/>
+        } else if (modalType === "remove") {
+            printModal = <Remove />
+        }
+    } else {
+        printModal = null;
+    }
+
+    console.log(printModal)
 
     return (<>
         <div className="image-top">
@@ -41,12 +59,12 @@ const Home = ({ location }) => {
                     <Main />
                 </div>
                 <div className="sidebar buttons">
-                    <Sidebar localToken={localToken} name="sidebarButtons" />
+                    <Sidebar updateModals = {updateModals} updateModalType = {updateModalType} localToken={localToken} name="sidebarButtons" />
                 </div>
             </div>
-            <Footer />
-            
+            <Footer />    
         </div>
+     {ReactDOM.createPortal(printModal, document.body)} 
     </>
     );
 };

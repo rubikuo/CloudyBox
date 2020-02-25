@@ -15,7 +15,10 @@ class Sidebar extends React.PureComponent {
     
 
   createFolder() {
-    var dbx = new Dropbox({ accessToken: this.props.localToken  });
+
+    this.props.updateModals(true)
+    this.props.updateModalType("create")
+    /* var dbx = new Dropbox({ accessToken: this.props.localToken  });
 
     dbx.filesCreateFolderV2({path: '/MyFolderName'})
       .then(function(response) {
@@ -23,7 +26,7 @@ class Sidebar extends React.PureComponent {
       })
       .catch(function(error) {
         console.error(error);
-      });
+      }); */
   }
 
 
