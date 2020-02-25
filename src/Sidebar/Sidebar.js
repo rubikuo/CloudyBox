@@ -2,11 +2,8 @@ import React from "react";
 import { MdCreateNewFolder, MdFileUpload } from "react-icons/md";
 import "./Sidebar.css";
 import { Dropbox } from "dropbox";
-<<<<<<< HEAD
 import {token$} from "../store";
-=======
 
->>>>>>> master
 class Sidebar extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -41,12 +38,9 @@ class Sidebar extends React.PureComponent {
   };
 
   render() {
-<<<<<<< HEAD
-=======
     console.log(this.props.localToken);
     console.log(this.props.modals);
 
->>>>>>> master
     let elements;
     if (this.props.name === "sidebarMenu") {
       elements = (
