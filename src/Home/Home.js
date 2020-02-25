@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Dropbox } from "dropbox";
-import { token$, updateToken } from "../store";
+import { token$ } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";

@@ -2,6 +2,7 @@ import React from "react";
 import { MdCreateNewFolder, MdFileUpload } from "react-icons/md";
 import "./Sidebar.css";
 import { Dropbox } from "dropbox";
+import {token$} from "../store";
 class Sidebar extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ class Sidebar extends React.PureComponent {
 
   uploadFiles = e => {
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
-    let dropBox = new Dropbox({ accessToken: this.props.localToken });
+    let dropBox = new Dropbox({ accessToken: token$.value });
     let files = Array.from(e.target.files);
 
     if (files.length === 0) {
@@ -36,9 +37,6 @@ class Sidebar extends React.PureComponent {
   };
 
   render() {
-    console.log(this.props.localToken);
-    console.log(this.props.modals);
-
     let elements;
     if (this.props.name === "sidebarMenu") {
       elements = (
