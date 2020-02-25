@@ -6,9 +6,25 @@ class Sidebar extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      choosedFiles: []
+      choosedFiles: [],
+      path: "",
     };
+
+    this.createFolder = this.createFolder.bind(this)
   }
+
+  createFolder() {
+    var dbx = new Dropbox({ accessToken: this.props.localToken  });
+
+    dbx.filesCreateFolderV2({path: '/MyFolderName'})
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+  }
+
 
   uploadFiles = e => {
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
@@ -85,7 +101,7 @@ class Sidebar extends React.PureComponent {
                     marginRight: "5px"
                   }}
                 />
-               <button>Create Folder</button>
+               <button onClick = {this.createFolder}>Create Folder</button>
               </label>
             </li>
           </ul>
