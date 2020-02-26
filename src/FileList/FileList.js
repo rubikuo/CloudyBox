@@ -13,7 +13,7 @@ const FileList = ({ doc, deleteItem, getLinkToFile, pathFile }) => {
         <div className="itemSmlCtn">
           <FaStar className="starIcon" />
           <FaFolder className="folderIcon" />
-          <a className="documentLink" href={doc.href} //href will be a new key
+          <a className="documentLink" href={doc.href} //href will be a new key?
             onClick={() => getLinkToFile(doc.path_lower)}>{doc.name}
           </a>
         </div>

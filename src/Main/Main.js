@@ -46,9 +46,13 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles }) => {
   
     dropbox.filesGetTemporaryLink({ path: path})
       .then(response => {
-        console.log(response.link, response.fileBinary); //instead link take the tag
+        console.log(response.link, response.fileBinary); //instead <Link to=''> maybe use <a> ???
         updatePathFile(response.link);
       })
+      /*.then(response => {
+        let downloading = browser.downloads.download(pathFile);
+        console.log(pathFile);
+      })*/
       .catch(function(error) {
         console.error(error, "Error by downloading file");
       });
