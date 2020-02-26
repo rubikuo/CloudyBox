@@ -13,8 +13,10 @@ import "../Modals/Modals.css";
 
 const Home = ({ location }) => {
   const [localToken, updateLocalToken] = useState(token$.value);
+  const [documents, updateDocs] = useState([]);
+  const [choosenFiles, updateChoosenFiles ] = useState([]);
 
-  console.log(location);
+  // console.log(location);
   useEffect(() => {
     const subscribe = token$.subscribe(token => {
       updateLocalToken(token);
@@ -39,10 +41,10 @@ const Home = ({ location }) => {
             <Sidebar name="sidebarMenu" />
           </div>
           <div className="mainArea">
-            <Main localToken={localToken} />
+            <Main localToken={localToken} documents={documents} updateDocs={updateDocs} choosenFiles={choosenFiles} />
           </div>
           <div className="sidebar buttons">
-            <Sidebar localToken={localToken} name="sidebarButtons" />
+            <Sidebar localToken={localToken} name="sidebarButtons" documents={documents} updateDocs={updateDocs} choosenFiles={choosenFiles} updateChoosenFiles={updateChoosenFiles}/>
           </div>
         </div>
         <Footer />
