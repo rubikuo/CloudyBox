@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaFolder, FaStar, FaTrash } from "react-icons/fa";
 import "./FileList.css";
 import { convertDate } from "./convertDate.js";
@@ -23,9 +24,15 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
       <div className="itemSmlCtn">
         <FaStar className="starIcon" />
         <FaFolder className="folderIcon" />
-        <a className="documentLink" href={doc.href} //href will be a new key?
+        {doc[".tag"] === "file" ? (
+          <a className="documentLink"  //href will be a new key?
             onClick={() => getLinkToFile(doc.path_lower)}>{doc.name}
-          </a>
+          </a> ) : (
+              <Link to={doc.path_lower}>
+                {doc.name}
+              </Link>
+          )
+  }
       </div>
       <p className="metaData">{doc[".tag"] === "file" ? convertBytes(doc.size) : "--"}</p>
       <p className="modified">{convertDate(doc.client_modified)}</p>

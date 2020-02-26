@@ -23,7 +23,7 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType
       let datas = [...docs];
       console.log(datas);
       datas.map(data => {
-        return data.href = "", data.favorite = false;
+        return data.favorite = false;
       })
       // save the data with the new key
       updateDocs(datas) 
@@ -40,13 +40,11 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType
   };
 
   const getLinkToFile = (path) => {
-    console.log("this is hej!")
     let dropbox = new Dropbox({accessToken: localToken});
   
     dropbox.filesGetTemporaryLink({ path: path})
       .then(response => {
-        console.log(response.link, response.fileBinary); //instead <Link to=''> maybe use <a> ???
-        updatePathFile(response.link);
+        window.location.href = response.link;
       })
       /*.then(response => {
         let downloading = browser.downloads.download(pathFile);
