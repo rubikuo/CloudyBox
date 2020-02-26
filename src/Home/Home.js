@@ -20,20 +20,15 @@ const Home = ({ location }) => {
     const [choosenFiles, updateChoosenFiles ] = useState([]);
 
     let printModal;
-    console.log(location);
-    useEffect(() => {
-        const subscribe = token$.subscribe(token => {
-            updateLocalToken(token);
-        });
 
   // console.log(location);
-  useEffect(() => {
+    useEffect(() => {
     const subscribe = token$.subscribe(token => {
       updateLocalToken(token);
     });
 
     return () => subscribe.unsubscribe();
-  }, []);
+    }, []);
 
     if (modals){
      
@@ -63,30 +58,31 @@ const Home = ({ location }) => {
                     <Sidebar name="sidebarMenu" />
                 </div>
                 <div className="mainArea">
-                    <Main localToken={localToken} 
-                    documents={documents} 
-                    updateDocs={updateDocs} 
-                    choosenFiles={choosenFiles} />
+                    <Main 
+                        localToken={localToken} 
+                        documents={documents} 
+                        updateDocs={updateDocs} 
+                        choosenFiles={choosenFiles} 
+                    />
                 </div>
                 <div className="sidebar buttons">
-                    <Sidebar localToken={localToken} 
-                    name="sidebarButtons" 
-                    documents={documents} 
-                    updateDocs={updateDocs} 
-                    choosenFiles={choosenFiles} 
-                    updateChoosenFiles={updateChoosenFiles}
-                    updateModals = {updateModals} 
-                    updateModalType = {updateModalType}
+                    <Sidebar 
+                        localToken={localToken} 
+                        name="sidebarButtons" 
+                        documents={documents} 
+                        updateDocs={updateDocs} 
+                        choosenFiles={choosenFiles} 
+                        updateChoosenFiles={updateChoosenFiles}
+                        updateModals = {updateModals} 
+                        updateModalType = {updateModalType}
                     />
                 </div>
             </div>
-            
             <Footer />    
             {ReactDOM.createPortal(printModal, document.body)} 
      </div>
     </>
   );
-});
 };
 
 export default Home;
