@@ -1,27 +1,43 @@
+
 .item{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: rgb(235, 235, 235);
+    background-color:#F7F7F7;
 }
+
+.item:nth-child(even){
+    background: #FCFCFC;
+}
+
+
 
 .itemSmlCtn{
     width: 35%;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .starIcon{
     font-size: 1.2rem;
     color: orange;
+    margin-right:15px;
 }
 
 .folderIcon{
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     color:rgb(34, 98, 208);
+    margin-right: 10px;
 }
 
 .documentLink{
+    text-align: left;
     text-decoration: none;
+    font-size: 0.9rem;
 }
+
+.metaData, .modified{
+    font-size: 0.8rem;
+}
+

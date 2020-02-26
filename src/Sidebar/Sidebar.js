@@ -2,7 +2,8 @@ import React from "react";
 import { MdCreateNewFolder, MdFileUpload } from "react-icons/md";
 import "./Sidebar.css";
 import { Dropbox } from "dropbox";
-import {token$} from "../store";
+import { token$ } from "../store";
+import { FaCommentsDollar } from "react-icons/fa";
 
 class Sidebar extends React.PureComponent {
   constructor(props) {
@@ -28,6 +29,7 @@ class Sidebar extends React.PureComponent {
       .catch(function(error) {
         console.error(error);
       }); */
+    this.state = {};
   }
 
 
@@ -39,27 +41,28 @@ class Sidebar extends React.PureComponent {
     if (files.length === 0) {
       return;
     }
-    this.setState({ choosedFiles: files });
-    const file = files[0];
-    console.log("file", file.name);
-    if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
-      dropBox
-        .filesUpload({ path: "/" + file.name, contents: file })
-        .then(response => {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.error(error);
-        });
+    this.props.updateChoosenFiles({ files });
+
+    if (files.some(file => file.size > UPLOAD_FILE_SIZE_LIMIT)) {
+      alert("One of the files is too big!");
     } else {
-      alert("the file is too big");
+      const promises = files.map(file =>
+        dropBox.filesUpload({ path: "/" + file.name, contents: file })
+      );
+
+      Promise.all(promises)
+        .then(responses => {
+          console.log("promiseAll response", responses);
+          const newDocuments = [...this.props.documents, ...responses];
+          this.props.updateDocs(newDocuments);
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   };
 
   render() {
-    console.log(this.props.localToken);
-    console.log(this.props.modals);
-
     let elements;
     if (this.props.name === "sidebarMenu") {
       elements = (

@@ -16,6 +16,8 @@ const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
     const [modals, updateModals] = useState(false);
     const [modalType, updateModalType] = useState("");
+    const [documents, updateDocs] = useState([]);
+    const [choosenFiles, updateChoosenFiles ] = useState([]);
 
     let printModal;
     console.log(location);
@@ -23,6 +25,12 @@ const Home = ({ location }) => {
         const subscribe = token$.subscribe(token => {
             updateLocalToken(token);
         });
+
+  // console.log(location);
+  useEffect(() => {
+    const subscribe = token$.subscribe(token => {
+      updateLocalToken(token);
+    });
 
     return () => subscribe.unsubscribe();
   }, []);
@@ -55,17 +63,30 @@ const Home = ({ location }) => {
                     <Sidebar name="sidebarMenu" />
                 </div>
                 <div className="mainArea">
-                    <Main localToken = {localToken}/>
+                    <Main localToken={localToken} 
+                    documents={documents} 
+                    updateDocs={updateDocs} 
+                    choosenFiles={choosenFiles} />
                 </div>
                 <div className="sidebar buttons">
-                    <Sidebar updateModals = {updateModals} updateModalType = {updateModalType} localToken={localToken} name="sidebarButtons" />
+                    <Sidebar localToken={localToken} 
+                    name="sidebarButtons" 
+                    documents={documents} 
+                    updateDocs={updateDocs} 
+                    choosenFiles={choosenFiles} 
+                    updateChoosenFiles={updateChoosenFiles}
+                    updateModals = {updateModals} 
+                    updateModalType = {updateModalType}
+                    />
                 </div>
             </div>
+            
             <Footer />    
-        </div>
-     {ReactDOM.createPortal(printModal, document.body)} 
+            {ReactDOM.createPortal(printModal, document.body)} 
+     </div>
     </>
   );
+});
 };
 
 export default Home;
