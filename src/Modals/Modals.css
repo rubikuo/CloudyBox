@@ -23,6 +23,10 @@
     display: flex;
 }
 
+.itemDelete {
+    color: #106BAC;
+}
+
 .modalHeadline > h5 {
     margin: 0 0 20px 0;
     color: #1293D6;
