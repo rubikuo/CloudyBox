@@ -42,7 +42,7 @@ const Remove = props => {
 
         <p>
           Are you sure you want to delete
-          <span> {props.itemName} </span>
+          <span className="itemDelete"> {props.itemName} </span>
           from your CloudyBox?
         </p>
 
