@@ -21,11 +21,15 @@
 }
 
 .sidebar {
-    width: 15%;
+    width: 10%;
+}
+
+.sidebar.buttons{
+  width: 15%;
 }
 
 .mainArea {
-    width : 70%;
+    width : 75%;
     height: 100%;
     background-color: white;
 }
