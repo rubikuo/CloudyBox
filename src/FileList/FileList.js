@@ -5,9 +5,18 @@ import { convertDate } from "./convertDate.js";
 import { convertBytes } from "./convertBytes.js";
 import { Link } from "react-router-dom";
 
-const FileList = ({ doc, deleteItem }) => {
+const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItemName }) => {
+   const activateModal =(name, id)=>{
+     updateModals(true);
+     updateModalType("remove");
+     updateItemName(name);
+     updateItemId(id);
+   }
+
   if(doc){
   console.log(doc[".tag"]);
+
+
   return (
     <li className="item">
       <div className="itemSmlCtn">
@@ -21,7 +30,7 @@ const FileList = ({ doc, deleteItem }) => {
       <p className="modified">{convertDate(doc.client_modified)}</p>
       <button
         onClick={() => {
-          deleteItem(doc.name, doc.id);
+         activateModal(doc.name, doc.id)
         }}
       >
         <FaTrash />

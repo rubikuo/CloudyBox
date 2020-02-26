@@ -10,16 +10,15 @@ class Sidebar extends React.PureComponent {
     super(props);
     this.state = {
       choosedFiles: [],
-      path: "",
+      path: ""
     };
 
-    this.createFolder = this.createFolder.bind(this)
+    this.createFolder = this.createFolder.bind(this);
   }
 
   createFolder() {
-
-    this.props.updateModals(true)
-    this.props.updateModalType("create")
+    this.props.updateModals(true);
+    this.props.updateModalType("create");
     /* var dbx = new Dropbox({ accessToken: this.props.localToken  });
 
     dbx.filesCreateFolderV2({path: '/MyFolderName'})
@@ -29,9 +28,8 @@ class Sidebar extends React.PureComponent {
       .catch(function(error) {
         console.error(error);
       }); */
-    this.state = {};
+  
   }
-
 
   uploadFiles = e => {
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
@@ -47,7 +45,11 @@ class Sidebar extends React.PureComponent {
       alert("One of the files is too big!");
     } else {
       const promises = files.map(file =>
-        dropBox.filesUpload({ path: "/" + file.name, contents: file, autorename:true })
+        dropBox.filesUpload({
+          path: "/" + file.name,
+          contents: file,
+          autorename: true
+        })
       );
 
       Promise.all(promises)
@@ -110,7 +112,7 @@ class Sidebar extends React.PureComponent {
                     marginRight: "5px"
                   }}
                 />
-               <button onClick = {this.createFolder}>Create Folder</button>
+                <button onClick={this.createFolder}>Create Folder</button>
               </label>
             </li>
           </ul>
