@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaFolder, FaStar, FaTrash } from "react-icons/fa";
 import "./FileList.css";
 import { convertDate } from "./convertDate.js";
 import { convertBytes } from "./convertBytes.js";
-import { Link } from "react-router-dom";
 
-const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItemName }) => {
+ 
+
+const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItemName, getLinkToFile, pathFile }) => {
    const activateModal =(name, id)=>{
      updateModals(true);
      updateModalType("remove");
@@ -22,9 +24,15 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
       <div className="itemSmlCtn">
         <FaStar className="starIcon" />
         <FaFolder className="folderIcon" />
-        <Link className="documentLink" to="/">
-          {doc.name}
-        </Link>
+        {doc[".tag"] === "file" ? (
+          <a className="documentLink"  //href will be a new key?
+            onClick={() => getLinkToFile(doc.path_lower)}>{doc.name}
+          </a> ) : (
+              <Link to={doc.path_lower}>
+                {doc.name}
+              </Link>
+          )
+  }
       </div>
       <p className="metaData">{doc[".tag"] === "file" ? convertBytes(doc.size) : "--"}</p>
       <p className="modified">{convertDate(doc.client_modified)}</p>
@@ -35,7 +43,7 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
       >
         <FaTrash />
       </button>
-    </li>
+    </li >
   );
       }
 };

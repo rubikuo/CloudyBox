@@ -23,6 +23,7 @@ const Home = ({ location }) => {
 
     let printModal;
 
+    
   // console.log(location);
     useEffect(() => {
     const subscribe = token$.subscribe(token => {

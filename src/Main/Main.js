@@ -6,6 +6,8 @@ import { Dropbox } from "dropbox";
 
 const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType, updateModals, updateItemName, updateItemId }) => {
   const [tab, updateTab] = useState("name");
+  const [pathFile, updatePathFile] = useState("");
+  console.log(localToken);
 
   useEffect(() => {
     let dropbox = new Dropbox({ accessToken: localToken });
@@ -21,7 +23,7 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType
       let datas = [...docs];
       console.log(datas);
       datas.map(data => {
-        return data.href = "", data.favorite = false;
+        return data.favorite = false;
       })
       // save the data with the new key
       updateDocs(datas) 
@@ -36,6 +38,22 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType
     backgroundColor: "rgb(235, 235, 235)",
     color: "rgb(34, 138, 208)"
   };
+
+  const getLinkToFile = (path) => {
+    let dropbox = new Dropbox({accessToken: localToken});
+  
+    dropbox.filesGetTemporaryLink({ path: path})
+      .then(response => {
+        window.location.href = response.link;
+      })
+      /*.then(response => {
+        let downloading = browser.downloads.download(pathFile);
+        console.log(pathFile);
+      })*/
+      .catch(function(error) {
+        console.error(error, "Error by downloading file");
+      });
+  }
 
   return (
     <main>
@@ -66,7 +84,10 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType
       <ul>
         {/* map out the FileLsit, now just example*/}
         {documents.map(doc => {
-          return <FileList key={doc.id} doc={doc} 
+         
+          return <FileList 
+          key={doc.id} doc={doc} 
+          getLinkToFile={getLinkToFile}
           updateModalType={updateModalType}
           updateModals={updateModals} 
           updateItemId = {updateItemId}
