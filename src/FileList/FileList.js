@@ -6,6 +6,7 @@ import { convertBytes } from "./convertBytes.js";
 import { Link } from "react-router-dom";
 
 const FileList = ({ doc, deleteItem }) => {
+  if(doc){
   console.log(doc[".tag"]);
   return (
     <li className="item">
@@ -20,13 +21,14 @@ const FileList = ({ doc, deleteItem }) => {
       <p className="modified">{convertDate(doc.client_modified)}</p>
       <button
         onClick={() => {
-          deleteItem(doc.name);
+          deleteItem(doc.name, doc.id);
         }}
       >
         <FaTrash />
       </button>
     </li>
   );
+      }
 };
 
 export default FileList;

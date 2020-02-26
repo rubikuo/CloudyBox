@@ -3,30 +3,26 @@ import FileList from "../FileList/FileList";
 import "./Main.css";
 import { FaLanguage, FaStar } from "react-icons/fa";
 import { Dropbox } from "dropbox";
-import { useDebounce } from "use-debounce";
 
-const Main = ({ localToken }) => {
+const Main = ({ localToken, documents, updateDocs, choosenFiles }) => {
   const [tab, updateTab] = useState("name");
-  const [documents, updateDocs] = useState([]);
-  const [debounced] = useDebounce(documents, 5000);
-  console.log(localToken);
 
   useEffect(() => {
     let dropbox = new Dropbox({ accessToken: localToken });
-    console.log(debounced);
-
     dropbox.filesListFolder({ path: "" }).then(response => {
-      console.log(response.entries);
+      console.log("resonse.entries", response.entries);
       updateDocs(response.entries);
     });
-  }, [localToken, debounced]);
+  }, [localToken, updateDocs]);
 
-  const deleteItem = path => {
+  const deleteItem = (path, id) => {
     let dropbox = new Dropbox({ accessToken: localToken });
     dropbox
       .filesDeleteV2({ path: `/${path}` })
       .then(response => {
-        console.log(response);
+        console.log("deleteResponse", response);
+        const newDocuments = documents.filter(x => x.id !== id);
+        updateDocs(newDocuments);
       })
       .catch(err => {
         console.log(err);
