@@ -9,11 +9,26 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles }) => {
 
   useEffect(() => {
     let dropbox = new Dropbox({ accessToken: localToken });
-    dropbox.filesListFolder({ path: "" }).then(response => {
+    dropbox.filesListFolder({ path: "" })
+    .then(response => {
       console.log("resonse.entries", response.entries);
       updateDocs(response.entries);
-    });
+      return response.entries;
+    })
+    .then ( (docs) => {
+      // adding a new key to the data, to be able to control the check button next to the list
+      console.log(docs)
+      let datas = [...docs];
+      console.log(datas);
+      datas.map(data => {
+        return data.href = "", data.favorite = false;
+      })
+      // save the data with the new key
+      updateDocs(datas) 
+    })
   }, [localToken, updateDocs]);
+
+  console.log(documents)
 
   const deleteItem = (path, id) => {
     let dropbox = new Dropbox({ accessToken: localToken });
