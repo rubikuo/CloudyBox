@@ -39,10 +39,24 @@
     overflow: hidden;
 }
 
+.dropDownCtn{
+    position: relative;
+}
+
 .dropDown{
     width: 200px;
     height: 100px;
     background-color: white;
+    position: absolute;
+    z-index: 1;
+    right: 3px;
+    box-shadow: 1px 1px 1px grey;
+    display: none;
+}
+
+.dropDown.active{
+    display: block;
+
 }
 
 .deleteLink{
