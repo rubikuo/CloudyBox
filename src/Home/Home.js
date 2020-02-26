@@ -18,6 +18,8 @@ const Home = ({ location }) => {
     const [modalType, updateModalType] = useState("");
     const [documents, updateDocs] = useState([]);
     const [choosenFiles, updateChoosenFiles ] = useState([]);
+    const [itemId, updateItemId] = useState("");
+    const [itemName, updateItemName] = useState("");
 
     let printModal;
 
@@ -32,11 +34,18 @@ const Home = ({ location }) => {
 
     if (modals){
      
-     console.log("modal type", modalType)
+    //  console.log("modal type", modalType)
         if(modalType === "create") {
             printModal = <Create updateModals = {updateModals} localToken={localToken} documents={documents} updateDocs={updateDocs} />
         } else if (modalType === "remove") {
-            printModal = <Remove />
+          console.log(itemId, itemName);
+            printModal = 
+            <Remove 
+            itemId={itemId} 
+            itemName ={itemName}
+            updateModals = {updateModals} 
+            documents={documents} 
+            updateDocs={updateDocs}/>
         }
     } else {
         printModal = null;
@@ -63,6 +72,10 @@ const Home = ({ location }) => {
                         documents={documents} 
                         updateDocs={updateDocs} 
                         choosenFiles={choosenFiles} 
+                        updateModalType={updateModalType}
+                        updateModals={updateModals}
+                        updateItemName = {updateItemName}
+                        updateItemId = {updateItemId}
                     />
                 </div>
                 <div className="sidebar buttons">
