@@ -16,8 +16,8 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
    }
 
   if(doc){
-  console.log(doc[".tag"]);
-
+    console.log(doc);
+    
 
   return (
     <li className="item">
