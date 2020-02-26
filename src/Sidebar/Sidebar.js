@@ -8,7 +8,27 @@ import { FaCommentsDollar } from "react-icons/fa";
 class Sidebar extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      choosedFiles: [],
+      path: ""
+    };
+
+    this.createFolder = this.createFolder.bind(this);
+  }
+
+  createFolder() {
+    this.props.updateModals(true);
+    this.props.updateModalType("create");
+    /* var dbx = new Dropbox({ accessToken: this.props.localToken  });
+
+    dbx.filesCreateFolderV2({path: '/MyFolderName'})
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.error(error);
+      }); */
+  
   }
 
   uploadFiles = e => {
@@ -25,7 +45,11 @@ class Sidebar extends React.PureComponent {
       alert("One of the files is too big!");
     } else {
       const promises = files.map(file =>
-        dropBox.filesUpload({ path: "/" + file.name, contents: file })
+        dropBox.filesUpload({
+          path: "/" + file.name,
+          contents: file,
+          autorename: true
+        })
       );
 
       Promise.all(promises)
@@ -88,7 +112,7 @@ class Sidebar extends React.PureComponent {
                     marginRight: "5px"
                   }}
                 />
-                <button>Create Folder</button>
+                <button onClick={this.createFolder}>Create Folder</button>
               </label>
             </li>
           </ul>
