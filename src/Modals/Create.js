@@ -20,9 +20,11 @@ const Create = (props) => {
         console.log(pathName)
         var dbx = new Dropbox({ accessToken: props.localToken  });
 
-        dbx.filesCreateFolderV2({path: "/"+pathName})
+        dbx.filesCreateFolderV2({path: "/"+pathName, autorename:true})
         .then(function(response) {
             console.log(response);
+            const newDocuments = [...props.documents, response.metadata];
+            props.updateDocs(newDocuments);
         })
         .catch(function(error) {
             console.error(error);

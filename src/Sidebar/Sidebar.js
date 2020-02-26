@@ -47,7 +47,7 @@ class Sidebar extends React.PureComponent {
       alert("One of the files is too big!");
     } else {
       const promises = files.map(file =>
-        dropBox.filesUpload({ path: "/" + file.name, contents: file })
+        dropBox.filesUpload({ path: "/" + file.name, contents: file, autorename:true })
       );
 
       Promise.all(promises)

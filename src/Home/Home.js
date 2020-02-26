@@ -34,7 +34,7 @@ const Home = ({ location }) => {
      
      console.log("modal type", modalType)
         if(modalType === "create") {
-            printModal = <Create updateModals = {updateModals} localToken={localToken}/>
+            printModal = <Create updateModals = {updateModals} localToken={localToken} documents={documents} updateDocs={updateDocs} />
         } else if (modalType === "remove") {
             printModal = <Remove />
         }
