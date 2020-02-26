@@ -9,6 +9,7 @@ const Main = ({ localToken }) => {
   const [tab, updateTab] = useState("name");
   const [documents, updateDocs] = useState([]);
   const [debounced] = useDebounce(documents, 8000);
+  const [pathFile, updatePathFile] = useState("");
   console.log(localToken);
 
   useEffect(() => {
@@ -29,6 +30,20 @@ const Main = ({ localToken }) => {
     backgroundColor: "rgb(235, 235, 235)",
     color: "rgb(34, 138, 208)"
   };
+
+  const getLinkToFile = (path) => {
+    console.log("this is hej!")
+    let dropbox = new Dropbox({accessToken: localToken});
+  
+    dropbox.filesGetTemporaryLink({ path: path})
+      .then(response => {
+        console.log(response.link, response.fileBinary);
+        updatePathFile(response.link);
+      })
+      .catch(function(error) {
+        console.error(error, "Error by downloading file");
+      });
+  }
 
   return (
     <main>
@@ -59,7 +74,7 @@ const Main = ({ localToken }) => {
       <ul>
         {/* map out the FileLsit, now just example*/}
         {documents.map(doc => {
-          return <FileList key={doc.id} doc={doc} />;
+          return <FileList getLinkToFile={getLinkToFile} key={doc.id} doc={doc} pathFile={pathFile} />;
         })}
       </ul>
     </main>
