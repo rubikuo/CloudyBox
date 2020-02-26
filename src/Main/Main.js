@@ -4,7 +4,7 @@ import "./Main.css";
 import { FaLanguage, FaStar } from "react-icons/fa";
 import { Dropbox } from "dropbox";
 
-const Main = ({ localToken, documents, updateDocs, choosenFiles }) => {
+const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType, updateModals, updateItemName, updateItemId }) => {
   const [tab, updateTab] = useState("name");
 
   useEffect(() => {
@@ -27,22 +27,6 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles }) => {
       updateDocs(datas) 
     })
   }, [localToken, updateDocs]);
-
-  console.log(documents)
-
-  const deleteItem = (path, id) => {
-    let dropbox = new Dropbox({ accessToken: localToken });
-    dropbox
-      .filesDeleteV2({ path: `/${path}` })
-      .then(response => {
-        console.log("deleteResponse", response);
-        const newDocuments = documents.filter(x => x.id !== id);
-        updateDocs(newDocuments);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
 
   const showTab = tabName => {
     updateTab(tabName);
@@ -82,7 +66,11 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles }) => {
       <ul>
         {/* map out the FileLsit, now just example*/}
         {documents.map(doc => {
-          return <FileList key={doc.id} doc={doc} deleteItem={deleteItem} />;
+          return <FileList key={doc.id} doc={doc} 
+          updateModalType={updateModalType}
+          updateModals={updateModals} 
+          updateItemId = {updateItemId}
+          updateItemName = {updateItemName}/>;
         })}
       </ul>
     </main>
