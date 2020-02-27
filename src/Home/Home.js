@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from "react";
 import ReactDOM from 'react-dom';
 import { Dropbox } from "dropbox";
-import { token$ } from "../store";
+import { token$, documents$ } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";
@@ -10,13 +10,14 @@ import Footer from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
 import Remove from "../Modals/Remove";
 import Create from "../Modals/Create";
+
 import "../Modals/Modals.css";
 
 const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
     const [modals, updateModals] = useState(false);
     const [modalType, updateModalType] = useState("");
-    const [documents, updateDocs] = useState([]);
+    const [documents, updateDocs] = useState(documents$.value);
     const [choosenFiles, updateChoosenFiles ] = useState([]);
     const [itemId, updateItemId] = useState("");
     const [itemName, updateItemName] = useState("");
@@ -53,6 +54,7 @@ const Home = ({ location }) => {
     }
 
     console.log(printModal)
+    console.log(documents$.value)
 
     return (<>
         <div className="image-top">

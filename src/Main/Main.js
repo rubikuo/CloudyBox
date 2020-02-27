@@ -3,6 +3,7 @@ import FileList from "../FileList/FileList";
 import "./Main.css";
 import { FaLanguage, FaStar } from "react-icons/fa";
 import { Dropbox } from "dropbox";
+import {uploadDocuments} from "../store";
 
 const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType, updateModals, updateItemName, updateItemId }) => {
   const [tab, updateTab] = useState("name");
@@ -14,7 +15,7 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType
     dropbox.filesListFolder({ path: "" })
     .then(response => {
       console.log("resonse.entries", response.entries);
-      updateDocs(response.entries);
+      uploadDocuments(response.entries);
       return response.entries;
     })
     .then ( (docs) => {
@@ -54,8 +55,10 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType
         console.error(error, "Error by downloading file");
       });
   }
+  console.log(documents)
 
   return (
+
     <main>
       <div className="titleBar">
         <div className="tabsCtn">
@@ -83,7 +86,7 @@ const Main = ({ localToken, documents, updateDocs, choosenFiles, updateModalType
       </div>
       <ul>
         {/* map out the FileLsit, now just example*/}
-        {documents.map(doc => {
+        {Array.from(documents).map(doc => {
          
           return <FileList 
           key={doc.id} doc={doc} 

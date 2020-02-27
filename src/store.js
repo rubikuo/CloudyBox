@@ -11,3 +11,32 @@ export function updateToken(token) {
   }
   token$.next(token);
 }
+
+
+// run load the page only once
+// define a new obserable and create a new behaviorSubject
+export const documents$ = new BehaviorSubject(
+  // because localstorage can only store string 
+  // so when we get data from local storage we will have to parse it to object
+  //or as an empty array
+  new Set(JSON.parse(localStorage.getItem("documents") || "[]"))
+);
+// run when you call it
+
+export function uploadDocuments(doc) {
+  console.log(documents$.value)
+  const newSet = new Set(Array.from(documents$.value)); // convert documents$.value to array
+  newSet.add(doc);
+  // to store the documents in localStorage, convert the object to string
+  localStorage.setItem("documents", JSON.stringify(Array.from(newSet)));
+  documents$.next(newSet);
+}
+
+export function removeDocument(doc) {
+  console.log(documents$.value);
+  const newSet = new Set(Array.from(documents$.value));
+  newSet.delete(doc);
+  localStorage.setItem("documents", JSON.stringify(Array.from(newSet)));
+  documents$.next(newSet);
+
+}

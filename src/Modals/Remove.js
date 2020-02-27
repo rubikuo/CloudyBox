@@ -1,6 +1,6 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
-import { token$ } from "../store";
+import { token$, uploadDocuments, removeDocument } from "../store";
 import { Dropbox } from "dropbox";
 import "./Modals.css";
 
@@ -14,7 +14,9 @@ const Remove = props => {
     dropbox
       .filesDeleteV2({ path: `/${path}` })
       .then(response => {
+      
         console.log("deleteResponse", response);
+        removeDocument(response);
         const newDocuments = props.documents.filter(x => x.id !== id);
         props.updateDocs(newDocuments);
       })
