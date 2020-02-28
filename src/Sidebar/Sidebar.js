@@ -34,9 +34,10 @@ class Sidebar extends React.PureComponent {
     if (files.some(file => file.size > UPLOAD_FILE_SIZE_LIMIT)) {
       alert("One of the files is too big!");
     } else {
+      const root = this.props.location.pathname.slice(5);
       const promises = files.map(file =>
         dropBox.filesUpload({
-          path: "/" + file.name,
+          path: root + "/" + file.name,
           contents: file,
         })
       );

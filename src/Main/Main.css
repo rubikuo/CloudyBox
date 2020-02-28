@@ -15,7 +15,7 @@ main{
 }
 
 .tabsCtn{
-    width: 40%;
+    width: 52%;
     height: 30%;
     display: flex;
 }
@@ -38,22 +38,23 @@ main{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 47%;
+    width: 30%;
 
 }
 
 .metaTag, .modifiedTag{
     margin-top: 20px;
     margin-bottom: -17px;
-    margin-left: 50px;
-}
+    width: 226px;
 
-.metaTag  {
-    margin-left: 70px;
 }
 
 .modifiedTag {
-    margin-right: 40px;
+    text-align: right;
+}
+
+.metaTag {
+    text-align: left;
 }
 
 

@@ -10,8 +10,8 @@ import { Redirect } from 'react-router-dom';
 const LogIn = () => {
   if (token$.value) {
     return <Redirect to="/home" />
-  }
-
+  } 
+  
   return (
     <div className = "container-login">
       <img className="cloud-bg" src={cloud} alt="background-cloud"/>
