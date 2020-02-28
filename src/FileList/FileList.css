@@ -4,13 +4,12 @@
     justify-content: space-around;
     align-items: center;
     background-color:#F7F7F7;
+    padding: 5px 0px;
 }
 
 .item:nth-child(even){
     background: #FCFCFC;
 }
-
-
 
 .itemSmlCtn{
     width: 35%;
@@ -35,9 +34,13 @@
     text-align: left;
     text-decoration: none;
     font-size: 0.9rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .metaData, .modified{
     font-size: 0.8rem;
+    width: 20%;
 }
 

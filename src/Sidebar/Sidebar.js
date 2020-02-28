@@ -3,7 +3,7 @@ import { MdCreateNewFolder, MdFileUpload } from "react-icons/md";
 import "./Sidebar.css";
 import { Dropbox } from "dropbox";
 import { token$ } from "../store";
-import { FaCommentsDollar } from "react-icons/fa";
+
 
 class Sidebar extends React.PureComponent {
   constructor(props) {
@@ -19,16 +19,6 @@ class Sidebar extends React.PureComponent {
   createFolder() {
     this.props.updateModals(true);
     this.props.updateModalType("create");
-    /* var dbx = new Dropbox({ accessToken: this.props.localToken  });
-
-    dbx.filesCreateFolderV2({path: '/MyFolderName'})
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.error(error);
-      }); */
-  
   }
 
   uploadFiles = e => {
@@ -48,15 +38,19 @@ class Sidebar extends React.PureComponent {
         dropBox.filesUpload({
           path: "/" + file.name,
           contents: file,
-          autorename: true
         })
       );
 
       Promise.all(promises)
         .then(responses => {
           console.log("promiseAll response", responses);
-          const newDocuments = [...this.props.documents, ...responses];
-          this.props.updateDocs(newDocuments);
+          const files = responses.map(response => ({
+            ...response,
+            ".tag": "file"
+          }));
+         const newDocuments = [...this.props.documents, ...files];
+         this.props.updateDocs(newDocuments);
+
         })
         .catch(err => {
           console.error(err);
@@ -66,18 +60,6 @@ class Sidebar extends React.PureComponent {
 
   render() {
     let elements;
-    if (this.props.name === "sidebarMenu") {
-      elements = (
-        <div className="menu_list">
-          <ul>
-            <li>Home</li>
-            <li>Files</li>
-          </ul>
-        </div>
-      );
-    }
-
-    if (this.props.name === "sidebarButtons") {
       elements = (
         <div className="menu_list">
           <ul>
@@ -98,6 +80,7 @@ class Sidebar extends React.PureComponent {
                   onChange={this.uploadFiles}
                   value={this.state.choosedFile}
                   type="file"
+                 
                 />
               </label>
             </li>
@@ -117,7 +100,6 @@ class Sidebar extends React.PureComponent {
           </ul>
         </div>
       );
-    }
 
     return <>{elements}</>;
   }
