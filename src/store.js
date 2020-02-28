@@ -28,3 +28,7 @@ export function toggleFavorite(doc) {
 	}
 }
 
+export function clearFavorites() {
+	favorites$.next([]);
+	localStorage.removeItem("favorites");
+}
