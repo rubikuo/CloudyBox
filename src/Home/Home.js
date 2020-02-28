@@ -35,6 +35,16 @@ const Home = () => {
     return () => subscribe.unsubscribe();
     }, []);
 
+    useEffect(
+		() => {
+			const subscribe = favorites$.subscribe((favorite) => {
+				updateFavorite(favorite);
+			});
+			return () => subscribe.unsubscribe();
+		},
+		[ updateFavorite ]
+	);
+
     if (modals){
      
     //  console.log("modal type", modalType)
@@ -67,9 +77,6 @@ const Home = () => {
                 <Header />
             </div>
             <div className="content">
-                <div className="sidebar menu">
-                    <Sidebar name="sidebarMenu" />
-                </div>
                 <div className="mainArea">
                     <Main 
                         localToken={localToken} 
@@ -81,15 +88,12 @@ const Home = () => {
                         updateItemName = {updateItemName}
                         updateItemId = {updateItemId}
                         favorites = {favorites}
-                        updateFavorite ={updateFavorite}
-                      
-
+                        updateFavorite ={updateFavorite} 
                     />
                 </div>
                 <div className="sidebar buttons">
                     <Sidebar 
                         localToken={localToken} 
-                        name="sidebarButtons" 
                         documents={documents} 
                         updateDocs={updateDocs} 
                         choosenFiles={choosenFiles} 

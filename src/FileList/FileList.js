@@ -6,7 +6,7 @@ import { FaFolder, FaStar, FaTrash, FaRegStar } from 'react-icons/fa';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
-import { favorites$, toggleFavorite } from '../store';
+import { toggleFavorite } from '../store';
 
 const FileList = ({
 	doc,
@@ -14,7 +14,8 @@ const FileList = ({
 	updateModals,
 	updateItemId,
 	updateItemName,
-	getLinkToFile,
+  getLinkToFile,
+  favorites,
 }) => {
 	const activateModal = (name, id) => {
 		updateModals(true);
@@ -24,37 +25,17 @@ const FileList = ({
 	};
 
 	const handleFav = (doc) => {
-
     toggleFavorite(doc); 
-
   };
 
-  useEffect(() => {
-    console.log("favorites token", favorites$.value)
-
-    let favItems = favorites$.value;
-    console.log("fav.items", favItems);
-   
-    if (favItems !== undefined){
-    //console.log(favItems[0].id)
-     const favId = favItems.find(x => x.id === doc.id);
-    //console.log("fav.id", favId.id);
- 
-     /* if (favId.id === doc.id){
-       doc.favorite = true;
-     } */
-    }
-  }, [favorites$.value])
-  
-
 	if (doc) {
-    
 
     let button;
-        if (doc.favorite){
-          button = <FaStar size="25px"  style={{color: "rgb(250, 142, 0)"}}/>
+      
+        if (favorites.find(x => x.id === doc.id)){
+          button = <FaStar size="20px"  style={{color: "rgb(250, 142, 0)", position:"relative", top: "3px"}}/>
         } else {
-          button = <FaRegStar size="25px"/>
+          button = <FaRegStar size="20px"/>
         }
 
 		return (
@@ -63,12 +44,6 @@ const FileList = ({
           <span className="starIcon" onClick={() => handleFav(doc)}>
               <span>{button}</span>
           </span>
-					{/* <FaStar
-						onClick={() => {
-							handleFav(doc);
-						}}
-						className="starIcon"
-					/> */}
 					<FaFolder className="folderIcon" />
 					{doc['.tag'] === 'file' ? (
 						<a
@@ -78,7 +53,7 @@ const FileList = ({
 							{doc.name}
 						</a>
 					) : (
-						<Link to={doc.path_lower}>{doc.name}</Link>
+						<Link to={doc.path_lower} className="documentLink">{doc.name}</Link>
 					)}
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
