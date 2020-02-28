@@ -21,6 +21,7 @@ const Home = () => {
     const [itemId, updateItemId] = useState("");
     const [itemName, updateItemName] = useState("");
     const [favorites, updateFavorite] = useState(favorites$.value);
+    const [rename, updateRename] = useState("");
 
     let printModal;
 
@@ -88,7 +89,9 @@ const Home = () => {
                         updateItemName = {updateItemName}
                         updateItemId = {updateItemId}
                         favorites = {favorites}
-                        updateFavorite ={updateFavorite} 
+                        updateFavorite ={updateFavorite}
+                        rename = {rename}
+                        updateRename = {updateRename} 
                     />
                 </div>
                 <div className="sidebar buttons">

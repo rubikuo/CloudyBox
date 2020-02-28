@@ -14,7 +14,10 @@ const Main = ({
 	updateItemName,
 	updateItemId,
 	favorites,
-	updateFavorite
+	updateFavorite, 
+	rename,
+	updateRename,
+
 }) => {
 	const [ tab, updateTab ] = useState('name');
 	console.log(localToken);
@@ -63,7 +66,13 @@ const Main = ({
 				console.error(error, 'Error by downloading file');
 			});
 	};
-	console.log(documents);
+	// console.log(documents);
+
+	const handleRename = (e, path) =>{
+		updateRename(e.target.value)
+		// console.log("id", doc.path_lower);
+		console.log(path)
+	}
 
 	return (
 		<main>
@@ -101,6 +110,9 @@ const Main = ({
 							updateItemName={updateItemName}
 							favorites={favorites}
 							updateFavorite={updateFavorite}
+							rename ={rename}
+							updateRename={updateRename}
+							handleRename ={handleRename}
 						/>
 					);
 				})}

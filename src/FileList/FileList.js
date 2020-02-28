@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import { FaFolder, FaStar, FaRegStar} from 'react-icons/fa';
+import { FaFolder, FaStar, FaRegStar } from 'react-icons/fa';
 import { MdMenu } from 'react-icons/md';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
@@ -8,8 +8,8 @@ import { convertBytes } from './convertBytes.js';
 import { Link } from 'react-router-dom';
 import { toggleFavorite } from '../store';
 
-const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItemName, getLinkToFile, favorites }) => {
-  const [ dropDown, updateDropDown ] = useState(false);
+const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItemName, getLinkToFile, favorites, rename, updateRename }) => {
+	const [ dropDown, updateDropDown ] = useState(false);
 
 	const showDropDown = (e) => {
 		console.log(e.target.id);
@@ -30,25 +30,29 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
 	}
 
 	const handleFav = (doc) => {
-    toggleFavorite(doc); 
+		toggleFavorite(doc);
   };
+  
+  const handleRename = (e) =>{
+      updateRename(e.target.value)
+      console.log("id", doc.path_lower)
+  }
 
 	if (doc) {
+		let button;
 
-    let button;
-      
-        if (favorites.find(x => x.id === doc.id)){
-          button = <FaStar size="20px"  style={{color: "rgb(250, 142, 0)", position:"relative", top: "3px"}}/>
-        } else {
-          button = <FaRegStar size="20px"/>
-        }
+		if (favorites.find((x) => x.id === doc.id)) {
+			button = <FaStar size="20px" style={{ color: 'rgb(250, 142, 0)', position: 'relative', top: '3px' }} />;
+		} else {
+			button = <FaRegStar size="20px" />;
+		}
 
 		return (
 			<li className="item">
 				<div className="itemSmlCtn">
-          <span className="starIcon" onClick={() => handleFav(doc)}>
-              <span>{button}</span>
-          </span>
+					<span className="starIcon" onClick={() => handleFav(doc)}>
+						<span>{button}</span>
+					</span>
 					<FaFolder className="folderIcon" />
 					{doc['.tag'] === 'file' ? (
 						<a
@@ -58,7 +62,9 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
 							{doc.name}
 						</a>
 					) : (
-						<Link to={doc.path_lower} className="documentLink">{doc.name}</Link>
+						<Link to={doc.path_lower} className="documentLink">
+							{doc.name}
+						</Link>
 					)}
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
@@ -76,12 +82,10 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
 						>
 							Delete
 						</button>
-            <button
-							className="renameBtn"
-							onClick={() => {
-								
-							}}
-						>
+						<input type="text" value={rename} onChange={handleRename}/>
+						<button className="renameBtn" onClick={() => {
+                     
+            }}>
 							Rename
 						</button>
 					</div>

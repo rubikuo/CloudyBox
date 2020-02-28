@@ -44,6 +44,7 @@
     position: relative;
 }
 
+
 .dropDown{
     width: 200px;
     height: 100px;
@@ -55,6 +56,12 @@
     display: none;
 }
 
+.dropDown.active{
+    display: flex;
+    flex-direction: column;
+
+}
+
 .documentLink:hover {
     cursor: pointer;
 }
@@ -64,11 +71,5 @@
     width: 20%;
 }
 
-.dropDown.active{
-    display: block;
 
-}
 
-.deleteLink{
-    text-decoration: none;
-}
