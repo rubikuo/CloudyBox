@@ -15,7 +15,7 @@ const Header = () => {
 
 
                 <div className='search-field' style={{ border: '1px solid #ddd' }}>
-                    <GoSearch />
+                    <GoSearch  style={{position: 'absolute', top: '25%', fontSize: '1.2em'}}/>
                     <input
                         className="search-input"
                         style={{ border: 'none' }}

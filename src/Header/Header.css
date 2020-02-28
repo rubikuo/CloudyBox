@@ -28,6 +28,7 @@
 }
 
 .search-field {
+    display: flex;
     width: 40%;
     align-self: flex-end;
     position: absolute;
@@ -39,8 +40,34 @@
 }
 
 .search-input {
-    margin-left: 4px;
+    align-self: flex-start;
+    margin-left: 20px;
+    padding: 1.1%;
+    width: 100%;
+    background-color: transparent;
 }
+
+/*----------second row in the Header: path and logout button --------*/
+
+.path-logout-container {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.header-path {
+    width: 20%;
+}
+
+.header-path > nav {
+    position: absolute;
+    top: 20%;
+}
+
+.logout-button {
+    align-self: flex-end;
+}
+
 /*
 .headerContainer {
     height: 100%;
