@@ -39,6 +39,10 @@
     overflow: hidden;
 }
 
+.documentLink:hover {
+    cursor: pointer;
+}
+
 .metaData, .modified{
     font-size: 0.8rem;
     width: 20%;
