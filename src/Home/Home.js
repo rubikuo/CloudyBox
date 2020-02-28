@@ -1,6 +1,6 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from 'react-dom';
-import { token$, favorites$ } from "../store";
+import { token$, favorites$, clearFavorites, updateToken } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";
@@ -9,42 +9,45 @@ import MemoFooter from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
 import Remove from "../Modals/Remove";
 import Create from "../Modals/Create";
-import { Redirect } from 'react-router-dom';
+
 import "../Modals/Modals.css";
+import { Redirect } from "react-router-dom";
 
 const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
     const [modals, updateModals] = useState(false);
     const [modalType, updateModalType] = useState("");
     const [documents, updateDocs] = useState([]);
-    const [choosenFiles, updateChoosenFiles ] = useState([]);
+    const [choosenFiles, updateChoosenFiles] = useState([]);
     const [itemId, updateItemId] = useState("");
     const [itemName, updateItemName] = useState("");
     const [favorites, updateFavorite] = useState(favorites$.value);
 
     let printModal;
 
-  // console.log(location)
-
     useEffect(() => {
-    const subscribe = token$.subscribe(token => {
-      updateLocalToken(token);
-  
-    })
+        const subscribe = token$.subscribe(token => {
+            updateLocalToken(token);
 
-    return () => subscribe.unsubscribe();
-  
+        })
+
+        return () => subscribe.unsubscribe();
     }, []);
 
     useEffect(
-		() => {
-			const subscribe = favorites$.subscribe((favorite) => {
-				updateFavorite(favorite);
-			});
-			return () => subscribe.unsubscribe();
-		},
-		[ updateFavorite ]
-	);
+        () => {
+            const subscribe = favorites$.subscribe((favorite) => {
+                updateFavorite(favorite);
+            });
+            return () => subscribe.unsubscribe();
+        },
+        [updateFavorite]
+    );
+
+    const logOut = () => {
+        clearFavorites(null);
+        updateToken(null);
+    }
 
     if (modals){
      
@@ -70,6 +73,10 @@ const Home = ({ location }) => {
     // console.log(printModal)
     console.log("local", favorites$.value)
 
+    if(!localToken) {
+        return <Redirect to='/' />
+    }
+
     return (<>
         <div className="image-top">
             <span className="imageTop-Span"></span>
@@ -77,15 +84,15 @@ const Home = ({ location }) => {
         </div>
         <div className="container">
             <div className="header">
-                <Header />
+                <Header logOut={logOut} />
             </div>
             <div className="content">
                 <div className="mainArea">
-                    <Main 
-                        localToken={localToken} 
-                        documents={documents} 
-                        updateDocs={updateDocs} 
-                        choosenFiles={choosenFiles} 
+                    <Main
+                        localToken={localToken}
+                        documents={documents}
+                        updateDocs={updateDocs}
+                        choosenFiles={choosenFiles}
                         updateModalType={updateModalType}
                         updateModals={updateModals}
                         updateItemName = {updateItemName}
@@ -96,11 +103,11 @@ const Home = ({ location }) => {
                     />
                 </div>
                 <div className="sidebar buttons">
-                    <Sidebar 
-                        localToken={localToken} 
-                        documents={documents} 
-                        updateDocs={updateDocs} 
-                        choosenFiles={choosenFiles} 
+                    <Sidebar
+                        localToken={localToken}
+                        documents={documents}
+                        updateDocs={updateDocs}
+                        choosenFiles={choosenFiles}
                         updateChoosenFiles={updateChoosenFiles}
                         updateModals = {updateModals} 
                         updateModalType = {updateModalType}
@@ -108,11 +115,11 @@ const Home = ({ location }) => {
                     />
                 </div>
             </div>
-            <MemoFooter />    
-            {ReactDOM.createPortal(printModal, document.body)} 
-     </div>
+            <MemoFooter />
+            {ReactDOM.createPortal(printModal, document.body)}
+        </div>
     </>
-  );
+    );
 };
 
 export default Home;
