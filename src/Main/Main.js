@@ -71,8 +71,9 @@ const Main = ({
 	const handleRename = (e, path) =>{
 		updateRename(e.target.value)
 		// console.log("id", doc.path_lower);
-		console.log(path)
+
 	}
+
 
 	return (
 		<main>

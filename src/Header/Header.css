@@ -4,6 +4,97 @@
     font-family: "Open Sans", sans-serif;
 }
 
+.header-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.logo-search-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.logo-container {
+    width: 20%;
+}
+
+.logo-header {
+    width: 200px;
+    margin: 50px 0 0 -50px;
+}
+
+.search-field {
+    display: flex;
+    width: 40%;
+    align-self: flex-end;
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    padding: 0.5%;
+    border: 1px solid #ddd;
+    border-radius: 0.3rem;
+}
+
+.search-input {
+    align-self: flex-start;
+    margin-left: 20px;
+    padding: 1.1%;
+    width: 100%;
+    background-color: transparent;
+}
+
+/*----------second row in the Header: path and logout button --------*/
+
+.path-logout-container {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.header-path {
+    width: 40%;
+}
+
+.header-path > nav {
+    position: absolute;
+    top: 18vh;
+    left: 9vw;
+    color: #106BAC;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-size: 1.1em;
+}
+
+nav > span:hover {
+    cursor: pointer;
+    color:#1293D6;
+    text-decoration: underline;
+}
+
+.logout-button {
+    position: absolute;
+    top: 17vh;
+    right: 8vw;
+    align-self: flex-end;
+    padding: 1.1%;
+    border: none;
+    background-color: #fff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #106BAC;
+}
+
+.logout-button:hover {
+    color:#1293D6;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*
 .headerContainer {
     height: 100%;
     width: 100%;
@@ -43,4 +134,4 @@ nav {
 
 .searchInput {
     margin-left: 4px;
-}
+}*/
