@@ -6,7 +6,7 @@ import { FaFolder, FaStar, FaTrash } from 'react-icons/fa';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
-import { favorites$, toggleFavorite } from '../store';
+import { toggleFavorite } from '../store';
 
 const FileList = ({
 	doc,
@@ -14,7 +14,8 @@ const FileList = ({
 	updateModals,
 	updateItemId,
 	updateItemName,
-	getLinkToFile,
+  getLinkToFile,
+  favorites,
 }) => {
 	const activateModal = (name, id) => {
 		updateModals(true);
@@ -24,8 +25,6 @@ const FileList = ({
 	};
 
 	const handleFav = (doc) => {
-		console.log(favorites$.value);
-
 		toggleFavorite(doc);
 	};
 

@@ -35,6 +35,16 @@ const Home = () => {
     return () => subscribe.unsubscribe();
     }, []);
 
+    useEffect(
+		() => {
+			const subscribe = favorites$.subscribe((favorite) => {
+				updateFavorite(favorite);
+			});
+			return () => subscribe.unsubscribe();
+		},
+		[ updateFavorite ]
+	);
+
     if (modals){
      
     //  console.log("modal type", modalType)

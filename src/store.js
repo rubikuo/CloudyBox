@@ -27,3 +27,4 @@ export function toggleFavorite(doc) {
 		favorites$.next(newFavorites);
 	}
 }
+
