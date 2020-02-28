@@ -15,9 +15,6 @@ const FileList = ({
 	updateItemId,
 	updateItemName,
 	getLinkToFile,
-	pathFile,
-	favorites,
-	updateFavorite
 }) => {
 	const activateModal = (name, id) => {
 		updateModals(true);

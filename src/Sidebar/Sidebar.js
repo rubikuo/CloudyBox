@@ -3,7 +3,7 @@ import { MdCreateNewFolder, MdFileUpload } from "react-icons/md";
 import "./Sidebar.css";
 import { Dropbox } from "dropbox";
 import { token$ } from "../store";
-import { FaCommentsDollar } from "react-icons/fa";
+
 
 class Sidebar extends React.PureComponent {
   constructor(props) {

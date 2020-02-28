@@ -3,22 +3,20 @@ import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaLanguage, FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
-import {favorites$ } from '../store';
+import { favorites$ } from '../store';
 
 const Main = ({
 	localToken,
 	documents,
 	updateDocs,
-	choosenFiles,
 	updateModalType,
 	updateModals,
 	updateItemName,
-	updateItemId, 
+	updateItemId,
 	favorites,
-	updateFavorite,
+	updateFavorite
 }) => {
 	const [ tab, updateTab ] = useState('name');
-	const [ pathFile, updatePathFile ] = useState('');
 	console.log(localToken);
 
 	useEffect(
@@ -71,10 +69,6 @@ const Main = ({
 			.then((response) => {
 				window.location.href = response.link;
 			})
-			/*.then(response => {
-        let downloading = browser.downloads.download(pathFile);
-        console.log(pathFile);
-      })*/
 			.catch(function(error) {
 				console.error(error, 'Error by downloading file');
 			});
@@ -116,7 +110,7 @@ const Main = ({
 							updateItemId={updateItemId}
 							updateItemName={updateItemName}
 							favorites={favorites}
-							updateFavorite ={updateFavorite}
+							updateFavorite={updateFavorite}
 						/>
 					);
 				})}

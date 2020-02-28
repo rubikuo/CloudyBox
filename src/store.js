@@ -16,20 +16,14 @@ export const favorites$ = new BehaviorSubject(JSON.parse(localStorage.getItem('f
 
 export function toggleFavorite(doc) {
 	const newFavorites = [ ...favorites$.value ]; // to copy the array from localstorage
-	if (newFavorites.find(x => x.id === doc.id)) { // check if its in the array
+	if (newFavorites.find((x) => x.id === doc.id)) {
+		// check if its in the array
 		let altered = newFavorites.filter((x) => x.id !== doc.id); //then remove
 		localStorage.setItem('favorites', JSON.stringify(altered));
-		favorites$.next(altered);  // update localstorage
+		favorites$.next(altered); // update localstorage
 	} else {
-		newFavorites.push(doc); // if there is not then push 
+		newFavorites.push(doc); // if there is not then push
 		localStorage.setItem('favorites', JSON.stringify(newFavorites));
 		favorites$.next(newFavorites);
 	}
 }
-
-// export function removeFavorite(doc) {
-// 	const newFavorites = [ ...favorites$.value ];
-// 	let filtered = newFavorites.filter((fav) => fav !== doc);
-// 	localStorage.setItem('favorites', JSON.stringify(filtered));
-// 	favorites$.next(filtered);
-// }

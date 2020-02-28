@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { MdDelete } from "react-icons/md";
 import { token$, favorites$, removeFavorite } from "../store";
 import { Dropbox } from "dropbox";
