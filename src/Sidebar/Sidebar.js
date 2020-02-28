@@ -2,7 +2,7 @@ import React from "react";
 import { MdCreateNewFolder, MdFileUpload } from "react-icons/md";
 import "./Sidebar.css";
 import { Dropbox } from "dropbox";
-import { token$, addDocuments } from "../store";
+import { token$ } from "../store";
 import { FaCommentsDollar } from "react-icons/fa";
 
 class Sidebar extends React.PureComponent {
@@ -48,12 +48,8 @@ class Sidebar extends React.PureComponent {
             ...response,
             ".tag": "file"
           }));
-         
-          addDocuments(files);
-        
          const newDocuments = [...this.props.documents, ...files];
          this.props.updateDocs(newDocuments);
-        
 
         })
         .catch(err => {

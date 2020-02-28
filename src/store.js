@@ -12,29 +12,24 @@ export function updateToken(token) {
 	token$.next(token);
 }
 
-// run load the page only once
-export const documents$ = new BehaviorSubject(new Set(JSON.parse(localStorage.getItem('documents') || '[]')));
+export const favorites$ = new BehaviorSubject(JSON.parse(localStorage.getItem('favorites') || '[]'));
 
-// run when you call it
-export function addDocuments(docs) {
-	// console.log(documents$.value)
-	const newSet = new Set(Array.from(documents$.value)); // convert documents$.value to array
-
-		docs.forEach((doc) => {
-      if(newSet.has(doc.id))return
-      newSet.add(doc);
-
-		});
-	
-	// to store the documents in localStorage, convert the object to string
-	localStorage.setItem('documents', JSON.stringify(Array.from(newSet)));
-	documents$.next(newSet);
+export function toggleFavorite(doc) {
+	const newFavorites = [ ...favorites$.value ]; // to copy the array from localstorage
+	if (newFavorites.find(x => x.id === doc.id)) { // check if its in the array
+		let altered = newFavorites.filter((x) => x.id !== doc.id); //then remove
+		localStorage.setItem('favorites', JSON.stringify(altered));
+		favorites$.next(altered);  // update localstorage
+	} else {
+		newFavorites.push(doc); // if there is not then push 
+		localStorage.setItem('favorites', JSON.stringify(newFavorites));
+		favorites$.next(newFavorites);
+	}
 }
 
-export function removeDocument(doc) {
-	const newSet = new Set(Array.from(documents$.value));
-	newSet.forEach((x) => (x.id === doc.id ? newSet.delete(x) : x));
-	console.log('hi');
-	localStorage.setItem('documents', JSON.stringify(Array.from(newSet)));
-	documents$.next(newSet);
-}
+// export function removeFavorite(doc) {
+// 	const newFavorites = [ ...favorites$.value ];
+// 	let filtered = newFavorites.filter((fav) => fav !== doc);
+// 	localStorage.setItem('favorites', JSON.stringify(filtered));
+// 	favorites$.next(filtered);
+// }

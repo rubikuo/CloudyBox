@@ -3,7 +3,7 @@ import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaLanguage, FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
-import { addDocuments, documents$ } from '../store';
+import {favorites$ } from '../store';
 
 const Main = ({
 	localToken,
@@ -13,18 +13,23 @@ const Main = ({
 	updateModalType,
 	updateModals,
 	updateItemName,
-	updateItemId
+	updateItemId, 
+	favorites,
+	updateFavorite,
 }) => {
 	const [ tab, updateTab ] = useState('name');
 	const [ pathFile, updatePathFile ] = useState('');
 	console.log(localToken);
 
-	useEffect(() => {
-		const subscribe = documents$.subscribe((document) => {
-			updateDocs(document);
-		});
-		return () => subscribe.unsubscribe();
-	}, [updateDocs]);
+	useEffect(
+		() => {
+			const subscribe = favorites$.subscribe((favorite) => {
+				updateFavorite(favorite);
+			});
+			return () => subscribe.unsubscribe();
+		},
+		[ updateFavorite ]
+	);
 
 	useEffect(
 		() => {
@@ -33,9 +38,7 @@ const Main = ({
 				.filesListFolder({ path: '' })
 				.then((response) => {
 					console.log('resonse.entries', response.entries);
-          updateDocs(response.entries);// update in state
-          addDocuments(response.entries); // update in local
-          
+					updateDocs(response.entries); // update in state
 					return response.entries;
 				})
 				.then((docs) => {
@@ -112,6 +115,8 @@ const Main = ({
 							updateModals={updateModals}
 							updateItemId={updateItemId}
 							updateItemName={updateItemName}
+							favorites={favorites}
+							updateFavorite ={updateFavorite}
 						/>
 					);
 				})}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from "react";
 import ReactDOM from 'react-dom';
-import { Dropbox } from "dropbox";
-import { token$, documents$ } from "../store";
+import { token$, favorites$ } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";
@@ -13,14 +12,15 @@ import Create from "../Modals/Create";
 
 import "../Modals/Modals.css";
 
-const Home = ({ location }) => {
+const Home = () => {
     const [localToken, updateLocalToken] = useState(token$.value);
     const [modals, updateModals] = useState(false);
     const [modalType, updateModalType] = useState("");
-    const [documents, updateDocs] = useState(documents$.value);
+    const [documents, updateDocs] = useState([]);
     const [choosenFiles, updateChoosenFiles ] = useState([]);
     const [itemId, updateItemId] = useState("");
     const [itemName, updateItemName] = useState("");
+    const [favorites, updateFavorite] = useState(favorites$.value);
 
     let printModal;
 
@@ -55,7 +55,7 @@ const Home = ({ location }) => {
     }
 
     // console.log(printModal)
-    console.log("local", documents$.value)
+    console.log("local", favorites$.value)
 
     return (<>
         <div className="image-top">
@@ -80,6 +80,9 @@ const Home = ({ location }) => {
                         updateModals={updateModals}
                         updateItemName = {updateItemName}
                         updateItemId = {updateItemId}
+                        favorites = {favorites}
+                        updateFavorite ={updateFavorite}
+
                     />
                 </div>
                 <div className="sidebar buttons">
