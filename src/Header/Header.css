@@ -4,6 +4,44 @@
     font-family: "Open Sans", sans-serif;
 }
 
+.header-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.logo-search-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.logo-container {
+    width: 20%;
+}
+
+.logo-header {
+    width: 200px;
+    margin: 50px 0 0 -50px;
+}
+
+.search-field {
+    width: 40%;
+    align-self: flex-end;
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    padding: 0.5%;
+    border: 1px solid #ddd;
+    border-radius: 0.3rem;
+}
+
+.search-input {
+    margin-left: 4px;
+}
+/*
 .headerContainer {
     height: 100%;
     width: 100%;
@@ -43,4 +81,4 @@ nav {
 
 .searchInput {
     margin-left: 4px;
-}
+}*/

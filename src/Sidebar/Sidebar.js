@@ -98,7 +98,6 @@ class Sidebar extends React.PureComponent {
                   onChange={this.uploadFiles}
                   value={this.state.choosedFile}
                   type="file"
-                  accept=".pdf, .jpg"
                 />
               </label>
             </li>
