@@ -3,7 +3,7 @@ import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaLanguage, FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
-import { favorites$ } from '../store';
+
 
 const Main = ({
 	localToken,
@@ -18,16 +18,6 @@ const Main = ({
 }) => {
 	const [ tab, updateTab ] = useState('name');
 	console.log(localToken);
-
-	useEffect(
-		() => {
-			const subscribe = favorites$.subscribe((favorite) => {
-				updateFavorite(favorite);
-			});
-			return () => subscribe.unsubscribe();
-		},
-		[ updateFavorite ]
-	);
 
 	useEffect(
 		() => {

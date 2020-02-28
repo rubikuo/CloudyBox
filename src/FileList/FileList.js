@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import { FaFolder, FaStar, FaTrash } from 'react-icons/fa';
+import { FaFolder, FaStar } from 'react-icons/fa';
 import { MdMenu } from 'react-icons/md';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
 import { Link } from 'react-router-dom';
-import { favorites$, toggleFavorite } from '../store';
+import { toggleFavorite } from '../store';
 
-const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItemName, getLinkToFile }) => {
-	const [ dropDown, updateDropDown ] = useState(false);
+const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItemName, getLinkToFile, favorites }) => {
+  const [ dropDown, updateDropDown ] = useState(false);
 
 	const showDropDown = (e) => {
 		console.log(e.target.id);
@@ -30,7 +30,6 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
 	}
 
 	const handleFav = (doc) => {
-		console.log(favorites$.value);
 
 		toggleFavorite(doc);
 	};
@@ -39,6 +38,7 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
 		return (
 			<li className="item">
 				<div className="itemSmlCtn">
+          {/* {favorites.find(x => x.id === doc.id) ? "fav" : "not fav"} */}
 					<FaStar
 						onClick={() => {
 							handleFav(doc);
@@ -64,15 +64,22 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
 						<MdMenu />
 					</button>
 					<div className={dropdownClass}>
-						<Link
-							to="/"
-							className="deleteLink"
+						<button
+							className="deleteBtn"
 							onClick={() => {
 								activateModal(doc.name, doc.id);
 							}}
 						>
 							Delete
-						</Link>
+						</button>
+            <button
+							className="renameBtn"
+							onClick={() => {
+								
+							}}
+						>
+							Rename
+						</button>
 					</div>
 				</div>
 			</li>
