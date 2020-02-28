@@ -35,16 +35,6 @@ const Home = () => {
     return () => subscribe.unsubscribe();
     }, []);
 
-<<<<<<< HEAD
-    useEffect(() => {
-        const subscribe = favorites$.subscribe((favorite) => {
-            updateFavorite(favorite);
-        });
-        return () => subscribe.unsubscribe();
-    },
-    [ updateFavorite ]
-);
-=======
     useEffect(
 		() => {
 			const subscribe = favorites$.subscribe((favorite) => {
@@ -54,7 +44,6 @@ const Home = () => {
 		},
 		[ updateFavorite ]
 	);
->>>>>>> e6eda7602b18b88d3db38872a696a98d46b6a867
 
     if (modals){
      
