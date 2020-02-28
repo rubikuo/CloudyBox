@@ -4,6 +4,7 @@
     justify-content: space-around;
     align-items: center;
     background-color:#F7F7F7;
+    padding: 5px 0px;
 }
 
 .item:nth-child(even){
@@ -37,6 +38,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+<<<<<<< HEAD
 }
 
 .dropDownCtn{
@@ -52,6 +54,13 @@
     right: 3px;
     box-shadow: 1px 1px 1px grey;
     display: none;
+=======
+}
+
+.metaData, .modified{
+    font-size: 0.8rem;
+    width: 20%;
+>>>>>>> e6eda7602b18b88d3db38872a696a98d46b6a867
 }
 
 .dropDown.active{

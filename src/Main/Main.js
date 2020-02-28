@@ -19,6 +19,10 @@ const Main = ({
 	const [ tab, updateTab ] = useState('name');
 	console.log(localToken);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e6eda7602b18b88d3db38872a696a98d46b6a867
 	useEffect(
 		() => {
 			let dropbox = new Dropbox({ accessToken: localToken });
