@@ -1,6 +1,6 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
-import { token$ } from "../store";
+import { token$, favorites$, removeFavorite } from "../store";
 import { Dropbox } from "dropbox";
 import "./Modals.css";
 
@@ -8,6 +8,8 @@ const Remove = props => {
   const cancelModal = () => {
     props.updateModals(false);
   };
+
+
   const deleteItem = (path, id) => {
     console.log(path, id);
     let dropbox = new Dropbox({ accessToken: token$.value });
@@ -42,7 +44,7 @@ const Remove = props => {
 
         <p>
           Are you sure you want to delete
-          <span> {props.itemName} </span>
+          <span className="itemDelete"> {props.itemName} </span>
           from your CloudyBox?
         </p>
 

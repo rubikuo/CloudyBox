@@ -1,18 +1,18 @@
 import React, { useEffect, useState} from "react";
 import ReactDOM from 'react-dom';
-import { Dropbox } from "dropbox";
-import { token$ } from "../store";
+import { token$, favorites$ } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
-import Footer from "../Footer/Footer";
+import MemoFooter from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
 import Remove from "../Modals/Remove";
 import Create from "../Modals/Create";
+
 import "../Modals/Modals.css";
 
-const Home = ({ location }) => {
+const Home = () => {
     const [localToken, updateLocalToken] = useState(token$.value);
     const [modals, updateModals] = useState(false);
     const [modalType, updateModalType] = useState("");
@@ -20,14 +20,17 @@ const Home = ({ location }) => {
     const [choosenFiles, updateChoosenFiles ] = useState([]);
     const [itemId, updateItemId] = useState("");
     const [itemName, updateItemName] = useState("");
+    const [favorites, updateFavorite] = useState(favorites$.value);
 
     let printModal;
 
+    
   // console.log(location);
     useEffect(() => {
     const subscribe = token$.subscribe(token => {
       updateLocalToken(token);
-    });
+  
+    })
 
     return () => subscribe.unsubscribe();
     }, []);
@@ -51,7 +54,8 @@ const Home = ({ location }) => {
         printModal = null;
     }
 
-    console.log(printModal)
+    // console.log(printModal)
+    console.log("local", favorites$.value)
 
     return (<>
         <div className="image-top">
@@ -76,6 +80,10 @@ const Home = ({ location }) => {
                         updateModals={updateModals}
                         updateItemName = {updateItemName}
                         updateItemId = {updateItemId}
+                        favorites = {favorites}
+                        updateFavorite ={updateFavorite}
+                      
+
                     />
                 </div>
                 <div className="sidebar buttons">
@@ -91,7 +99,7 @@ const Home = ({ location }) => {
                     />
                 </div>
             </div>
-            <Footer />    
+            <MemoFooter />    
             {ReactDOM.createPortal(printModal, document.body)} 
      </div>
     </>

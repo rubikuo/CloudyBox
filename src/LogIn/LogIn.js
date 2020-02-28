@@ -4,8 +4,14 @@ import logo from "../LogIn/images/LOGO.png";
 import cloud from "../LogIn/images/Component--login-cloud.svg";
 import cloudIllustration from "../LogIn/images/Component--login-cloudIllus.svg";
 import { tokenUrl } from "../getToken";
+import { token$ } from "../store";
+import { Redirect } from 'react-router-dom';
 
 const LogIn = () => {
+  if (token$.value) {
+    return <Redirect to="/home" />
+  }
+
   return (
     <div className = "container-login">
       <img className="cloud-bg" src={cloud} alt="background-cloud"/>
