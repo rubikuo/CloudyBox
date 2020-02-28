@@ -1,6 +1,6 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { MdDelete } from "react-icons/md";
-import { token$, uploadDocuments, removeDocument } from "../store";
+import { token$, documents$, removeDocument } from "../store";
 import { Dropbox } from "dropbox";
 import "./Modals.css";
 
@@ -8,6 +8,15 @@ const Remove = props => {
   const cancelModal = () => {
     props.updateModals(false);
   };
+
+  // useEffect(() => {
+	// 	const subscribe = documents$.subscribe((document) => {
+	// 		props.updateDocs(document);
+	// 	});
+	// 	return () => subscribe.unsubscribe();
+	// }, []);
+
+
   const deleteItem = (path, id) => {
     console.log(path, id);
     let dropbox = new Dropbox({ accessToken: token$.value });
@@ -16,7 +25,7 @@ const Remove = props => {
       .then(response => {
       
         console.log("deleteResponse", response);
-        removeDocument(response);
+        removeDocument(response.metadata);
         const newDocuments = props.documents.filter(x => x.id !== id);
         props.updateDocs(newDocuments);
       })

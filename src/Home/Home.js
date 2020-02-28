@@ -29,7 +29,8 @@ const Home = ({ location }) => {
     useEffect(() => {
     const subscribe = token$.subscribe(token => {
       updateLocalToken(token);
-    });
+  
+    })
 
     return () => subscribe.unsubscribe();
     }, []);
@@ -53,8 +54,8 @@ const Home = ({ location }) => {
         printModal = null;
     }
 
-    console.log(printModal)
-    console.log(documents$.value)
+    // console.log(printModal)
+    console.log("local", documents$.value)
 
     return (<>
         <div className="image-top">

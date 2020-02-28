@@ -16,9 +16,7 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
    }
 
   if(doc){
-    console.log(doc);
     
-
   return (
     <li className="item">
       <div className="itemSmlCtn">
