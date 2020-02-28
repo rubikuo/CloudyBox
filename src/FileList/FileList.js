@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import { FaFolder, FaStar, FaTrash } from 'react-icons/fa';
+import { FaFolder, FaStar, FaTrash, FaRegStar } from 'react-icons/fa';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
@@ -25,19 +25,25 @@ const FileList = ({
 	};
 
 	const handleFav = (doc) => {
-		toggleFavorite(doc);
-	};
+    toggleFavorite(doc); 
+  };
 
 	if (doc) {
+
+    let button;
+      
+        if (favorites.find(x => x.id === doc.id)){
+          button = <FaStar size="20px"  style={{color: "rgb(250, 142, 0)", position:"relative", top: "3px"}}/>
+        } else {
+          button = <FaRegStar size="20px"/>
+        }
+
 		return (
 			<li className="item">
 				<div className="itemSmlCtn">
-					<FaStar
-						onClick={() => {
-							handleFav(doc);
-						}}
-						className="starIcon"
-					/>
+          <span className="starIcon" onClick={() => handleFav(doc)}>
+              <span>{button}</span>
+          </span>
 					<FaFolder className="folderIcon" />
 					{doc['.tag'] === 'file' ? (
 						<a
@@ -47,7 +53,7 @@ const FileList = ({
 							{doc.name}
 						</a>
 					) : (
-						<Link to={doc.path_lower}>{doc.name}</Link>
+						<Link to={doc.path_lower} className="documentLink">{doc.name}</Link>
 					)}
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
