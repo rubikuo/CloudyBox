@@ -17,6 +17,7 @@ const FileList = ({
   getLinkToFile,
   favorites,
 }) => {
+
 	const activateModal = (name, id) => {
 		updateModals(true);
 		updateModalType('remove');
@@ -53,7 +54,7 @@ const FileList = ({
 							{doc.name}
 						</a>
 					) : (
-						<Link to={doc.path_lower} className="documentLink">{doc.name}</Link>
+						<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
 					)}
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>

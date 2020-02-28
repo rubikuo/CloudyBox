@@ -12,9 +12,10 @@ const Remove = props => {
 
   const deleteItem = (path, id) => {
     console.log(path, id);
+    const root = props.location.pathname.slice(5);
     let dropbox = new Dropbox({ accessToken: token$.value });
     dropbox
-      .filesDeleteV2({ path: `/${path}` })
+      .filesDeleteV2({ path: root + `/${path}` })
       .then(response => {
         console.log("deleteResponse", response);
         const newDocuments = props.documents.filter(x => x.id !== id);
