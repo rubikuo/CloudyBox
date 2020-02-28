@@ -1,6 +1,6 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
-import { token$ } from "../store";
+import { token$, favorites$, removeFavorite } from "../store";
 import { Dropbox } from "dropbox";
 import "./Modals.css";
 
@@ -8,6 +8,8 @@ const Remove = props => {
   const cancelModal = () => {
     props.updateModals(false);
   };
+
+
   const deleteItem = (path, id) => {
     console.log(path, id);
     let dropbox = new Dropbox({ accessToken: token$.value });
