@@ -5,7 +5,7 @@ import Main from "../Main/Main";
 import "./Home.css";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
-import Footer from "../Footer/Footer";
+import MemoFooter from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
 import Remove from "../Modals/Remove";
 import Create from "../Modals/Create";
@@ -82,6 +82,7 @@ const Home = () => {
                         updateItemId = {updateItemId}
                         favorites = {favorites}
                         updateFavorite ={updateFavorite}
+                      
 
                     />
                 </div>
@@ -98,7 +99,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <Footer />    
+            <MemoFooter />    
             {ReactDOM.createPortal(printModal, document.body)} 
      </div>
     </>
