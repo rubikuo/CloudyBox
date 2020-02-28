@@ -56,16 +56,42 @@
 }
 
 .header-path {
-    width: 20%;
+    width: 40%;
 }
 
 .header-path > nav {
     position: absolute;
-    top: 20%;
+    top: 18vh;
+    left: 9vw;
+    color: #106BAC;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-size: 1.1em;
+}
+
+nav > span:hover {
+    cursor: pointer;
+    color:#1293D6;
+    text-decoration: underline;
 }
 
 .logout-button {
+    position: absolute;
+    top: 17vh;
+    right: 8vw;
     align-self: flex-end;
+    padding: 1.1%;
+    border: none;
+    background-color: #fff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #106BAC;
+}
+
+.logout-button:hover {
+    color:#1293D6;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 /*

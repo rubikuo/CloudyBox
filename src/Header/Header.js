@@ -3,7 +3,7 @@ import logo from './LOGO.png';
 import { GoSearch } from 'react-icons/go';
 import "./Header.css";
 
-const Header = () => {
+const Header = ({logOut}) => {
     return (
         <div className='header-container'>
 
@@ -36,7 +36,7 @@ const Header = () => {
                         <span> > Folder</span>
                     </nav>
                 </div>
-                <button className='logout-button'>Log out</button>
+                <button className='logout-button' onClick={logOut}>Log out</button>
             </div>
         </div>
     )
