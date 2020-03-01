@@ -107,7 +107,6 @@ const Main = ({
 			let replacedIndex = copyDocument.findIndex((doc) => doc.id === response.metadata.id);
 			console.log(replacedIndex);
 			copyDocument[replacedIndex] = response.metadata;
-			
 		});
 	};
 
