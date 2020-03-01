@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FileList from '../FileList/FileList';
 import './Main.css';
-import { FaLanguage, FaStar } from 'react-icons/fa';
+import { FaLanguage, FaStar, FaList } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
 
 
@@ -74,7 +74,7 @@ const Main = ({
 	};
 
 	let tabActiveStyle = {
-		backgroundColor: 'rgb(235, 235, 235)',
+		backgroundColor: '#F7F7F7',
 		color: 'rgb(34, 138, 208)'
 	};
 
@@ -97,16 +97,16 @@ const Main = ({
 			<div className="titleBar">
 				<div className="tabsCtn">
 					<div className="tabs" style={tab === 'name' ? tabActiveStyle : {}} onClick={() => showTab('name')}>
-						<p>Name</p>
-						<FaLanguage />
+						<p>Files</p>
+						{/* <FaLanguage size="18px" style ={{position:"relative", top:"2px"}}/> */}
 					</div>
 					<div
 						className="tabs"
 						style={tab === 'stared' ? tabActiveStyle : {}}
 						onClick={() => showTab('stared')}
 					>
-						<p>Stared</p>
-						<FaStar />
+						<p>Starred</p>
+						<FaStar size="18px" style ={{position:"relative", top:"-1px"}}/>
 					</div>
 				</div>
 				<div className="tagCtn">

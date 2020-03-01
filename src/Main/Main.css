@@ -1,22 +1,23 @@
 main{
     width: 100%;
+    height: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    color: #737373;
 }
 
 .titleBar{
     width: 100%;
     display: flex;
     align-items: center;
+    height: 7%;
 }
 
 .tabsCtn{
     width: 52%;
-    height: 30%;
     display: flex;
 }
 
@@ -24,14 +25,15 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0px -17px 10px;
-    width: 100px;
+    width: 150px;
     border-radius: 15px 15px 0px 0px;
     cursor: pointer;
+    color: #737373;
 }
 
 .tabs > p {
     margin-right: 5px;
+    font-size: 1rem;
 }
 
 .tagCtn{
@@ -43,8 +45,6 @@ main{
 }
 
 .metaTag, .modifiedTag{
-    margin-top: 20px;
-    margin-bottom: -17px;
     width: 226px;
 
 }
@@ -62,4 +62,7 @@ ul{
     width: 100%;
     padding: 0;
     font-size: 0.9rem;
+    margin: 0 0 40px 0;
+    height: calc(93% - 40px);
+    overflow-y: auto;
 }

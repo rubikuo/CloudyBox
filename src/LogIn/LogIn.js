@@ -2,7 +2,7 @@ import React from "react";
 import "./LogIn.css";
 import logo from "../LogIn/images/LOGO.png";
 import cloud from "../LogIn/images/Component--login-cloud.svg";
-import cloudIllustration from "../LogIn/images/Component--login-cloudIllus.svg";
+import cloudIllustration from "../LogIn/images/background.svg";
 import { tokenUrl } from "../getToken";
 import { token$ } from "../store";
 import { Redirect } from 'react-router-dom';

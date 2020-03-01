@@ -16,7 +16,28 @@ const Create = (props) => {
         updatePathName(e.target.value);
     }
 
-    const createFolder = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log(pathName)
+        const root = props.location.pathname.slice(5);
+        
+        var dbx = new Dropbox({ accessToken: props.localToken  });
+
+        dbx.filesCreateFolderV2({path: root + "/"+ pathName, autorename:true})
+        .then(function(response) {
+            console.log(response);
+            const newDocuments = [...props.documents, response.metadata];
+            props.updateDocs(newDocuments);
+        })
+        .catch(function(error) {
+            console.error(error);
+        }); 
+
+        props.updateModals(false)
+        
+    }
+
+/*     const createFolder = () => {
         console.log(pathName)
         const root = props.location.pathname.slice(5);
         
@@ -34,7 +55,7 @@ const Create = (props) => {
 
         props.updateModals(false)
     }
-   
+    */
 
     return (
        
@@ -49,22 +70,21 @@ const Create = (props) => {
                 </div>
 
                 <label htmlFor="createFolder" style={{textAlign: "left", fontSize: "12px", marginBottom: "3px", marginTop: "10px"}}>Name</label>
-                <input
-                    onChange = {onChangeInput}
-                    type="text"
-                    name="createFolder"
-                    id="createFolder"
-                    placeholder="Folder Name"
-                    style={{borderRadius: "0.3rem", padding: "2%", border: "1px solid #ddd"}}
-                />
-
-                <div className="modalsButtonsContainer">
-                    <button onClick = {cancelModal} className="modalButtons">Cancel</button>
-                    <button onClick = {createFolder} className="modalButtons blueButtons">Create</button>
-                </div>
-
+                <form onSubmit = {onSubmit}>
+                    <input
+                        onChange = {onChangeInput}
+                        type="text"
+                        name="createFolder"
+                        id="createFolder"
+                        placeholder="Folder Name"
+                        style={{borderRadius: "0.3rem", padding: "2%", border: "1px solid #ddd"}}
+                    />
+                    <div className="modalsButtonsContainer">
+                        <div onClick = {cancelModal} className="modalButtons">Cancel</div>
+                       <button type="submit" className="modalButtons blueButtons">Create</button>
+                    </div>
+                </form>
             </div>
-
         </div >
     )
 }
