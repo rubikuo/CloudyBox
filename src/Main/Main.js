@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FileList from '../FileList/FileList';
 import './Main.css';
-import { FaLanguage, FaStar, FaList } from 'react-icons/fa';
+import { FaLanguage, FaStar} from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
 
 

@@ -37,26 +37,6 @@ const Create = (props) => {
         
     }
 
-/*     const createFolder = () => {
-        console.log(pathName)
-        const root = props.location.pathname.slice(5);
-        
-        var dbx = new Dropbox({ accessToken: props.localToken  });
-
-        dbx.filesCreateFolderV2({path: root + "/"+ pathName, autorename:true})
-        .then(function(response) {
-            console.log(response);
-            const newDocuments = [...props.documents, response.metadata];
-            props.updateDocs(newDocuments);
-        })
-        .catch(function(error) {
-            console.error(error);
-        }); 
-
-        props.updateModals(false)
-    }
-    */
-
     return (
        
         <div className="modalContainer">
