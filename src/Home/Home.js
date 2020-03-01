@@ -9,11 +9,11 @@ import MemoFooter from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
 import Remove from "../Modals/Remove";
 import Create from "../Modals/Create";
-//import Dropbox from 'dropbox';
+
 import "../Modals/Modals.css";
 import { Redirect } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
     const [modals, updateModals] = useState(false);
     const [modalType, updateModalType] = useState("");
@@ -26,8 +26,6 @@ const Home = () => {
 
     let printModal;
 
-
-    // console.log(location);
     useEffect(() => {
         const subscribe = token$.subscribe(token => {
             updateLocalToken(token);
@@ -52,20 +50,22 @@ const Home = () => {
         updateToken(null);
     }
 
-    if (modals) {
-
-        //  console.log("modal type", modalType)
-        if (modalType === "create") {
-            printModal = <Create updateModals={updateModals} localToken={localToken} documents={documents} updateDocs={updateDocs} />
+    if (modals){
+     
+    //  console.log("modal type", modalType)
+        if(modalType === "create") {
+            printModal = <Create updateModals = {updateModals} localToken={localToken} documents={documents} updateDocs={updateDocs} location={location}/>
         } else if (modalType === "remove") {
-            console.log(itemId, itemName);
-            printModal =
-                <Remove
-                    itemId={itemId}
-                    itemName={itemName}
-                    updateModals={updateModals}
-                    documents={documents}
-                    updateDocs={updateDocs} />
+          console.log(itemId, itemName);
+            printModal = 
+            <Remove 
+            itemId={itemId} 
+            itemName ={itemName}
+            updateModals = {updateModals} 
+            documents={documents} 
+            updateDocs={updateDocs}
+            location={location}
+            />
         }
     } else {
         printModal = null;
@@ -102,6 +102,7 @@ const Home = () => {
                         updateFavorite ={updateFavorite}
                         rename = {rename}
                         updateRename = {updateRename} 
+                        location={location}
                     />
                 </div>
                 <div className="sidebar buttons">
@@ -111,8 +112,9 @@ const Home = () => {
                         updateDocs={updateDocs}
                         choosenFiles={choosenFiles}
                         updateChoosenFiles={updateChoosenFiles}
-                        updateModals={updateModals}
-                        updateModalType={updateModalType}
+                        updateModals = {updateModals} 
+                        updateModalType = {updateModalType}
+                        location={location}
                     />
                 </div>
             </div>

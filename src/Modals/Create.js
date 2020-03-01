@@ -6,21 +6,23 @@ import './Modals.css';
 const Create = (props) => {
 
     const [pathName, updatePathName] = useState("");
-
+    console.log("location propname", props.location.pathname)
     const cancelModal = () => {
         props.updateModals(false)
     }
 
     const onChangeInput = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         updatePathName(e.target.value);
     }
 
     const createFolder = () => {
         console.log(pathName)
+        const root = props.location.pathname.slice(5);
+        
         var dbx = new Dropbox({ accessToken: props.localToken  });
 
-        dbx.filesCreateFolderV2({path: "/"+pathName, autorename:true})
+        dbx.filesCreateFolderV2({path: root + "/"+ pathName, autorename:true})
         .then(function(response) {
             console.log(response);
             const newDocuments = [...props.documents, response.metadata];

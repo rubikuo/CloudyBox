@@ -4,7 +4,6 @@ import './Main.css';
 import { FaLanguage, FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
 
-
 const Main = ({
 	localToken,
 	documents,
@@ -14,35 +13,60 @@ const Main = ({
 	updateItemName,
 	updateItemId,
 	favorites,
-	updateFavorite, 
+	updateFavorite,
 	rename,
 	updateRename,
-
+	location
 }) => {
 	const [ tab, updateTab ] = useState('name');
 	console.log(localToken);
 
 	useEffect(
 		() => {
+			console.log('location Name', location.pathname);
+
 			let dropbox = new Dropbox({ accessToken: localToken });
-			dropbox
-				.filesListFolder({ path: '' })
-				.then((response) => {
-					console.log('resonse.entries', response.entries);
-					updateDocs(response.entries); // update in state
-					return response.entries;
-				})
-				.then((docs) => {
-					// adding a new key to the data, to be able to control the check button next to the list
-					let datas = [ ...docs ];
-					datas.map((data) => {
-						return (data.favorite = false);
+
+			if (location.pathname === '/home') {
+				dropbox
+					.filesListFolder({ path: '' })
+					.then((response) => {
+						console.log('resonse.entries', response.entries);
+						updateDocs(response.entries); // update in state
+						return response.entries;
+					})
+					.then((docs) => {
+						// adding a new key to the data, to be able to control the check button next to the list
+						let datas = [ ...docs ];
+						datas.map((data) => {
+							return (data.favorite = false);
+						});
+						// save the data with the new key
+						updateDocs(datas);
 					});
-					// save the data with the new key
-					updateDocs(datas);
-				});
+			} else {
+				console.log('this is not a home, link is', location.pathname);
+				let newPath = location.pathname.slice(5);
+				console.log(newPath);
+				dropbox
+					.filesListFolder({ path: newPath })
+					.then((response) => {
+						// console.log('resonse.entries', response.entries);
+						updateDocs(response.entries); // update in state
+						return response.entries;
+					})
+					.then((docs) => {
+						// adding a new key to the data, to be able to control the check button next to the list
+						let datas = [ ...docs ];
+						datas.map((data) => {
+							return (data.favorite = false);
+						});
+						// save the data with the new key
+						updateDocs(datas);
+					});
+			}
 		},
-		[ localToken, updateDocs ]
+		[ location.pathname, localToken, updateDocs ]
 	);
 
 	const showTab = (tabName) => {
@@ -66,14 +90,26 @@ const Main = ({
 				console.error(error, 'Error by downloading file');
 			});
 	};
-	// console.log(documents);
 
-	const handleRename = (e, path) =>{
-		updateRename(e.target.value)
-		// console.log("id", doc.path_lower);
+	const handleRename = (e) => {
+		if (!e.target.value) return;
+		updateRename(e.target.value);
+	};
 
-	}
-
+	const submitRename = (fromPath, toPath) => {
+		let formatedToPath = '/' + toPath;
+		let dropbox = new Dropbox({ accessToken: localToken });
+		dropbox
+		    .filesMoveV2({ from_path: fromPath, to_path: formatedToPath })
+		    .then((response) => {
+			console.log(response);
+			let copyDocument = [ ...documents ];
+			let replacedIndex = copyDocument.findIndex((doc) => doc.id === response.metadata.id);
+			console.log(replacedIndex);
+			copyDocument[replacedIndex] = response.metadata;
+			
+		});
+	};
 
 	return (
 		<main>
@@ -93,12 +129,11 @@ const Main = ({
 					</div>
 				</div>
 				<div className="tagCtn">
-					<p className="metaTag">MetaData</p>
+					<p className="metaTag">Size</p>
 					<p className="modifiedTag">Modified</p>
 				</div>
 			</div>
 			<ul>
-				{/* map out the FileLsit, now just example*/}
 				{Array.from(documents).map((doc) => {
 					return (
 						<FileList
@@ -111,9 +146,10 @@ const Main = ({
 							updateItemName={updateItemName}
 							favorites={favorites}
 							updateFavorite={updateFavorite}
-							rename ={rename}
+							rename={rename}
 							updateRename={updateRename}
-							handleRename ={handleRename}
+							handleRename={handleRename}
+							submitRename={submitRename}
 						/>
 					);
 				})}

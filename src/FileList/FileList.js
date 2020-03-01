@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaFolder, FaStar, FaRegStar } from 'react-icons/fa';
 import { MdMenu } from 'react-icons/md';
 import './FileList.css';
@@ -8,8 +8,25 @@ import { convertBytes } from './convertBytes.js';
 import { Link } from 'react-router-dom';
 import { toggleFavorite } from '../store';
 
-const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItemName, getLinkToFile, favorites, rename, updateRename }) => {
+const FileList = ({ 
+	doc, 
+	updateModalType, 
+	updateModals, 
+	updateItemId, 
+	updateItemName, 
+	getLinkToFile, 
+	favorites, 
+	rename, 
+	updateRename,
+	handleRename,
+	submitRename 
+    }) => {
 	const [ dropDown, updateDropDown ] = useState(false);
+	// why this only shows the last doc's name
+    //  useEffect(()=>{
+	// 	 updateRename(doc.name)
+
+	//  },[updateRename, doc.name])
 
 	const showDropDown = (e) => {
 		console.log(e.target.id);
@@ -33,10 +50,6 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
 		toggleFavorite(doc);
   };
   
-  const handleRename = (e) =>{
-      updateRename(e.target.value)
-      console.log("id", doc.path_lower)
-  }
 
 	if (doc) {
 		let button;
@@ -83,9 +96,7 @@ const FileList = ({ doc, updateModalType, updateModals, updateItemId, updateItem
 							Delete
 						</button>
 						<input type="text" value={rename} onChange={handleRename}/>
-						<button className="renameBtn" onClick={() => {
-                     
-            }}>
+						<button className="renameBtn" onClick={() => {submitRename(doc.path_lower, rename)}}>
 							Rename
 						</button>
 					</div>
