@@ -98,7 +98,7 @@ const Home = ({ location }) => {
                         updateItemName = {updateItemName}
                         updateItemId = {updateItemId}
                         favorites = {favorites}
-                        updateFavorite ={updateFavorite} 
+                        updateFavorite ={updateFavorite}
                         location={location}
                     />
                 </div>

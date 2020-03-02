@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-
-import React, {useEffect} from 'react';
+import React, { useState } from 'react';
+import { MdMenu } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { FaFolder, FaStar, FaTrash, FaRegStar, FaFile, FaFilePdf} from 'react-icons/fa';
+import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf} from 'react-icons/fa';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
@@ -14,9 +14,21 @@ const FileList = ({
 	updateModals,
 	updateItemId,
 	updateItemName,
- 	 getLinkToFile,
-  	favorites,
+	getLinkToFile,
+	favorites,
+	submitRename
 }) => {
+	const [ dropDown, updateDropDown ] = useState(false);
+	const [ rename, updateRename ] = useState(doc.name);
+
+	const handleRename = (e) => {
+		updateRename(e.target.value);
+	};
+	
+	const showDropDown = (e) => {
+		console.log(e.target.id);
+		updateDropDown(dropDown ? false : true);
+	};
 
 	const activateModal = (name, id) => {
 		updateModals(true);
@@ -25,13 +37,19 @@ const FileList = ({
 		updateItemId(id);
 	};
 
+	let dropdownClass;
+	if (dropDown) {
+		dropdownClass = 'dropDown active';
+	} else {
+		dropdownClass = 'dropDown';
+	}
+
 	const handleFav = (doc) => {
-    toggleFavorite(doc); 
-  };
+		toggleFavorite(doc);
+	};
 
 	if (doc) {
-
-    let button;
+		let button;
       
         if (favorites.find(x => x.id === doc.id)){
           button = <FaStar size="20px"  style={{color: "rgb(250, 142, 0)", position:"relative", top: "3px"}}/>
@@ -65,13 +83,30 @@ const FileList = ({
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
 				<p className="modified">{convertDate(doc.client_modified)}</p>
-				<button
-					onClick={() => {
-						activateModal(doc.name, doc.id);
-					}}
-				>
-					<FaTrash />
-				</button>
+				<div className="dropDownCtn">
+					<button onClick={showDropDown} id={doc.id}>
+						<MdMenu />
+					</button>
+					<div className={dropdownClass}>
+						<button
+							className="deleteBtn"
+							onClick={() => {
+								activateModal(doc.name, doc.id);
+							}}
+						>
+							Delete
+						</button>
+						<input type="text" value={rename} onChange={handleRename} />
+						<button
+							className="renameBtn"
+							onClick={() => {
+								submitRename(doc.path_lower, rename);
+							}}
+						>
+							Rename
+						</button>
+					</div>
+				</div>
 			</li>
 		);
 	}

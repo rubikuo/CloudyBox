@@ -33,6 +33,7 @@
     margin-right: 10px;
 }
 
+/*file name */
 .documentLink{
     text-align: left;
     text-decoration: none;
@@ -43,6 +44,28 @@
     color: #737373;
 }
 
+.dropDownCtn{
+    position: relative;
+}
+
+
+.dropDown{
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    z-index: 1;
+    right: 3px;
+    box-shadow: 1px 1px 1px grey;
+    display: none;
+}
+
+.dropDown.active{
+    display: flex;
+    flex-direction: column;
+
+}
+
 .documentLink:hover {
     cursor: pointer;
 }
@@ -51,4 +74,6 @@
     font-size: 0.8rem;
     width: 20%;
 }
+
+
 
