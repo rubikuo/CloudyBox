@@ -24,8 +24,11 @@
     margin-right:15px;
 }
 
+.starIcon:hover {
+    cursor: pointer;
+}
+
 .folderIcon{
-    font-size: 2.1rem;
     color:rgb(34, 98, 208);
     margin-right: 10px;
 }
@@ -37,6 +40,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    color: #737373;
 }
 
 .documentLink:hover {

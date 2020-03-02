@@ -2,7 +2,7 @@
 
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import { FaFolder, FaStar, FaTrash, FaRegStar } from 'react-icons/fa';
+import { FaFolder, FaStar, FaTrash, FaRegStar, FaFile, FaFilePdf} from 'react-icons/fa';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
@@ -14,8 +14,8 @@ const FileList = ({
 	updateModals,
 	updateItemId,
 	updateItemName,
-  getLinkToFile,
-  favorites,
+ 	 getLinkToFile,
+  	favorites,
 }) => {
 
 	const activateModal = (name, id) => {
@@ -36,7 +36,7 @@ const FileList = ({
         if (favorites.find(x => x.id === doc.id)){
           button = <FaStar size="20px"  style={{color: "rgb(250, 142, 0)", position:"relative", top: "3px"}}/>
         } else {
-          button = <FaRegStar size="20px"/>
+          button = <FaRegStar size="20px"style={{position:"relative", top: "3px"}}/>
         }
 
 		return (
@@ -45,16 +45,22 @@ const FileList = ({
           <span className="starIcon" onClick={() => handleFav(doc)}>
               <span>{button}</span>
           </span>
-					<FaFolder className="folderIcon" />
 					{doc['.tag'] === 'file' ? (
-						<a
-							className="documentLink" //href will be a new key?
-							onClick={() => getLinkToFile(doc.path_lower)}
-						>
-							{doc.name}
-						</a>
+						<>
+							{doc.name.slice(doc.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
+							(<FaFile size="2rem" className="folderIcon" />)}
+							<a
+								className="documentLink" //href will be a new key?
+								onClick={() => getLinkToFile(doc.path_lower)}
+							>
+								{doc.name}
+							</a>
+						</>
 					) : (
-						<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
+						<>
+							<FaFolder size="2rem" className="folderIcon" />
+							<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
+						</>
 					)}
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
