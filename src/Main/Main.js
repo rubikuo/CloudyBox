@@ -14,7 +14,6 @@ const Main = ({
 	updateItemId,
 	favorites,
 	updateFavorite,
-	rename,
 	updateRename,
 	location
 }) => {
@@ -80,7 +79,6 @@ const Main = ({
 
 	const getLinkToFile = (path) => {
 		let dropbox = new Dropbox({ accessToken: localToken });
-
 		dropbox
 			.filesGetTemporaryLink({ path: path })
 			.then((response) => {
@@ -91,24 +89,17 @@ const Main = ({
 			});
 	};
 
-	const handleRename = (e) => {
-		if (!e.target.value) return;
-		updateRename(e.target.value);
-	};
-
 	const submitRename = (fromPath, toPath) => {
+		if (toPath === '') return;
 		let formatedToPath = '/' + toPath;
 		let dropbox = new Dropbox({ accessToken: localToken });
-		dropbox
-		    .filesMoveV2({ from_path: fromPath, to_path: formatedToPath })
-		    .then((response) => {
+		dropbox.filesMoveV2({ from_path: fromPath, to_path: formatedToPath }).then((response) => {
 			console.log(response);
 			let copyDocument = [ ...documents ];
 			let replacedIndex = copyDocument.findIndex((doc) => doc.id === response.metadata.id);
 			console.log(replacedIndex);
 			copyDocument[replacedIndex] = response.metadata;
 			updateDocs(copyDocument);
-			updateRename('');
 		});
 	};
 
@@ -147,9 +138,7 @@ const Main = ({
 							updateItemName={updateItemName}
 							favorites={favorites}
 							updateFavorite={updateFavorite}
-							rename={rename}
 							updateRename={updateRename}
-							handleRename={handleRename}
 							submitRename={submitRename}
 						/>
 					);

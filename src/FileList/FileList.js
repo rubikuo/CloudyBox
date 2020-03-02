@@ -8,30 +8,28 @@ import { convertBytes } from './convertBytes.js';
 import { Link } from 'react-router-dom';
 import { toggleFavorite } from '../store';
 
-const FileList = ({ 
-	doc, 
-	updateModalType, 
-	updateModals, 
-	updateItemId, 
-	updateItemName, 
-	getLinkToFile, 
-	favorites, 
-	rename, 
-	updateRename,
-	handleRename,
-	submitRename 
-    }) => {
+const FileList = ({
+	doc,
+	updateModalType,
+	updateModals,
+	updateItemId,
+	updateItemName,
+	getLinkToFile,
+	favorites,
+	submitRename
+}) => {
 	const [ dropDown, updateDropDown ] = useState(false);
-	// why this only shows the last doc's name
-    //  useEffect(()=>{
-	// 	 updateRename(doc.name)
+	const [ rename, updateRename ] = useState(doc.name);
 
-	//  },[updateRename, doc.name])
-
+	const handleRename = (e) => {
+		updateRename(e.target.value);
+	};
+	
 	const showDropDown = (e) => {
 		console.log(e.target.id);
 		updateDropDown(dropDown ? false : true);
 	};
+
 	const activateModal = (name, id) => {
 		updateModals(true);
 		updateModalType('remove');
@@ -48,8 +46,7 @@ const FileList = ({
 
 	const handleFav = (doc) => {
 		toggleFavorite(doc);
-  };
-  
+	};
 
 	if (doc) {
 		let button;
@@ -95,8 +92,13 @@ const FileList = ({
 						>
 							Delete
 						</button>
-						<input type="text" value={rename} onChange={handleRename}/>
-						<button className="renameBtn" onClick={() => {submitRename(doc.path_lower, rename)}}>
+						<input type="text" value={rename} onChange={handleRename} />
+						<button
+							className="renameBtn"
+							onClick={() => {
+								submitRename(doc.path_lower, rename);
+							}}
+						>
 							Rename
 						</button>
 					</div>

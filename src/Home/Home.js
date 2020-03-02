@@ -22,7 +22,6 @@ const Home = ({ location }) => {
     const [itemId, updateItemId] = useState("");
     const [itemName, updateItemName] = useState("");
     const [favorites, updateFavorite] = useState(favorites$.value);
-    const [rename, updateRename] = useState("");
 
     let printModal;
 
@@ -100,8 +99,6 @@ const Home = ({ location }) => {
                         updateItemId = {updateItemId}
                         favorites = {favorites}
                         updateFavorite ={updateFavorite}
-                        rename = {rename}
-                        updateRename = {updateRename} 
                         location={location}
                     />
                 </div>
