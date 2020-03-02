@@ -48,6 +48,10 @@
     position: relative;
 }
 
+.dropDownCtn > button {
+    background: transparent;
+    border: none;
+}
 
 .dropDown{
     width: 200px;

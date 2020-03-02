@@ -85,7 +85,7 @@ const FileList = ({
 				<p className="modified">{convertDate(doc.client_modified)}</p>
 				<div className="dropDownCtn">
 					<button onClick={showDropDown} id={doc.id}>
-						<MdMenu />
+						<MdMenu size="18px" style={{position:"relative", top:"3px", color:"#737373"}}/>
 					</button>
 					<div className={dropdownClass}>
 						<button
