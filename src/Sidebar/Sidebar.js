@@ -101,7 +101,7 @@ class Sidebar extends React.PureComponent {
                     marginRight: "5px"
                   }}
                 />
-                <button onClick={this.handleCreateModal}>Create Folder</button>
+                <button onClick={()=>this.handleCreateModal(true)}>Create Folder</button>
                 {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
               </label>
             </li>

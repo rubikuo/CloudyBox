@@ -7,42 +7,56 @@ import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
 import { toggleFavorite } from '../store';
+import Remove from "../Modals/Remove";
+import Rename from "../Modals/Rename";
 
 const FileList = ({
 	doc,
-	updateModalType,
-	updateModals,
+	// updateModalType,
+	// updateModals,
+	location,
+	itemId,
 	updateItemId,
+	itemName,
 	updateItemName,
 	getLinkToFile,
 	favorites,
+	updateDocs,
+	documents,
 	// submitRename
 }) => {
 	const [ dropDown, updateDropDown ] = useState(false);
-	
+	const [ showRemoveModal, updateRemoveModal] =useState(false);
+	const [ showRenameModal, updateRenameModal] =useState(false);
 
-
-	
 	const showDropDown = (e) => {
-		console.log(e.target.id);
+		// console.log(e.target.id);
 		updateDropDown(dropDown ? false : true);
 	};
 
-	const activateModal = (name, id, type, path) => {
-		if(type ==="remove"){
-			updateModals(true);
-			updateModalType(type);
-			updateItemName(name);
-			updateItemId(id);
-		}else if(type=== "rename"){
-			updateModals(true);
-			updateModalType(type);
-			updateItemId(id);
-			updateItemName(name);
+	// const activateModal = (name, id, type, path) => {
+	// 	if(type ==="remove"){
+	// 		updateModals(true);
+	// 		updateModalType(type);
+	// 		updateItemName(name);
+	// 		updateItemId(id);
+	// 	}else if(type=== "rename"){
+	// 		updateModals(true);
+	// 		updateModalType(type);
+	// 		updateItemId(id);
+	// 		updateItemName(name);
 			
-		}
+	// 	}
 	
-	};
+	// };
+
+	const handleRemoveModal =()=>{
+		updateRemoveModal(true);
+	}
+
+	const handleRenameModal =()=>{
+		updateRenameModal(true);
+	}
 
 	let dropdownClass;
 	if (dropDown) {
@@ -97,24 +111,22 @@ const FileList = ({
 					<div className={dropdownClass}>
 						<button
 							className="deleteBtn"
-							onClick={() => {
-								activateModal(doc.name, doc.id, "remove", null);
-							}}
+							onClick={handleRemoveModal}
 						>
 							Delete
 						</button>
-						
-
+						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents}  />}
 
 						<button
 							className="renameBtn"
-							onClick={() => {
-                                 activateModal(doc.name, doc.id, "rename", doc.path_lower)
+							onClick={
+                                handleRenameModal
 								// submitRename(doc.path_lower, rename);
-							}}
+							}
 						>
 							Rename
 						</button>
+						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
 					</div>
 				</div>
 			</li>

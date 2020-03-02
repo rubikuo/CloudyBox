@@ -105,7 +105,9 @@ const Home = ({ location }) => {
                         choosenFiles={choosenFiles}
                         // updateModalType={updateModalType}
                         // updateModals={updateModals}
+                        itemName ={itemName}
                         updateItemName = {updateItemName}
+                        itemId={itemId} 
                         updateItemId = {updateItemId}
                         favorites = {favorites}
                         updateFavorite ={updateFavorite}

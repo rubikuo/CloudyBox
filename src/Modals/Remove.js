@@ -1,35 +1,34 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
-import { token$, favorites$, removeFavorite } from "../store";
+import { token$ } from "../store";
 import { Dropbox } from "dropbox";
+import ReactDOM from 'react-dom';
 import "./Modals.css";
 
 const Remove = props => {
 
-
-  const cancelModal = () => {
-    props.updateModals(false);
-  };
-
-
-  const deleteItem = (path, id) => {
-    console.log(path, id);
-    const root = props.location.pathname.slice(5);
+    const handleRemoveModal =()=>{
+      props.updateRemoveModal(false)
+    }
+  const deleteItem = (doc) => {
+    //console.log(path, id);
+    //const root = props.location.pathname.slice(5);
     let dropbox = new Dropbox({ accessToken: token$.value });
     dropbox
-      .filesDeleteV2({ path: root + `/${path}` })
+      .filesDeleteV2({ path: doc.path_lower })
       .then(response => {
         console.log("deleteResponse", response);
-        const newDocuments = props.documents.filter(x => x.id !== id);
+        const newDocuments = props.documents.filter(x => x.id !== response.metadata.id);
         props.updateDocs(newDocuments);
       })
       .catch(err => {
         console.log(err);
       });
-    props.updateModals(false);
+     handleRemoveModal();
+ 
   };
 
-  return (
+  return  ReactDOM.createPortal(
     <div className="modalContainer">
       {/*same className for the modalContainer here and Create.js, same button classNames as well */}
       <div className="modalBox">
@@ -52,13 +51,13 @@ const Remove = props => {
         </p>
 
         <div className="modalsButtonsContainer">
-          <button onClick={cancelModal} className="modalButtons">
+          <button onClick={handleRemoveModal} className="modalButtons">
             Cancel
           </button>
 
           <button
             onClick={() => {
-              deleteItem(props.itemName, props.itemId);
+              deleteItem(props.doc);
             }}
             className="modalButtons blueButtons"
           >
@@ -66,7 +65,8 @@ const Remove = props => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+		document.body
   );
 };
 

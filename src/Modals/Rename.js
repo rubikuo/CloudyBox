@@ -3,13 +3,15 @@ import { FaEdit } from 'react-icons/fa';
 import './Modals.css';
 import { Dropbox } from 'dropbox';
 import { token$} from "../store";
+import ReactDOM from 'react-dom';
 
 const Rename = (props) => {
-    const [ rename, updateRename ] = useState("");
-	const cancelModal = () => {
-		props.updateModals(false);
-    };
-    
+    const [ rename, updateRename ] = useState(props.doc.name);
+
+    const handleRenameModal =()=>{
+        props.updateRenameModal(false)
+      }
+
     const handleRename = (e) => {
 		updateRename(e.target.value);
 	};
@@ -25,12 +27,15 @@ const Rename = (props) => {
 			console.log(replacedIndex);
 			copyDocument[replacedIndex] = response.metadata;
 			props.updateDocs(copyDocument);
-		});
+        })
+        .catch((err) => {
+            console.log(err.error.error_summary);
+        })
     };
     
     console.log("rename", rename);
 
-	return (
+	return ReactDOM.createPortal(
 		<div className="modalContainer">
 			<div className="modalBox">
 				<div className="modalHeadline">
@@ -47,14 +52,13 @@ const Rename = (props) => {
 
                 <input type="text" value={rename} onChange={handleRename} />
 				<div className="modalsButtonsContainer">
-					<button onClick={cancelModal} className="modalButtons">
+					<button onClick={handleRenameModal} className="modalButtons">
 						Cancel
-					</button>
-                   
+					</button>         
 
 					<button
 						onClick={() => {
-							submitRename(props.itemName, rename);
+							submitRename(props.doc.path_lower, rename);
 						}}
 						className="modalButtons blueButtons"
 					>
@@ -62,7 +66,8 @@ const Rename = (props) => {
 					</button>
 				</div>
 			</div>
-		</div>
+        </div>,
+        document.body
 	);
 };
 

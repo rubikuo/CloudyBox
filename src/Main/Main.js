@@ -119,13 +119,16 @@ const Main = ({
 							key={doc.id}
 							doc={doc}
 							getLinkToFile={getLinkToFile}
-							updateModalType={updateModalType}
-							updateModals={updateModals}
+							// updateModalType={updateModalType}
+							// updateModals={updateModals}
 							updateItemId={updateItemId}
 							updateItemName={updateItemName}
 							favorites={favorites}
 							updateFavorite={updateFavorite}
 							updateRename={updateRename}
+							location={location}
+							documents={documents}
+							updateDocs = {updateDocs}
 							// submitRename={submitRename}
 						/>
 					);
