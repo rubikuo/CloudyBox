@@ -7,16 +7,16 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import MemoFooter from "../Footer/Footer";
 import topImage from "../Home/image/cloud-header-right.svg";
-import Remove from "../Modals/Remove";
-import Create from "../Modals/Create";
-
+// import Remove from "../Modals/Remove";
+// import Create from "../Modals/Create";
+// import Rename from "../Modals/Rename";
 import "../Modals/Modals.css";
 import { Redirect } from "react-router-dom";
 
 const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
-    const [modals, updateModals] = useState(false);
-    const [modalType, updateModalType] = useState("");
+    // const [modals, updateModals] = useState(false);
+    // const [modalType, updateModalType] = useState("");
     const [documents, updateDocs] = useState([]);
     const [choosenFiles, updateChoosenFiles] = useState([]);
     const [itemId, updateItemId] = useState("");
@@ -49,26 +49,36 @@ const Home = ({ location }) => {
         updateToken(null);
     }
 
-    if (modals){
+    // if (modals){
      
-    //  console.log("modal type", modalType)
-        if(modalType === "create") {
-            printModal = <Create updateModals = {updateModals} localToken={localToken} documents={documents} updateDocs={updateDocs} location={location}/>
-        } else if (modalType === "remove") {
-          console.log(itemId, itemName);
-            printModal = 
-            <Remove 
-            itemId={itemId} 
-            itemName ={itemName}
-            updateModals = {updateModals} 
-            documents={documents} 
-            updateDocs={updateDocs}
-            location={location}
-            />
-        }
-    } else {
-        printModal = null;
-    }
+    // //  console.log("modal type", modalType)
+    //     if(modalType === "create") {
+    //         printModal = <Create updateModals = {updateModals} localToken={localToken} documents={documents} updateDocs={updateDocs} location={location}/>
+    //     } else if (modalType === "remove") {
+    //       console.log(itemId, itemName);
+    //         printModal = 
+    //         <Remove 
+    //         itemId={itemId} 
+    //         itemName ={itemName}
+    //         updateModals = {updateModals} 
+    //         documents={documents} 
+    //         updateDocs={updateDocs}
+    //         location={location}
+    //         />
+    //     } else if (modalType === "rename"){
+    //         printModal= 
+    //         <Rename
+    //         itemId={itemId} 
+    //         itemName ={itemName}
+    //         updateModals = {updateModals} 
+    //         documents={documents} 
+    //         updateDocs={updateDocs}
+
+    //         />
+    //     }
+    // } else {
+    //     printModal = null;
+    // }
 
     // console.log(printModal)
     console.log("local", favorites$.value)
@@ -93,8 +103,8 @@ const Home = ({ location }) => {
                         documents={documents}
                         updateDocs={updateDocs}
                         choosenFiles={choosenFiles}
-                        updateModalType={updateModalType}
-                        updateModals={updateModals}
+                        // updateModalType={updateModalType}
+                        // updateModals={updateModals}
                         updateItemName = {updateItemName}
                         updateItemId = {updateItemId}
                         favorites = {favorites}
@@ -109,14 +119,14 @@ const Home = ({ location }) => {
                         updateDocs={updateDocs}
                         choosenFiles={choosenFiles}
                         updateChoosenFiles={updateChoosenFiles}
-                        updateModals = {updateModals} 
-                        updateModalType = {updateModalType}
+                        // updateModals = {updateModals} 
+                        // updateModalType = {updateModalType}
                         location={location}
                     />
                 </div>
             </div>
             <MemoFooter />
-            {ReactDOM.createPortal(printModal, document.body)}
+            {/* {ReactDOM.createPortal(printModal, document.body)} */}
         </div>
     </>
     );

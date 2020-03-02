@@ -89,19 +89,6 @@ const Main = ({
 			});
 	};
 
-	const submitRename = (fromPath, toPath) => {
-		if (toPath === '') return;
-		let formatedToPath = '/' + toPath;
-		let dropbox = new Dropbox({ accessToken: localToken });
-		dropbox.filesMoveV2({ from_path: fromPath, to_path: formatedToPath }).then((response) => {
-			console.log(response);
-			let copyDocument = [ ...documents ];
-			let replacedIndex = copyDocument.findIndex((doc) => doc.id === response.metadata.id);
-			console.log(replacedIndex);
-			copyDocument[replacedIndex] = response.metadata;
-			updateDocs(copyDocument);
-		});
-	};
 
 	return (
 		<main>
@@ -139,7 +126,7 @@ const Main = ({
 							favorites={favorites}
 							updateFavorite={updateFavorite}
 							updateRename={updateRename}
-							submitRename={submitRename}
+							// submitRename={submitRename}
 						/>
 					);
 				})}

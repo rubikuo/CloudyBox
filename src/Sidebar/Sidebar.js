@@ -3,6 +3,7 @@ import { MdCreateNewFolder, MdFileUpload } from "react-icons/md";
 import "./Sidebar.css";
 import { Dropbox } from "dropbox";
 import { token$ } from "../store";
+import Create from "../Modals/Create";
 
 
 class Sidebar extends React.PureComponent {
@@ -10,16 +11,21 @@ class Sidebar extends React.PureComponent {
     super(props);
     this.state = {
       choosedFiles: [],
-      path: ""
+      path: "",
+      showCreateModal:false,
     };
 
-    this.createFolder = this.createFolder.bind(this);
+   this.handleCreateModal = this.handleCreateModal.bind(this);
   }
 
-  createFolder() {
-    this.props.updateModals(true);
-    this.props.updateModalType("create");
-  }
+  // createFolder() {
+  //   this.props.updateModals(true);
+  //   this.props.updateModalType("create");
+  // }
+    handleCreateModal(status){
+      this.setState({showCreateModal:status})
+    }
+
 
   uploadFiles = e => {
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
@@ -95,7 +101,8 @@ class Sidebar extends React.PureComponent {
                     marginRight: "5px"
                   }}
                 />
-                <button onClick={this.createFolder}>Create Folder</button>
+                <button onClick={this.handleCreateModal}>Create Folder</button>
+                {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
               </label>
             </li>
           </ul>

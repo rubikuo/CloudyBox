@@ -16,25 +16,32 @@ const FileList = ({
 	updateItemName,
 	getLinkToFile,
 	favorites,
-	submitRename
+	// submitRename
 }) => {
 	const [ dropDown, updateDropDown ] = useState(false);
-	const [ rename, updateRename ] = useState(doc.name);
+	
 
-	const handleRename = (e) => {
-		updateRename(e.target.value);
-	};
+
 	
 	const showDropDown = (e) => {
 		console.log(e.target.id);
 		updateDropDown(dropDown ? false : true);
 	};
 
-	const activateModal = (name, id) => {
-		updateModals(true);
-		updateModalType('remove');
-		updateItemName(name);
-		updateItemId(id);
+	const activateModal = (name, id, type, path) => {
+		if(type ==="remove"){
+			updateModals(true);
+			updateModalType(type);
+			updateItemName(name);
+			updateItemId(id);
+		}else if(type=== "rename"){
+			updateModals(true);
+			updateModalType(type);
+			updateItemId(id);
+			updateItemName(name);
+			
+		}
+	
 	};
 
 	let dropdownClass;
@@ -91,16 +98,19 @@ const FileList = ({
 						<button
 							className="deleteBtn"
 							onClick={() => {
-								activateModal(doc.name, doc.id);
+								activateModal(doc.name, doc.id, "remove", null);
 							}}
 						>
 							Delete
 						</button>
-						<input type="text" value={rename} onChange={handleRename} />
+						
+
+
 						<button
 							className="renameBtn"
 							onClick={() => {
-								submitRename(doc.path_lower, rename);
+                                 activateModal(doc.name, doc.id, "rename", doc.path_lower)
+								// submitRename(doc.path_lower, rename);
 							}}
 						>
 							Rename

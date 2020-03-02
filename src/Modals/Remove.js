@@ -5,6 +5,8 @@ import { Dropbox } from "dropbox";
 import "./Modals.css";
 
 const Remove = props => {
+
+
   const cancelModal = () => {
     props.updateModals(false);
   };
