@@ -52,6 +52,14 @@
     margin-left: 3%;
 }
 
+.modalContainer > .modalBox > form > input {
+    width: 95%;
+}
+
+.modalContainer > .modalBox > form > input:focus::placeholder {
+    color: transparent;
+}
+
 .modalsButtonsContainer {
     display: flex;
     justify-content: flex-end;
@@ -66,6 +74,7 @@
     border-radius: 0.3rem;
     padding: 2%;
     margin-top: 7%;
+    font-size: 11px;
 }
 
 /*---the Create and the Delete buttons on the portals---*/
@@ -74,6 +83,10 @@
     background-color: #1293D6;
     border: 1px solid #1293D6;
     margin-left: 5px;
+}
+
+.modalButtons:hover {
+    cursor: pointer;
 }
 
 .blueButtons:hover {
