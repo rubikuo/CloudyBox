@@ -53,6 +53,11 @@
     border: none;
 }
 
+.dropDownCtn > button:hover {
+    color:rgb(34, 98, 208);
+    cursor: pointer;
+}
+
 .dropDown{
     width: 200px;
     height: 100px;
