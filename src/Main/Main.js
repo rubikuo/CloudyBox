@@ -109,11 +109,11 @@ const Main = ({
 				</div>
 			</div>
 			<ul>
-				{Array.from(documents).map((doc) => {
-					return (
+				{/* {Array.from(documents).map((doc) => { */}
+					{/* return ( */}
 						<FileList
-							key={doc.id}
-							doc={doc}
+							/* key={doc.id}
+							doc={doc} */
 							getLinkToFile={getLinkToFile}
 							updateItemId={updateItemId}
 							updateItemName={updateItemName}
@@ -125,8 +125,8 @@ const Main = ({
 							documents={documents}
 							updateDocs={updateDocs}
 						/>
-					);
-				})}
+					{/* ); */}
+				{/* })} */}
 			</ul>
 		</main>
 	);
