@@ -48,6 +48,15 @@
     position: relative;
 }
 
+.dropDownCtn > button {
+    background: transparent;
+    border: none;
+}
+
+.dropDownCtn > button:hover {
+    color:rgb(34, 98, 208);
+    cursor: pointer;
+}
 
 .dropDown{
     width: 200px;
@@ -68,7 +77,6 @@
 .dropDown .deleteBtn, .dropDown .renameBtn {
     border: none;
     height: 30px;
-
 }
 
 .dropDown .deleteBtn:focus, .dropDown .renameBtn:focus{

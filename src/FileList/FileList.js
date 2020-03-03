@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import { MdMenu } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf} from 'react-icons/fa';
+import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars} from 'react-icons/fa';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
@@ -84,7 +83,7 @@ const FileList = ({
 				<p className="modified">{convertDate(doc.client_modified)}</p>
 				<div className="dropDownCtn">
 					<button onClick={showDropDown} id={doc.id}>
-						<MdMenu />
+						<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
 					</button>
 					<div className={dropdownClass}>
 						<button

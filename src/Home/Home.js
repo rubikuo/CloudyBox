@@ -54,7 +54,8 @@ const Home = ({ location }) => {
         </div>
         <div className="container">
             <div className="header">
-                <Header logOut={logOut} />
+                <Header logOut={logOut}
+                        location = {location} />
             </div>
             <div className="content">
                 <div className="mainArea">

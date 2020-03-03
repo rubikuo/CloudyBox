@@ -19,6 +19,7 @@ main{
 .tabsCtn{
     width: 52%;
     display: flex;
+    height: 100%;
 }
 
 .tabs {
