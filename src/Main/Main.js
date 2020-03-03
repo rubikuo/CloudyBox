@@ -140,6 +140,7 @@ const Main = ({
 							updateFavorite={updateFavorite}
 							updateRename={updateRename}
 							submitRename={submitRename}
+							tab={tab}
 						/>
 					);
 				})}
