@@ -9,33 +9,30 @@ import { toggleFavorite } from '../store';
 
 const FileList = ({
 	doc,
-	updateModalType,
-	updateModals,
-	updateItemId,
-	updateItemName,
+	location,
+	itemId,
+	itemName,
 	getLinkToFile,
 	favorites,
-	submitRename,
+	updateDocs,
+	documents,
 	tab,
 }) => {
 	const [ dropDown, updateDropDown ] = useState(false);
-	const [ rename, updateRename ] = useState(doc.name);
+	const [ showRemoveModal, updateRemoveModal] =useState(false);
+	const [ showRenameModal, updateRenameModal] =useState(false);
 
-	const handleRename = (e) => {
-		updateRename(e.target.value);
-	};
-	
 	const showDropDown = (e) => {
-		console.log(e.target.id);
 		updateDropDown(dropDown ? false : true);
 	};
 
-	const activateModal = (name, id) => {
-		updateModals(true);
-		updateModalType('remove');
-		updateItemName(name);
-		updateItemId(id);
-	};
+	const handleRemoveModal =()=>{
+		updateRemoveModal(true);
+	}
+
+	const handleRenameModal =()=>{
+		updateRenameModal(true);
+	}
 
 	let dropdownClass;
 	if (dropDown) {
