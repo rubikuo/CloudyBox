@@ -8,6 +8,7 @@ import { convertBytes } from './convertBytes.js';
 import { toggleFavorite } from '../store';
 import Remove from "../Modals/Remove";
 import Rename from "../Modals/Rename";
+import Copy from "../Modals/Copy";
 
 const FileList = ({
 	doc,
@@ -22,6 +23,8 @@ const FileList = ({
 	const [ dropDown, updateDropDown ] = useState(false);
 	const [ showRemoveModal, updateRemoveModal] =useState(false);
 	const [ showRenameModal, updateRenameModal] =useState(false);
+	const [ showCopyModal, updateCopyModal] = useState(false);
+	const [folders, updateFolders] =useState([]);
 
 	const showDropDown = (e) => {
 		updateDropDown(dropDown ? false : true);
@@ -35,6 +38,20 @@ const FileList = ({
 		updateRenameModal(true);
 	}
 
+	const filterFolder =()=>{
+		let originDocs = documents;
+		console.log("id", doc)
+        let filteredFolder = originDocs.filter(item=> item[".tag"]==="folder" && item.id !== doc.id);
+        console.log(filteredFolder);
+        updateFolders(filteredFolder)
+
+    }
+
+	const handleCopyModal =(e)=>{
+		updateCopyModal(true);
+		filterFolder(e);
+	}
+
 	let dropdownClass;
 	if (dropDown) {
 		dropdownClass = 'dropDown active';
@@ -45,6 +62,8 @@ const FileList = ({
 	const handleFav = (doc) => {
 		toggleFavorite(doc);
 	};
+
+
 
 	if (doc) {
 		let button;
@@ -101,9 +120,21 @@ const FileList = ({
 							Rename
 						</button>
 						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
+						<button
+							className="copyBtn"
+							onClick={handleCopyModal}
+						>
+							Copy
+						</button>
+						{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders}/>}
+						<button
+							className="moveBtn"
+						>
+							Move
+						</button>
 					</div>
 				</div>
-			</li>
+			</li> 
 		);
 	}
 };

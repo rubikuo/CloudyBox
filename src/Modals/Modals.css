@@ -23,16 +23,17 @@
     display: flex;
 }
 
-.itemDelete {
+.itemDelete, .itemCopy {
     color: #106BAC;
 }
+
 
 .modalHeadline > h5 {
     margin: 0 0 20px 0;
     color: #1293D6;
 }
 
-.modalBox {
+.modalBox, .copyBox {
     position: relative;
     top: 30vh;
     left: 30vw;
@@ -58,6 +59,21 @@
 
 .modalContainer > .modalBox > form > input:focus::placeholder {
     color: transparent;
+}
+
+.modalContainer > .copyBox {
+    height: 300px;
+    top: 20vh;
+    left: 20vw;
+}
+
+.relocateCtn {
+    height: 320px;
+    width: 450px;
+    border: 1px solid black;
+    overflow: scroll;
+    
+   
 }
 
 .modalsButtonsContainer {

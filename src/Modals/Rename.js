@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 
 const Rename = (props) => {
 	const [ rename, updateRename ] = useState(props.doc.name);
+	const [ errorMsg, updateErrorMsg ] = useState('');
 
 	const handleRenameModal = () => {
 		props.updateRenameModal(false);
@@ -31,7 +32,10 @@ const Rename = (props) => {
 				props.updateDocs(copyDocument);
 			})
 			.catch((err) => {
-				console.log(err.error.error_summary);
+				console.log(err.response.status);
+				if (err.response.status === 409) {
+					updateErrorMsg("can't have same name on different file");
+				}
 			});
 		handleRenameModal();
 	};
@@ -52,22 +56,28 @@ const Rename = (props) => {
 					/>
 					<h5> Rename </h5>
 				</div>
+				<form
+					onSubmit={() => {
+						submitRename(props.doc.path_lower, rename);
+					}}
+				>
+					<input
+						type="text"
+						value={rename}
+						onChange={handleRename}
+						style={{ borderRadius: '0.3rem', padding: '2%', border: '1px solid #ddd' }}
+					/>
+					{errorMsg ? <span>hello</span> : null}
+					<div className="modalsButtonsContainer">
+						<button onClick={handleRenameModal} className="modalButtons">
+							Cancel
+						</button>
 
-				<input type="text" value={rename} onChange={handleRename} />
-				<div className="modalsButtonsContainer">
-					<button onClick={handleRenameModal} className="modalButtons">
-						Cancel
-					</button>
-
-					<button
-						onClick={() => {
-							submitRename(props.doc.path_lower, rename);
-						}}
-						className="modalButtons blueButtons"
-					>
-						Rename
-					</button>
-				</div>
+						<button type="submit" className="modalButtons blueButtons">
+							Rename
+						</button>
+					</div>
+				</form>
 			</div>
 		</div>,
 		document.body

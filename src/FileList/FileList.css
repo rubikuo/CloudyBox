@@ -60,7 +60,7 @@
 
 .dropDown{
     width: 200px;
-    height: 100px;
+    height: 120px;
     background-color: white;
     position: absolute;
     z-index: 1;
@@ -74,12 +74,12 @@
     flex-direction: column;
 }
 
-.dropDown .deleteBtn, .dropDown .renameBtn {
+.dropDown .deleteBtn, .dropDown .renameBtn, .dropDown .copyBtn, .dropDown .moveBtn {
     border: none;
     height: 30px;
 }
 
-.dropDown .deleteBtn:focus, .dropDown .renameBtn:focus{
+.dropDown .deleteBtn:focus, .dropDown .renameBtn:focus, .dropDown .copyBtn:focus, .dropDown .moveBtn:focus {
     outline: none;
 }
 

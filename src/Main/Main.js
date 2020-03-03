@@ -82,7 +82,7 @@ const Main = ({
 			.then((response) => {
 				window.location.href = response.link;
 			})
-			.catch(function(error) {
+			.catch((error)=> {
 				console.error(error, 'Error by downloading file');
 			});
 	};
