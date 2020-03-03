@@ -72,8 +72,11 @@
     width: 450px;
     border: 1px solid black;
     overflow: scroll;
-    
-   
+}
+
+.folderCtn{
+    display: flex;
+    align-items: center;
 }
 
 .modalsButtonsContainer {

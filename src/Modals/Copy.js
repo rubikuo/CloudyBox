@@ -8,16 +8,24 @@ import './Modals.css';
 import { FaFolder} from 'react-icons/fa';
 
 const Copy = (props) => {
+	const [newPath, updateNewPath]=useState("");
     
     const handleCreateModal = (status)=>{
         props.updateCopyModal(status)
-    }
+	}
+	
+	const getNewPath = (item) =>{
+		console.log(props.doc)
+		console.log(item)
+		updateNewPath(item.path_lower);
+        
+	}
 
 	const copyFile = (fromPath, toPath) => {
-		let formatedToPath = '/' + toPath;
+	
 		let dropbox = new Dropbox({ accessToken: token$.value });
 		dropbox
-			.filesCopyV2({ from_path: fromPath, to_path: formatedToPath })
+			.filesCopyV2({ from_path: fromPath, to_path: toPath })
 			.then((response) => {
 				console.log(response);
 			})
@@ -26,13 +34,7 @@ const Copy = (props) => {
 			});
     };
     
-    // const filterFolder =()=>{
-    //     let documents = props.documents;
-    //     let filteredFolder = documents.filter(doc=> doc[".tag"]==="folder");
-    //     console.log(filteredFolder);
-    //     updateFolders(filteredFolder)
-
-    // }
+ 
 
 	return ReactDOM.createPortal(
 		<div className="modalContainer">
@@ -45,10 +47,10 @@ const Copy = (props) => {
                <div className="relocateCtn">
                  {props.folders.map((folder)=>{
                      return(
-                     <div key={folder.id}>
+                     <div key={folder.id} className="folderCtn">
                          	<FaFolder size="2rem" className="folderIcon" />
-                             <Link to={"/home" + folder.path_lower} className="documentLink">{folder.name}</Link>
-                    </div>)
+                             <p onClick={()=>getNewPath(folder)} className="documentLink">{folder.name}</p>
+                     </div>)
                     
                  })}
                </div>
@@ -57,7 +59,7 @@ const Copy = (props) => {
 						<div onClick={()=>handleCreateModal(false)} className="modalButtons">
 							Cancel
 						</div>
-						<button onClick={copyFile} className="modalButtons blueButtons">
+						<button onClick={()=>copyFile(props.doc.path_lower, newPath)} className="modalButtons blueButtons">
 							Copy
 						</button>
 					</div>
