@@ -59,55 +59,53 @@ const FileList = ({
 	
 			return (
 				<li className="item">
-					<div className="itemSmlCtn">
-			  <span className="starIcon" onClick={() => handleFav(doc)}>
-				  <span>{button}</span>
-			  </span>
-						{doc['.tag'] === 'file' ? (
-							<>
-								{doc.name.slice(doc.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
-								(<FaFile size="2rem" className="folderIcon" />)}
-								<a
-									className="documentLink" //href will be a new key?
-									onClick={() => getLinkToFile(doc.path_lower)}
-								>
-									{doc.name}
-								</a>
-							</>
-						) : (
-							<>
-								<FaFolder size="2rem" className="folderIcon" />
-								<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
-							</>
-						)}
-					</div>
-					<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
-					<p className="modified">{convertDate(doc.client_modified)}</p>
-					<div className="dropDownCtn">
-						<button onClick={showDropDown} id={doc.id}>
-							<FaBars />
+				<div className="itemSmlCtn">
+          <span className="starIcon" onClick={() => handleFav(doc)}>
+              <span>{button}</span>
+          </span>
+					{doc['.tag'] === 'file' ? (
+						<>
+							{doc.name.slice(doc.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
+							(<FaFile size="2rem" className="folderIcon" />)}
+							<a
+								className="documentLink" //href will be a new key?
+								onClick={() => getLinkToFile(doc.path_lower)}
+							>
+								{doc.name}
+							</a>
+						</>
+					) : (
+						<>
+							<FaFolder size="2rem" className="folderIcon" />
+							<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
+						</>
+					)}
+				</div>
+				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
+				<p className="modified">{convertDate(doc.client_modified)}</p>
+				<div className="dropDownCtn">
+					<button onClick={showDropDown} id={doc.id}>
+						<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
+					</button>
+					<div className={dropdownClass}>
+						<button
+							className="deleteBtn"
+							onClick={handleRemoveModal}
+						>
+							Delete
 						</button>
-						<div className={dropdownClass}>
-							<button
-								className="deleteBtn"
-								onClick={() => {
-									activateModal(doc.name, doc.id);
-								}}
-							>
-								Delete
-							</button>
-							<input type="text" value={rename} onChange={handleRename} />
-							<button
-								className="renameBtn"
-								onClick={() => {
-									submitRename(doc.path_lower, rename);
-								}}
-							>
-								Rename
-							</button>
-						</div>
+						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents}  />}
+
+						<button
+							className="renameBtn"
+							onClick={handleRenameModal}
+						>
+							Rename
+						</button>
+						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
 					</div>
-				</li>
+				</div>
+			</li>
 			);
 		}
 	} else if (tab === "stared") {
@@ -122,7 +120,7 @@ const FileList = ({
 			  button = <FaRegStar size="20px"style={{position:"relative", top: "3px"}}/>
 			}
 			return favorites.map((docFav, index) => {
-				return (<div key = index>
+				return (<div key = {index}>
 						<li className="item">
 							<div className="itemSmlCtn">
 							<span className="starIcon" onClick={() => handleFav(docFav)}>
