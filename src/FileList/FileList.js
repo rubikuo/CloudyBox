@@ -122,11 +122,14 @@ const FileList = ({
 		if (favorites.length === 0) {
 			return <p>Folder is empty</p>
 		} else {
-				if (favorites.find(x => x.id !== doc.id)){
-				button = <FaStar size="20px"  style={{color: "rgb(250, 142, 0)", position:"relative", top: "3px"}}/>
-				} else {
-				button = <FaRegStar size="20px"style={{position:"relative", top: "3px"}}/>
+				if(doc){
+					if (favorites.find(x => x.id !== doc.id)){
+						button = <FaStar size="20px"  style={{color: "rgb(250, 142, 0)", position:"relative", top: "3px"}}/>
+						} else {
+						button = <FaRegStar size="20px"style={{position:"relative", top: "3px"}}/>
+						}
 				}
+			
 		
 		/* 	let button;
 		  

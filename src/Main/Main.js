@@ -92,7 +92,7 @@ const Main = ({
 			<div className="titleBar">
 				<div className="tabsCtn">
 					<div className="tabs" style={tab === 'name' ? tabActiveStyle : {}} onClick={() => showTab('name')}>
-						<p>Files</p>
+						<p>All Files</p>
 					</div>
 					<div
 						className="tabs"
