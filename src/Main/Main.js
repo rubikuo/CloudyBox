@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import FileList from '../FileList/FileList';
 import './Main.css';
-import { FaLanguage, FaStar} from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
 
 const Main = ({
 	localToken,
 	documents,
 	updateDocs,
-	updateModalType,
-	updateModals,
 	updateItemName,
 	updateItemId,
 	favorites,
@@ -90,27 +88,12 @@ const Main = ({
   };
 
 
-	const submitRename = (fromPath, toPath) => {
-		if (toPath === '') return;
-		let formatedToPath = '/' + toPath;
-		let dropbox = new Dropbox({ accessToken: localToken });
-		dropbox.filesMoveV2({ from_path: fromPath, to_path: formatedToPath }).then((response) => {
-			console.log(response);
-			let copyDocument = [ ...documents ];
-			let replacedIndex = copyDocument.findIndex((doc) => doc.id === response.metadata.id);
-			console.log(replacedIndex);
-			copyDocument[replacedIndex] = response.metadata;
-			updateDocs(copyDocument);
-		});
-	};
-
 	return (
 		<main>
 			<div className="titleBar">
 				<div className="tabsCtn">
 					<div className="tabs" style={tab === 'name' ? tabActiveStyle : {}} onClick={() => showTab('name')}>
 						<p>Files</p>
-						{/* <FaLanguage size="18px" style ={{position:"relative", top:"2px"}}/> */}
 					</div>
 					<div
 						className="tabs"
@@ -118,7 +101,7 @@ const Main = ({
 						onClick={() => showTab('stared')}
 					>
 						<p>Starred</p>
-						<FaStar size="18px" style ={{position:"relative", top:"-1px"}}/>
+						<FaStar size="18px" style={{ position: 'relative', top: '-1px' }} />
 					</div>
 				</div>
 				<div className="tagCtn">
@@ -133,15 +116,15 @@ const Main = ({
 							key={doc.id}
               doc={doc}
 							getLinkToFile={getLinkToFile}
-							updateModalType={updateModalType}
-							updateModals={updateModals}
 							updateItemId={updateItemId}
 							updateItemName={updateItemName}
 							favorites={favorites}
 							updateFavorite={updateFavorite}
 							updateRename={updateRename}
-              submitRename={submitRename}
               localToken={localToken}
+							location={location}
+							documents={documents}
+							updateDocs={updateDocs}
 						/>
 					);
 				})}

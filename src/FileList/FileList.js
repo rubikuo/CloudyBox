@@ -7,36 +7,35 @@ import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
 import { toggleFavorite } from '../store';
 import { Dropbox } from 'dropbox';
+import Remove from "../Modals/Remove";
+import Rename from "../Modals/Rename";
 
 const FileList = ({
 	doc,
-	updateModalType,
-	updateModals,
-	updateItemId,
-	updateItemName,
+	location,
+	itemId,
+	itemName,
 	getLinkToFile,
 	favorites,
 	localToken,
-	submitRename
+	updateDocs,
+	documents,
 }) => {
 	const [ dropDown, updateDropDown ] = useState(false);
-	const [ rename, updateRename ] = useState(doc.name);
+	const [ showRemoveModal, updateRemoveModal] =useState(false);
+	const [ showRenameModal, updateRenameModal] =useState(false);
 
-	const handleRename = (e) => {
-		updateRename(e.target.value);
-	};
-	
 	const showDropDown = (e) => {
-		console.log(e.target.id);
 		updateDropDown(dropDown ? false : true);
 	};
 
-	const activateModal = (name, id) => {
-		updateModals(true);
-		updateModalType('remove');
-		updateItemName(name);
-		updateItemId(id);
-	};
+	const handleRemoveModal =()=>{
+		updateRemoveModal(true);
+	}
+
+	const handleRenameModal =()=>{
+		updateRenameModal(true);
+	}
 
 	let dropdownClass;
 	if (dropDown) {
@@ -87,7 +86,7 @@ const FileList = ({
 						<>
 							{doc.name.slice(doc.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
 							//(<FaFile size="2rem" className="folderIcon" />)
-							<img src={getFileToThumbnail(doc.path_display)} alt={doc.name} />
+							<img src={doc.path_lower} alt='' onLoad={() => getFileToThumbnail(doc.path_lower)}/>
 							}
 							<a
 								className="documentLink" 
@@ -112,21 +111,19 @@ const FileList = ({
 					<div className={dropdownClass}>
 						<button
 							className="deleteBtn"
-							onClick={() => {
-								activateModal(doc.name, doc.id);
-							}}
+							onClick={handleRemoveModal}
 						>
 							Delete
 						</button>
-						<input type="text" value={rename} onChange={handleRename} />
+						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents}  />}
+
 						<button
 							className="renameBtn"
-							onClick={() => {
-								submitRename(doc.path_lower, rename);
-							}}
+							onClick={handleRenameModal}
 						>
 							Rename
 						</button>
+						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
 					</div>
 				</div>
 			</li>
