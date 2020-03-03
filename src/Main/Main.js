@@ -44,7 +44,7 @@ const Main = ({
 						updateDocs(datas);
 					});
 			} else {
-				console.log('this is not a home, link is', location.pathname);
+				//console.log('this is not a home, link is', location.pathname);
 				let newPath = location.pathname.slice(5);
 				console.log(newPath);
 				dropbox
