@@ -122,58 +122,57 @@ const FileList = ({
 			  button = <FaRegStar size="20px"style={{position:"relative", top: "3px"}}/>
 			}
 			return favorites.map((docFav, index) => {
-				console.log(favorites)
-				return (<div key={index} >
-							<li className="item">
-								<div className="itemSmlCtn">
-								<span className="starIcon" onClick={() => handleFav(docFav)}>
-									<span>{button}</span>
-								</span>
-									{docFav['.tag'] === 'file' ? (
-										<>
-											{docFav.name.slice(docFav.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
-											(<FaFile size="2rem" className="folderIcon" />)}
-											<a
-												className="documentLink" //href will be a new key?
-												onClick={() => getLinkToFile(docFav.path_lower)}
-											>
-												{docFav.name}
-											</a>
-										</>
-									) : (
-										<>
-											<FaFolder size="2rem" className="folderIcon" />
-											<Link to={"/home" + docFav.path_lower} className="documentLink">{docFav.name}</Link>
-										</>
-									)}
-								</div>
-								<p className="metaData">{docFav['.tag'] === 'file' ? convertBytes(docFav.size) : '--'}</p>
-								<p className="modified">{convertDate(docFav.client_modified)}</p>
-								<div className="dropDownCtn">
-									<button onClick={showDropDown} id={docFav.id}>
-										<FaBars />
+				return (<div key = index>
+						<li className="item">
+							<div className="itemSmlCtn">
+							<span className="starIcon" onClick={() => handleFav(docFav)}>
+								<span>{button}</span>
+							</span>
+								{docFav['.tag'] === 'file' ? (
+									<>
+										{docFav.name.slice(docFav.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
+										(<FaFile size="2rem" className="folderIcon" />)}
+										<a
+											className="documentLink" //href will be a new key?
+											onClick={() => getLinkToFile(docFav.path_lower)}
+										>
+											{docFav.name}
+										</a>
+									</>
+								) : (
+									<>
+										<FaFolder size="2rem" className="folderIcon" />
+										<Link to={"/home" + docFav.path_lower} className="documentLink">{docFav.name}</Link>
+									</>
+								)}
+							</div>
+							<p className="metaData">{docFav['.tag'] === 'file' ? convertBytes(docFav.size) : '--'}</p>
+							<p className="modified">{convertDate(docFav.client_modified)}</p>
+							<div className="dropDownCtn">
+								<button onClick={showDropDown} id={docFav.id}>
+									<FaBars />
+								</button>
+								<div className={dropdownClass}>
+									<button
+										className="deleteBtn"
+										onClick={() => {
+											activateModal(docFav.name, docFav.id);
+										}}
+									>
+										Delete
 									</button>
-									<div className={dropdownClass}>
-										<button
-											className="deleteBtn"
-											onClick={() => {
-												activateModal(docFav.name, docFav.id);
-											}}
-										>
-											Delete
-										</button>
-										<input type="text" value={rename} onChange={handleRename} />
-										<button
-											className="renameBtn"
-											onClick={() => {
-												submitRename(docFav.path_lower, rename);
-											}}
-										>
-											Rename
-										</button>
-									</div>
+									<input type="text" value={rename} onChange={handleRename} />
+									<button
+										className="renameBtn"
+										onClick={() => {
+											submitRename(docFav.path_lower, rename);
+										}}
+									>
+										Rename
+									</button>
 								</div>
-							</li>
+							</div>
+						</li>
 					</div>
 				);
 			})
