@@ -12,7 +12,7 @@ const Main = ({
 	updateItemId,
 	favorites,
 	updateFavorite,
-	updateRename,
+	updateRename, 
 	location
 }) => {
 	const [ tab, updateTab ] = useState('name');
@@ -88,6 +88,42 @@ const Main = ({
 			});
 	};
 
+	let arrayPrint;
+
+	if (tab === "name"){
+		arrayPrint = documents.map(doc => {
+			return <FileList
+						key={doc.id}
+						doc={doc}
+						getLinkToFile={getLinkToFile}
+						updateItemId={updateItemId}
+						updateItemName={updateItemName}
+						favorites={favorites}
+						updateFavorite={updateFavorite}
+						updateRename={updateRename}
+						location={location}
+						documents={documents}
+						updateDocs={updateDocs}
+					/>
+		})
+	} else if (tab === "stared"){
+		arrayPrint = favorites.map(docFav => {
+			return <FileList
+						key={docFav.id}
+						doc={docFav}
+						getLinkToFile={getLinkToFile}
+						updateItemId={updateItemId}
+						updateItemName={updateItemName}
+						favorites={favorites}
+						updateFavorite={updateFavorite}
+						updateRename={updateRename} 
+						location={location}
+						documents={documents}
+						updateDocs={updateDocs}
+					/>
+		})
+	}
+
 	return (
 		<main>
 			<div className="titleBar">
@@ -110,18 +146,7 @@ const Main = ({
 				</div>
 			</div>
 			<ul>
-				<FileList
-					getLinkToFile={getLinkToFile}
-					updateItemId={updateItemId}
-					updateItemName={updateItemName}
-					favorites={favorites}
-					updateFavorite={updateFavorite}
-					updateRename={updateRename}
-					tab={tab}
-					location={location}
-					documents={documents}
-					updateDocs={updateDocs}
-				/>
+				{arrayPrint}
 			</ul>
 		</main>
 	);
