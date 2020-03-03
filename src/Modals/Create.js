@@ -14,7 +14,6 @@ const Create = (props) => {
 
 
 	const onChangeInput = (e) => {
-		//console.log(e.target.value)
 		updatePathName(e.target.value);
 	};
 
@@ -24,7 +23,6 @@ const Create = (props) => {
 		const root = props.location.pathname.slice(5);
 
 		var dbx = new Dropbox({ accessToken: props.localToken });
-
 		dbx
 			.filesCreateFolderV2({ path: root + '/' + pathName, autorename: true })
 			.then(function(response) {

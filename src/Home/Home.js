@@ -21,7 +21,6 @@ const Home = ({ location }) => {
     useEffect(() => {
         const subscribe = token$.subscribe(token => {
             updateLocalToken(token);
-
         })
 
         return () => subscribe.unsubscribe();
