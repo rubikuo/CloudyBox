@@ -54,8 +54,7 @@ const Header = ({logOut, location}) => {
                                         <Link to={links[idx]} className="pathLink">{part}</Link>
                                         {idx !== parts.length - 1 ? <span className="divider"><FaAngleRight style={{position: 'relative', top: '4px'}}/></span> : null} 
                                   </div>
-                        })}
-                    </nav>
+                        })}                    </nav>
                 </div>
                 <button className='logout-button' onClick={logOut}>Log out</button>
             </div>
