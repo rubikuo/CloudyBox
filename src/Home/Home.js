@@ -55,7 +55,7 @@ const Home = ({ location }) => {
         if(modalType === "create") {
             printModal = <Create updateModals = {updateModals} localToken={localToken} documents={documents} updateDocs={updateDocs} location={location}/>
         } else if (modalType === "remove") {
-          console.log(itemId, itemName);
+         // console.log(itemId, itemName);
             printModal = 
             <Remove 
             itemId={itemId} 
@@ -84,7 +84,8 @@ const Home = ({ location }) => {
         </div>
         <div className="container">
             <div className="header">
-                <Header logOut={logOut} />
+                <Header logOut={logOut}
+                        location = {location} />
             </div>
             <div className="content">
                 <div className="mainArea">

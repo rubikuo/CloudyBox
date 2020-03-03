@@ -1,6 +1,6 @@
 import React from "react";
 import "./LogIn.css";
-import logo from "../LogIn/images/LOGO.png";
+import logo from "../LogIn/images/logo-cloudybox.svg";
 import cloud from "../LogIn/images/Component--login-cloud.svg";
 import cloudIllustration from "../LogIn/images/background.svg";
 import { tokenUrl } from "../getToken";
