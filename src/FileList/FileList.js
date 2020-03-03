@@ -7,6 +7,7 @@ import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
 import { toggleFavorite } from '../store';
+import { Dropbox } from 'dropbox';
 
 const FileList = ({
 	doc,
@@ -16,6 +17,7 @@ const FileList = ({
 	updateItemName,
 	getLinkToFile,
 	favorites,
+	localToken,
 	submitRename
 }) => {
 	const [ dropDown, updateDropDown ] = useState(false);
@@ -48,6 +50,25 @@ const FileList = ({
 		toggleFavorite(doc);
 	};
 
+	const getFileToThumbnail = (path) => {
+		console.log(path, 'THUMBNAIL');
+		let dropbox = new Dropbox({ accessToken: localToken });
+		dropbox
+		 .filesThumbnail(
+		   {
+			path: path, 
+			format: 'jpeg' | 'png', 
+			size: 'w32h32', //width: 32 height: 32
+			mode: 'strict'
+		  })
+		 .then(response => {
+		   console.log(response, 'THUMBNAIL works');
+		 })
+		 .catch(function(error) {
+		   console.log(error, 'Error by creating thumbnail');
+		 }); 
+	  };
+
 	if (doc) {
 		let button;
       
@@ -66,9 +87,11 @@ const FileList = ({
 					{doc['.tag'] === 'file' ? (
 						<>
 							{doc.name.slice(doc.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
-							(<FaFile size="2rem" className="folderIcon" />)}
+							//(<FaFile size="2rem" className="folderIcon" />)
+							<img src={getFileToThumbnail(doc.path_display)} alt={doc.name} />
+							}
 							<a
-								className="documentLink" //href will be a new key?
+								className="documentLink" 
 								onClick={() => getLinkToFile(doc.path_lower)}
 							>
 								{doc.name}

@@ -87,7 +87,8 @@ const Main = ({
 			.catch(function(error) {
 				console.error(error, 'Error by downloading file');
 			});
-	};
+  };
+
 
 	const submitRename = (fromPath, toPath) => {
 		if (toPath === '') return;
@@ -130,7 +131,7 @@ const Main = ({
 					return (
 						<FileList
 							key={doc.id}
-							doc={doc}
+              doc={doc}
 							getLinkToFile={getLinkToFile}
 							updateModalType={updateModalType}
 							updateModals={updateModals}
@@ -139,7 +140,8 @@ const Main = ({
 							favorites={favorites}
 							updateFavorite={updateFavorite}
 							updateRename={updateRename}
-							submitRename={submitRename}
+              submitRename={submitRename}
+              localToken={localToken}
 						/>
 					);
 				})}
