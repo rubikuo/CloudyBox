@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars} from 'react-icons/fa';
 import './FileList.css';
@@ -22,11 +22,33 @@ const FileList = ({
 	const [ dropDown, updateDropDown ] = useState(false);
 	const [ showRemoveModal, updateRemoveModal] =useState(false);
 	const [ showRenameModal, updateRenameModal] =useState(false);
+	const node = useRef();
 
-	 const showDropDown = (e) => {
-		e.stopPropagation();
+	useEffect(() => {
+		if (dropDown) {
+		  document.addEventListener("mousedown", handleClickOutside);
+		} else {
+		  document.removeEventListener("mousedown", handleClickOutside);
+		}
+	
+		return () => {
+		  document.removeEventListener("mousedown", handleClickOutside);
+		};
+	  }, [dropDown]);
+
+	  const handleClickOutside = e => {
+		if (node.current.contains(e.target)) {
+		  // inside click
+		  return;
+		}
+		// outside click 
+		showDropDown(false);
+	  };
+
+	 const showDropDown = () => {
 		updateDropDown(dropDown ? false : true);
 	}; 
+
 
 	const handleRemoveModal =()=>{
 		updateRemoveModal(true);
@@ -35,6 +57,8 @@ const FileList = ({
 	const handleRenameModal =()=>{
 		updateRenameModal(true);
 	}
+
+	
 
 
 	let dropdownClass;
@@ -84,8 +108,8 @@ const FileList = ({
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
 				<p className="modified">{convertDate(doc.client_modified)}</p>
-				<div className="dropDownCtn">
-					<button onClick={showDropDown} id={doc.id}>
+				<div className="dropDownCtn" ref={node}>
+					<button onClick={showDropDown} id={doc.id} >
 						<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
 					</button>
 					<div className={dropdownClass}>
