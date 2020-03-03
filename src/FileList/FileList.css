@@ -63,7 +63,16 @@
 .dropDown.active{
     display: flex;
     flex-direction: column;
+}
 
+.dropDown .deleteBtn, .dropDown .renameBtn {
+    border: none;
+    height: 30px;
+
+}
+
+.dropDown .deleteBtn:focus, .dropDown .renameBtn:focus{
+    outline: none;
 }
 
 .documentLink:hover {

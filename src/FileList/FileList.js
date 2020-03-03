@@ -12,43 +12,21 @@ import Rename from "../Modals/Rename";
 
 const FileList = ({
 	doc,
-	// updateModalType,
-	// updateModals,
 	location,
 	itemId,
-	updateItemId,
 	itemName,
-	updateItemName,
 	getLinkToFile,
 	favorites,
 	updateDocs,
 	documents,
-	// submitRename
 }) => {
 	const [ dropDown, updateDropDown ] = useState(false);
 	const [ showRemoveModal, updateRemoveModal] =useState(false);
 	const [ showRenameModal, updateRenameModal] =useState(false);
 
 	const showDropDown = (e) => {
-		// console.log(e.target.id);
 		updateDropDown(dropDown ? false : true);
 	};
-
-	// const activateModal = (name, id, type, path) => {
-	// 	if(type ==="remove"){
-	// 		updateModals(true);
-	// 		updateModalType(type);
-	// 		updateItemName(name);
-	// 		updateItemId(id);
-	// 	}else if(type=== "rename"){
-	// 		updateModals(true);
-	// 		updateModalType(type);
-	// 		updateItemId(id);
-	// 		updateItemName(name);
-			
-	// 	}
-	
-	// };
 
 	const handleRemoveModal =()=>{
 		updateRemoveModal(true);
@@ -119,10 +97,7 @@ const FileList = ({
 
 						<button
 							className="renameBtn"
-							onClick={
-                                handleRenameModal
-								// submitRename(doc.path_lower, rename);
-							}
+							onClick={handleRenameModal}
 						>
 							Rename
 						</button>

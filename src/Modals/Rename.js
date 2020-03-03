@@ -30,7 +30,8 @@ const Rename = (props) => {
         })
         .catch((err) => {
             console.log(err.error.error_summary);
-        })
+		})
+		handleRenameModal();
     };
     
     console.log("rename", rename);

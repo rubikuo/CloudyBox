@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import FileList from '../FileList/FileList';
 import './Main.css';
-import { FaLanguage, FaStar} from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
 
 const Main = ({
 	localToken,
 	documents,
 	updateDocs,
-	updateModalType,
-	updateModals,
 	updateItemName,
 	updateItemId,
 	favorites,
@@ -89,14 +87,12 @@ const Main = ({
 			});
 	};
 
-
 	return (
 		<main>
 			<div className="titleBar">
 				<div className="tabsCtn">
 					<div className="tabs" style={tab === 'name' ? tabActiveStyle : {}} onClick={() => showTab('name')}>
 						<p>Files</p>
-						{/* <FaLanguage size="18px" style ={{position:"relative", top:"2px"}}/> */}
 					</div>
 					<div
 						className="tabs"
@@ -104,7 +100,7 @@ const Main = ({
 						onClick={() => showTab('stared')}
 					>
 						<p>Starred</p>
-						<FaStar size="18px" style ={{position:"relative", top:"-1px"}}/>
+						<FaStar size="18px" style={{ position: 'relative', top: '-1px' }} />
 					</div>
 				</div>
 				<div className="tagCtn">
@@ -119,8 +115,6 @@ const Main = ({
 							key={doc.id}
 							doc={doc}
 							getLinkToFile={getLinkToFile}
-							// updateModalType={updateModalType}
-							// updateModals={updateModals}
 							updateItemId={updateItemId}
 							updateItemName={updateItemName}
 							favorites={favorites}
@@ -128,8 +122,7 @@ const Main = ({
 							updateRename={updateRename}
 							location={location}
 							documents={documents}
-							updateDocs = {updateDocs}
-							// submitRename={submitRename}
+							updateDocs={updateDocs}
 						/>
 					);
 				})}

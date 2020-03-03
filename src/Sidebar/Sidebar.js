@@ -18,10 +18,6 @@ class Sidebar extends React.PureComponent {
    this.handleCreateModal = this.handleCreateModal.bind(this);
   }
 
-  // createFolder() {
-  //   this.props.updateModals(true);
-  //   this.props.updateModalType("create");
-  // }
     handleCreateModal(status){
       this.setState({showCreateModal:status})
     }
