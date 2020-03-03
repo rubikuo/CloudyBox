@@ -70,6 +70,8 @@
     color: #106BAC;
     font-weight: 600;
     font-size: 0.9em;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .pathLink:hover {

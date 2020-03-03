@@ -50,10 +50,10 @@ const Header = ({logOut, location}) => {
                     {/*each part of the path should be clickable*/}
                     <nav>
                         {parts.map((part, idx) => {
-                            return <>
-                                    <Link to={links[idx]} key={idx} className="pathLink">{part}</Link>
-                                    {idx !== parts.length - 1 ? <span className="divider"><FaAngleRight style={{position: 'relative', top: '4px'}}/></span> : null} 
-                                  </>
+                            return <div key={idx}>
+                                        <Link to={links[idx]} className="pathLink">{part}</Link>
+                                        {idx !== parts.length - 1 ? <span className="divider"><FaAngleRight style={{position: 'relative', top: '4px'}}/></span> : null} 
+                                  </div>
                         })}
                     </nav>
                 </div>
