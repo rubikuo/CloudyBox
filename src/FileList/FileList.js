@@ -36,6 +36,7 @@ const FileList = ({
 		updateRenameModal(true);
 	}
 
+
 	let dropdownClass;
 	let button;
 	let doc;
@@ -55,7 +56,7 @@ const FileList = ({
 		toggleFavorite(doc);
 	};
 	if (tab === "name"){
-		 return Array.from(documents).map((doc) => { 
+		 return Array.from(documents).map((doc, index) => { 
 			 if (doc) {
 				let button;
 			  
@@ -66,7 +67,7 @@ const FileList = ({
 				}
 		
 				return (
-					<li className="item">
+					<li className="item" key={index}>
 					<div className="itemSmlCtn">
 					<span className="starIcon" onClick={() => handleFav(doc)}>
 						<span>{button}</span>
@@ -141,53 +142,53 @@ const FileList = ({
 			return favorites.map((docFav, index) => {
 				return (<div key = {index}>
 						<li className="item">
-				<div className="itemSmlCtn">
-				<span className="starIcon" onClick={() => handleFav(docFav)}>
-					 <span>{button}</span>
-				</span>
-					{docFav['.tag'] === 'file' ? (
-						<>
-							{docFav.name.slice(docFav.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
-							(<FaFile size="2rem" className="folderIcon" />)}
-							<a
-								className="documentLink" //href will be a new key?
-								onClick={() => getLinkToFile(docFav.path_lower)}
-							>
-								{docFav.name}
-							</a>
-						</>
-					) : (
-						<>
-							<FaFolder size="2rem" className="folderIcon" />
-							<Link to={"/home" + docFav.path_lower} className="documentLink">{docFav.name}</Link>
-						</>
-					)}
-				</div>
-				<p className="metaData">{docFav['.tag'] === 'file' ? convertBytes(docFav.size) : '--'}</p>
-				<p className="modified">{convertDate(docFav.client_modified)}</p>
-				<div className="dropDownCtn">
-					<button onClick={showDropDown} id={docFav.id}>
-						<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
-					</button>
-					<div className={dropdownClass}>
-						<button
-							className="deleteBtn"
-							onClick={handleRemoveModal}
-						>
-							Delete
-						</button>
-						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={docFav} updateDocs={updateDocs} documents={documents}  />}
+							<div className="itemSmlCtn">
+							<span className="starIcon" onClick={() => handleFav(docFav)}>
+								<span>{button}</span>
+							</span>
+								{docFav['.tag'] === 'file' ? (
+									<>
+										{docFav.name.slice(docFav.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
+										(<FaFile size="2rem" className="folderIcon" />)}
+										<a
+											className="documentLink" //href will be a new key?
+											onClick={() => getLinkToFile(docFav.path_lower)}
+										>
+											{docFav.name}
+										</a>
+									</>
+								) : (
+									<>
+										<FaFolder size="2rem" className="folderIcon" />
+										<Link to={"/home" + docFav.path_lower} className="documentLink">{docFav.name}</Link>
+									</>
+								)}
+							</div>
+							<p className="metaData">{docFav['.tag'] === 'file' ? convertBytes(docFav.size) : '--'}</p>
+							<p className="modified">{convertDate(docFav.client_modified)}</p>
+							<div className="dropDownCtn">
+								<button onClick={showDropDown} id={docFav.id}>
+									<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
+								</button>
+								<div className={dropdownClass}>
+									<button
+										className="deleteBtn"
+										onClick={handleRemoveModal}
+									>
+										Delete
+									</button>
+									{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={docFav} updateDocs={updateDocs} documents={documents}  />}
 
-						<button
-							className="renameBtn"
-							onClick={handleRenameModal}
-						>
-							Rename
-						</button>
-						{showRenameModal && <Rename doc={docFav} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
-					</div>
-				</div>
-			</li>
+									<button
+										className="renameBtn"
+										onClick={handleRenameModal}
+									>
+										Rename
+									</button>
+									{showRenameModal && <Rename doc={docFav} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
+								</div>
+							</div>
+						</li>
 					</div>
 				);
 			})

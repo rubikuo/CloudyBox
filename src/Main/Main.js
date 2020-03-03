@@ -76,6 +76,7 @@ const Main = ({
 	};
 
 	const getLinkToFile = (path) => {
+		console.log(path);
 		let dropbox = new Dropbox({ accessToken: localToken });
 		dropbox
 			.filesGetTemporaryLink({ path: path })
@@ -109,24 +110,18 @@ const Main = ({
 				</div>
 			</div>
 			<ul>
-				{/* {Array.from(documents).map((doc) => { */}
-					{/* return ( */}
-						<FileList
-							/* key={doc.id}
-							doc={doc} */
-							getLinkToFile={getLinkToFile}
-							updateItemId={updateItemId}
-							updateItemName={updateItemName}
-							favorites={favorites}
-							updateFavorite={updateFavorite}
-							updateRename={updateRename}
-							tab={tab}
-							location={location}
-							documents={documents}
-							updateDocs={updateDocs}
-						/>
-					{/* ); */}
-				{/* })} */}
+				<FileList
+					getLinkToFile={getLinkToFile}
+					updateItemId={updateItemId}
+					updateItemName={updateItemName}
+					favorites={favorites}
+					updateFavorite={updateFavorite}
+					updateRename={updateRename}
+					tab={tab}
+					location={location}
+					documents={documents}
+					updateDocs={updateDocs}
+				/>
 			</ul>
 		</main>
 	);
