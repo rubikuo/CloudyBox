@@ -80,6 +80,11 @@
     align-items: center;
 }
 
+.folderCtn:hover{
+    background-color: rgba(181, 180, 180, 0.426);
+
+}
+
 .modalsButtonsContainer {
     display: flex;
     justify-content: flex-end;

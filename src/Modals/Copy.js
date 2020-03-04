@@ -13,7 +13,6 @@ const Copy = (props) => {
 	};
 
 	const getNewPath = (item) => {
-		console.log(props.doc);
 		console.log(item.path_lower);
 		updateNewPath(item.path_lower);
 	};

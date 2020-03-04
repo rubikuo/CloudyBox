@@ -79,8 +79,13 @@
     height: 30px;
 }
 
+
 .dropDown .deleteBtn:focus, .dropDown .renameBtn:focus, .dropDown .copyBtn:focus, .dropDown .moveBtn:focus {
     outline: none;
+}
+
+.dropDown .deleteBtn:hover, .dropDown .renameBtn:hover, .dropDown .copyBtn:hover, .dropDown .moveBtn:hover{
+    background-color:rgba(128, 128, 128, 0.673);
 }
 
 .documentLink:hover {

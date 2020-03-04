@@ -96,7 +96,6 @@ const FileList = ({
 
 	useEffect(() => {
 		let dropbox = new Dropbox({ accessToken: localToken })
-
 		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
 			doc.name.slice(doc.name.length - 4) === 'jpeg' ||
 			doc.name.slice(doc.name.length - 3) === 'png') {
