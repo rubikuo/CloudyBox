@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback} from 'react';
 import { Link } from 'react-router-dom';
 import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars } from 'react-icons/fa';
 import './FileList.css';
@@ -30,14 +30,14 @@ const FileList = ({
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 	const nodeDropdown = useRef();
 
-	const handleClickOutside = e => {
+	const handleClickOutside = useCallback ( (e) => {
 		if (nodeDropdown.current.contains(e.target)) {
 		  // inside click
 		  return;
 		}
 		// outside click 
 		showDropDown(false);
-	};
+	});
 
 	useEffect(() => {
 		//this document.addEventListerner can only be used inside a useEffect
