@@ -5,7 +5,7 @@ import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaFolder, FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
-import { toggleFavorite, removeFavoriteByPath } from '../store';
+import { removeFavoriteByPath } from '../store';
 
 const Main = ({
 	localToken,
@@ -79,7 +79,7 @@ const Main = ({
 			.then((response) => {
 				window.location.href = response.link;
 			})
-			.catch(function(error) {
+			.catch((error)=> {
 				console.error(error, 'Error by downloading file');
 			});
 	};
@@ -139,9 +139,6 @@ if (redirectToHome) {
 if(errorStatus){
 	return ReactDOM.createPortal(
 		<div className="modalContainer">
-			{/*same className for the modalContainer, 
-		modalHeadline, modalButtons and blueButton here 
-		and in Remove.js, same classNames for the buttons as well */}
 			<div className="modalBox">
 				<div className="modalHeadline">
 					<FaFolder style={{ position: 'relative', top: '0px', color: '#1293D6', marginRight: '3px' }} />
