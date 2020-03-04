@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Redirect } from "react-router-dom";
 import FileList from '../FileList/FileList';
 import './Main.css';
-import { FaStar } from 'react-icons/fa';
+import { FaFolder, FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
 import { toggleFavorite, removeFavoriteByPath } from '../store';
 
@@ -19,6 +20,7 @@ const Main = ({
 }) => {
 	const [ tab, updateTab ] = useState('name');
 	const [ errorStatus, updateErrorStatus] = useState(false)
+	const [ redirectToHome, updateRedirectToHome] = useState(false)
 	//console.log(localToken);
 
 	useEffect(
@@ -51,9 +53,8 @@ const Main = ({
 						return response.entries;
 					})
 					.catch((response) => {
-						console.log(response.error.error_summary);
-
-						removeFavoriteByPath(newPath);
+						//console.log(response.error.error_summary);
+						removeFavoriteByPath(newPath)
 						updateErrorStatus(true)
 					})
 			}
@@ -119,15 +120,43 @@ const Main = ({
 						documents={documents}
 						updateDocs={updateDocs}
 						tab={tab}
-						errorStatus={errorStatus}
-						updateErrorStatus={updateErrorStatus}
 					/>
 		})
 	}
 
-	if (errorStatus) {
-		return <Redirect to="/home" />;
-	}
+
+
+const closeErrorMessages = () => {
+	/* let newPath = location.pathname.slice(5);
+	removeFavoriteByPath(newPath); */
+	updateErrorStatus(false);
+	updateRedirectToHome(true)
+}
+
+if (redirectToHome) {
+	return <Redirect to="/home" />;
+} 
+
+if(errorStatus){
+	return ReactDOM.createPortal(
+		<div className="modalContainer">
+			{/*same className for the modalContainer, 
+		modalHeadline, modalButtons and blueButton here 
+		and in Remove.js, same classNames for the buttons as well */}
+			<div className="modalBox">
+				<div className="modalHeadline">
+					<FaFolder style={{ position: 'relative', top: '0px', color: '#1293D6', marginRight: '3px' }} />
+					<h5>Error!</h5>
+				</div>
+				<div>
+					<p>The file/folder is not exist or already been removed.</p>
+				</div>
+				<button onClick={closeErrorMessages}>Back to Home</button>
+			</div>
+		</div>,
+		document.body
+	);
+}
 
 	return (
 		<main>
