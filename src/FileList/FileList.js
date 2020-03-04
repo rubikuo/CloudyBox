@@ -114,7 +114,7 @@ const FileList = ({
 					console.log(error, 'Error by creating thumbnail');
 				});
 		}
-	});
+	},[doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
 
 	if (doc) {
 		let button;
