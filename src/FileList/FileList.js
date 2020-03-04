@@ -11,6 +11,7 @@ import { Dropbox } from 'dropbox';
 import Remove from "../Modals/Remove";
 import Rename from "../Modals/Rename";
 import Copy from "../Modals/Copy";
+import Move from "../Modals/Move";
 
 const FileList = ({
 	doc,
@@ -27,6 +28,7 @@ const FileList = ({
 	const [ showRemoveModal, updateRemoveModal] =useState(false);
 	const [ showRenameModal, updateRenameModal] =useState(false);
 	const [ showCopyModal, updateCopyModal] = useState(false);
+	const [ showMoveModal, updateMoveModal] = useState(false);
 	const [folders, updateFolders] =useState([]);
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 	const nodeDropdown = useRef();
@@ -189,6 +191,7 @@ const FileList = ({
 						>
 							Move
 						</button>
+						{/* {showMoveModal && <Move updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs}} */}
 					</div>
 				</div>
 			</li> 
