@@ -28,6 +28,12 @@ export function toggleFavorite(doc) {
 	}
 }
 
+export function removeFavoriteByPath(path) {
+	const newFavorites = favorites$.value.filter(x => x.path_lower !== path);
+	localStorage.setItem('favorites', JSON.stringify(newFavorites));
+	favorites$.next(newFavorites);
+}
+
 export function clearFavorites() {
 	favorites$.next([]);
 	localStorage.removeItem("favorites");

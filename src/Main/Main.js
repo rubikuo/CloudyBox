@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from "react-router-dom";
 import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
+import { toggleFavorite, removeFavoriteByPath } from '../store';
 
 const Main = ({
 	localToken,
@@ -16,12 +18,13 @@ const Main = ({
 	location
 }) => {
 	const [ tab, updateTab ] = useState('name');
-	console.log(localToken);
+	const [ errorStatus, updateErrorStatus] = useState(false)
+	//console.log(localToken);
 
 	useEffect(
 		() => {
 			console.log('location Name', location.pathname);
-
+			
 			let dropbox = new Dropbox({ accessToken: localToken });
 
 			if (location.pathname === '/home') {
@@ -30,16 +33,9 @@ const Main = ({
 					.then((response) => {
 						console.log('resonse.entries', response.entries);
 						updateDocs(response.entries); // update in state
+						updateErrorStatus(false);
+						updateTab("name");
 						return response.entries;
-					})
-					.then((docs) => {
-						// adding a new key to the data, to be able to control the check button next to the list
-						let datas = [ ...docs ];
-						datas.map((data) => {
-							return (data.favorite = false);
-						});
-						// save the data with the new key
-						updateDocs(datas);
 					});
 			} else {
 				//console.log('this is not a home, link is', location.pathname);
@@ -50,17 +46,16 @@ const Main = ({
 					.then((response) => {
 						// console.log('resonse.entries', response.entries);
 						updateDocs(response.entries); // update in state
+						updateErrorStatus(false);
+						updateTab("name");
 						return response.entries;
 					})
-					.then((docs) => {
-						// adding a new key to the data, to be able to control the check button next to the list
-						let datas = [ ...docs ];
-						datas.map((data) => {
-							return (data.favorite = false);
-						});
-						// save the data with the new key
-						updateDocs(datas);
-					});
+					.catch((response) => {
+						console.log(response.error.error_summary);
+
+						removeFavoriteByPath(newPath);
+						updateErrorStatus(true)
+					})
 			}
 		},
 		[ location.pathname, localToken, updateDocs ]
@@ -88,6 +83,8 @@ const Main = ({
 			});
 	};
 
+
+
 	let arrayPrint;
 
 	if (tab === "name"){
@@ -104,6 +101,7 @@ const Main = ({
 						location={location}
 						documents={documents}
 						updateDocs={updateDocs}
+						tab={tab}
 					/>
 		})
 	} else if (tab === "stared"){
@@ -120,8 +118,15 @@ const Main = ({
 						location={location}
 						documents={documents}
 						updateDocs={updateDocs}
+						tab={tab}
+						errorStatus={errorStatus}
+						updateErrorStatus={updateErrorStatus}
 					/>
 		})
+	}
+
+	if (errorStatus) {
+		return <Redirect to="/home" />;
 	}
 
 	return (

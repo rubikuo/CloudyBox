@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useRef, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars} from 'react-icons/fa';
 import './FileList.css';
@@ -22,9 +23,10 @@ const FileList = ({
 	const [ dropDown, updateDropDown ] = useState(false);
 	const [ showRemoveModal, updateRemoveModal] =useState(false);
 	const [ showRenameModal, updateRenameModal] =useState(false);
-	const node = useRef();
+	const nodeDropdown = useRef();
 
 	useEffect(() => {
+		//this document.addEventListerner can only be used inside a useEffect
 		if (dropDown) {
 		  document.addEventListener("mousedown", handleClickOutside);
 		} else {
@@ -37,7 +39,7 @@ const FileList = ({
 	  }, [dropDown]);
 
 	  const handleClickOutside = e => {
-		if (node.current.contains(e.target)) {
+		if (nodeDropdown.current.contains(e.target)) {
 		  // inside click
 		  return;
 		}
@@ -45,7 +47,7 @@ const FileList = ({
 		showDropDown(false);
 	  };
 
-	 const showDropDown = () => {
+	const showDropDown = () => {
 		updateDropDown(dropDown ? false : true);
 	}; 
 
@@ -57,8 +59,6 @@ const FileList = ({
 	const handleRenameModal =()=>{
 		updateRenameModal(true);
 	}
-
-	
 
 
 	let dropdownClass;
@@ -72,6 +72,7 @@ const FileList = ({
 	const handleFav = (doc) => {
 		toggleFavorite(doc);
 	};
+	
 
 	if (doc) {
 	let button;
@@ -102,13 +103,13 @@ const FileList = ({
 				) : (
 					<>
 						<FaFolder size="2rem" className="folderIcon" />
-						<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
+						<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link> 
 					</>
 				)}
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
 				<p className="modified">{convertDate(doc.client_modified)}</p>
-				<div className="dropDownCtn" ref={node}>
+				<div className="dropDownCtn" ref={nodeDropdown}>
 					<button onClick={showDropDown} id={doc.id} >
 						<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
 					</button>
@@ -132,11 +133,10 @@ const FileList = ({
 				</div>
 		</li>
 		);
-	} else if (doc.length === 0) {
-		return <p>List is empty</p>
-	}
+	} 
+	
 
 		
-	};
+};
 
 export default FileList;
