@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 
 const Rename = (props) => {
 	const [ rename, updateRename ] = useState(props.doc.name);
-	const [ errorMsg, updateErrorMsg ] = useState('');
+	const [ errorMsg, updateErrorMsg ] = useState(false);
 
 	const handleRenameModal = () => {
 		props.updateRenameModal(false);
@@ -17,7 +17,8 @@ const Rename = (props) => {
 		updateRename(e.target.value);
 	};
 
-	const submitRename = (fromPath, toPath) => {
+	const submitRename = (fromPath, toPath, e) => {
+		e.preventDefault();
 		if (toPath === '') return;
 		let formatedToPath = '/' + toPath;
 		let dropbox = new Dropbox({ accessToken: token$.value });
@@ -30,14 +31,14 @@ const Rename = (props) => {
 				console.log(replacedIndex);
 				copyDocument[replacedIndex] = response.metadata;
 				props.updateDocs(copyDocument);
+				handleRenameModal();
 			})
 			.catch((err) => {
 				console.log(err.response.status);
-				if (err.response.status === 409) {
-					updateErrorMsg("can't have same name on different file");
-				}
+		        updateErrorMsg(true);
+
 			});
-		handleRenameModal();
+		
 	};
 
 	console.log('rename', rename);
@@ -57,8 +58,8 @@ const Rename = (props) => {
 					<h5> Rename </h5>
 				</div>
 				<form
-					onSubmit={() => {
-						submitRename(props.doc.path_lower, rename);
+					onSubmit={(e) => {
+						submitRename(props.doc.path_lower, rename, e);
 					}}
 				>
 					<input
@@ -67,7 +68,7 @@ const Rename = (props) => {
 						onChange={handleRename}
 						style={{ borderRadius: '0.3rem', padding: '2%', border: '1px solid #ddd' }}
 					/>
-					{errorMsg ? <span>hello</span> : null}
+					{errorMsg? <span>cant have the same name</span> : null}
 					<div className="modalsButtonsContainer">
 						<button onClick={handleRenameModal} className="modalButtons">
 							Cancel
