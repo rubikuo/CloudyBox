@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars } from 'react-icons/fa';
 import './FileList.css';
@@ -25,10 +26,34 @@ const FileList = ({
 	const [showRemoveModal, updateRemoveModal] = useState(false);
 	const [showRenameModal, updateRenameModal] = useState(false);
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
+	const nodeDropdown = useRef();
 
-	const showDropDown = (e) => {
+	useEffect(() => {
+		//this document.addEventListerner can only be used inside a useEffect
+		if (dropDown) {
+		  document.addEventListener("mousedown", handleClickOutside);
+		} else {
+		  document.removeEventListener("mousedown", handleClickOutside);
+		}
+	
+		return () => {
+		  document.removeEventListener("mousedown", handleClickOutside);
+		};
+	  }, [dropDown]);
+
+	  const handleClickOutside = e => {
+		if (nodeDropdown.current.contains(e.target)) {
+		  // inside click
+		  return;
+		}
+		// outside click 
+		showDropDown(false);
+	  };
+
+	const showDropDown = () => {
 		updateDropDown(dropDown ? false : true);
-	};
+	}; 
+
 
 	const handleRemoveModal = () => {
 		updateRemoveModal(true);
@@ -38,7 +63,9 @@ const FileList = ({
 		updateRenameModal(true);
 	}
 
+
 	let dropdownClass;
+
 	if (dropDown) {
 		dropdownClass = 'dropDown active';
 	} else {
@@ -48,6 +75,7 @@ const FileList = ({
 	const handleFav = (doc) => {
 		toggleFavorite(doc);
 	};
+	
 
 	useEffect(() => {
 		let dropbox = new Dropbox({ accessToken: localToken })
@@ -83,13 +111,14 @@ const FileList = ({
 			button = <FaRegStar size="20px" style={{ position: "relative", top: "3px" }} />
 		}
 
-		return (
-			<li className="item">
-				<div className="itemSmlCtn">
-					<span className="starIcon" onClick={() => handleFav(doc)}>
-						<span>{button}</span>
-					</span>
-					{doc['.tag'] === 'file' ? (
+		
+	return (
+		<li className="item">
+			<div className="itemSmlCtn">
+			<span className="starIcon" onClick={() => handleFav(doc)}>
+				<span>{button}</span>
+			</span>
+			{doc['.tag'] === 'file' ? (
 						<>
 							{
 								doc.name.slice(doc.name.length - 3) === "pdf" 
@@ -112,9 +141,9 @@ const FileList = ({
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
 				<p className="modified">{convertDate(doc.client_modified)}</p>
-				<div className="dropDownCtn">
-					<button onClick={showDropDown} id={doc.id}>
-						<FaBars size="14px" style={{ position: "relative", top: "3px", color: "#737373" }} />
+				<div className="dropDownCtn" ref={nodeDropdown}>
+					<button onClick={showDropDown} id={doc.id} >
+						<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
 					</button>
 					<div className={dropdownClass}>
 						<button
@@ -134,9 +163,12 @@ const FileList = ({
 						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
 					</div>
 				</div>
-			</li>
+		</li>
 		);
-	}
+	} 
+	
+
+		
 };
 
 export default FileList;
