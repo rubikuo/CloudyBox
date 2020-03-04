@@ -66,6 +66,7 @@ const Main = ({
 		[ location.pathname, localToken, updateDocs ]
 	);
 
+
 	const showTab = (tabName) => {
 		updateTab(tabName);
 	};
@@ -123,6 +124,7 @@ const Main = ({
 							location={location}
 							documents={documents}
 							updateDocs={updateDocs}
+							localToken = {localToken}
 						/>
 					);
 				})}

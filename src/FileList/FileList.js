@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars} from 'react-icons/fa';
+import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars, FaWindowRestore} from 'react-icons/fa';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
 import { toggleFavorite } from '../store';
 import Remove from "../Modals/Remove";
 import Rename from "../Modals/Rename";
+import { Dropbox } from 'dropbox';
 
 const FileList = ({
 	doc,
@@ -18,10 +19,30 @@ const FileList = ({
 	favorites,
 	updateDocs,
 	documents,
+	localToken
 }) => {
+
+
 	const [ dropDown, updateDropDown ] = useState(false);
 	const [ showRemoveModal, updateRemoveModal] =useState(false);
 	const [ showRenameModal, updateRenameModal] =useState(false);
+	const [ fileBlob, updatefileBlob] =useState({});
+
+	   
+	useEffect(()=>{
+		let dropbox = new Dropbox({ accessToken: localToken });
+		if(doc.name.slice(doc.name.length - 3) === "jpg" || "jpeg"){
+			dropbox.filesGetThumbnail({path: doc.path_lower, format:'jpeg', size:'w64h64', mode:'strict' })
+			.then((response)=>{
+				console.log(response.fileBlob)
+				updatefileBlob(response.fileBlob);
+			})
+			.catch((error)=>{
+				console.log(error);
+			})
+		}
+
+	},[doc.name, localToken, doc.path_lower])
 
 	const showDropDown = (e) => {
 		updateDropDown(dropDown ? false : true);
@@ -46,6 +67,8 @@ const FileList = ({
 		toggleFavorite(doc);
 	};
 
+
+
 	if (doc) {
 		let button;
       
@@ -54,8 +77,8 @@ const FileList = ({
         } else {
           button = <FaRegStar size="20px"style={{position:"relative", top: "3px"}}/>
         }
-
 		return (
+	
 			<li className="item">
 				<div className="itemSmlCtn">
           <span className="starIcon" onClick={() => handleFav(doc)}>
@@ -64,7 +87,7 @@ const FileList = ({
 					{doc['.tag'] === 'file' ? (
 						<>
 							{doc.name.slice(doc.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
-							(<FaFile size="2rem" className="folderIcon" />)}
+							(<img src="" alt=""/>)}
 							<a
 								className="documentLink" //href will be a new key?
 								onClick={() => getLinkToFile(doc.path_lower)}
