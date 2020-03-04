@@ -43,9 +43,9 @@ const Copy = (props) => {
 				<div className="relocateCtn">
 					{props.folders.map((folder) => {
 						return (
-							<div key={folder.id} className="folderCtn">
+							<div key={folder.id} className="folderCtn" >
 								<FaFolder size="2rem" className="folderIcon" />
-								<p onClick={() => getNewPath(folder)} className="documentLink">
+								<p className="documentLink">
 									{folder.name}
 								</p>
 							</div>
