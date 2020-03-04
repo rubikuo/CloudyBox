@@ -16,7 +16,11 @@ const Home = ({ location }) => {
     const [itemId, updateItemId] = useState("");
     const [itemName, updateItemName] = useState("");
     const [favorites, updateFavorite] = useState(favorites$.value);
+    const [search, updateSearch] = useState('');
 
+    const filterSearch = (e) => {
+        updateSearch(e.target.value);
+    }
 
     useEffect(() => {
         const subscribe = token$.subscribe(token => {
@@ -43,7 +47,7 @@ const Home = ({ location }) => {
 
     console.log("local", favorites$.value)
 
-    if(!localToken) {
+    if (!localToken) {
         return <Redirect to='/' />
     }
 
@@ -54,8 +58,12 @@ const Home = ({ location }) => {
         </div>
         <div className="container">
             <div className="header">
-                <Header logOut={logOut}
-                        location = {location} />
+                <Header 
+                    filterSearch={filterSearch}
+                    logOut={logOut}
+                    location={location}
+                    search={search}
+                />
             </div>
             <div className="content">
                 <div className="mainArea">
@@ -64,13 +72,14 @@ const Home = ({ location }) => {
                         documents={documents}
                         updateDocs={updateDocs}
                         choosenFiles={choosenFiles}
-                        itemName ={itemName}
-                        updateItemName = {updateItemName}
-                        itemId={itemId} 
-                        updateItemId = {updateItemId}
-                        favorites = {favorites}
-                        updateFavorite ={updateFavorite}
+                        itemName={itemName}
+                        updateItemName={updateItemName}
+                        itemId={itemId}
+                        updateItemId={updateItemId}
+                        favorites={favorites}
+                        updateFavorite={updateFavorite}
                         location={location}
+                        search={search}
                     />
                 </div>
                 <div className="sidebar buttons">
