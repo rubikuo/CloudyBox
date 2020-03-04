@@ -50,7 +50,8 @@
 .modalContainer > .modalBox > p {
     font-size: 14px;
     text-align: left;
-    margin-left: 3%;
+    line-height: 25px;
+    margin: 0 0 0 3%
 }
 
 .modalContainer > .modalBox > form > input {
