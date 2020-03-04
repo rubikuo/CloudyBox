@@ -2,12 +2,35 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Dropbox } from 'dropbox';
 import { FaFolder } from 'react-icons/fa';
+import { token$ } from '../store';
 
 const Move = (props) =>{
 
 	const [ newPath, updateNewPath ] = useState('');
 	const handleMoveModal = (status) => {
 		props.updateMoveModal(status);
+    };
+
+    const getNewPath = (item) => {
+		console.log(item.path_lower);
+		updateNewPath(item.path_lower);
+	};
+    
+    const moveFile = (fromPath, toPath) => {
+		// if (toPath === '') return;
+		// let formatedToPath = '/' + toPath;
+		let dropbox = new Dropbox({ accessToken: token$.value });
+		dropbox
+			.filesMoveV2({ from_path: fromPath, to_path: toPath })
+			.then((response) => {
+				console.log(response);
+				window.location.href = 'home' + newPath;
+				handleMoveModal();
+			})
+			.catch((err) => {
+				console.log(err.response.status);
+			});
+		
 	};
 
     return ReactDOM.createPortal(
@@ -40,7 +63,7 @@ const Move = (props) =>{
 						onClick={() => moveFile(props.doc.path_lower, newPath + '/' + props.doc.name)}
 						className="modalButtons blueButtons"
 					>
-						Copy
+						Move
 					</button>
 				</div>
 			</div>

@@ -25,22 +25,14 @@ const FileList = ({
 	documents,
 }) => {
 	const [ dropDown, updateDropDown ] = useState(false);
-	const [ showRemoveModal, updateRemoveModal] =useState(false);
-	const [ showRenameModal, updateRenameModal] =useState(false);
-	const [ showCopyModal, updateCopyModal] = useState(false);
-	const [ showMoveModal, updateMoveModal] = useState(false);
-	const [folders, updateFolders] =useState([]);
-	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
+	const [ showRemoveModal, updateRemoveModal ] =useState(false);
+	const [ showRenameModal, updateRenameModal ] =useState(false);
+	const [ showCopyModal, updateCopyModal ] = useState(false);
+	const [ showMoveModal, updateMoveModal ] = useState(false);
+	const [ folders, updateFolders ] =useState([]);
+	const [ thumbnailUrl, updateThumbnailUrl ] = useState(null);
 	const nodeDropdown = useRef();
 
-	const handleClickOutside = e => {
-		if (nodeDropdown.current.contains(e.target)) {
-		  // inside click
-		  return;
-		}
-		// outside click 
-		showDropDown(false);
-	};
 
 	useEffect(() => {
 		//this document.addEventListerner can only be used inside a useEffect
@@ -55,50 +47,6 @@ const FileList = ({
 		};
 	  }, [dropDown]);
 
-
-	const showDropDown = () => {
-		updateDropDown(dropDown ? false : true);
-	}; 
-
-
-	const handleRemoveModal = () => {
-		updateRemoveModal(true);
-	}
-
-	const handleRenameModal = () => {
-		updateRenameModal(true);
-	}
-
-	const handleMoveModal = () =>{
-		updateRenameModal(true);
-	}
-
-	const filterFolder =()=>{
-		let originDocs = documents;
-		console.log("id", doc)
-        let filteredFolder = originDocs.filter(item=> item[".tag"]==="folder" && item.id !== doc.id);
-        console.log(filteredFolder);
-        updateFolders(filteredFolder)
-
-    }
-
-	const handleCopyModal =(e)=>{
-		updateCopyModal(true);
-		filterFolder(e);
-	}
-
-	let dropdownClass;
-
-	if (dropDown) {
-		dropdownClass = 'dropDown active';
-	} else {
-		dropdownClass = 'dropDown';
-	}
-
-	const handleFav = (doc) => {
-		toggleFavorite(doc);
-	};
-	
 
 	useEffect(() => {
 		let dropbox = new Dropbox({ accessToken: localToken })
@@ -121,6 +69,60 @@ const FileList = ({
 				});
 		}
 	},[doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
+
+
+	const showDropDown = () => {
+		updateDropDown(dropDown ? false : true);
+	}; 
+
+	const handleClickOutside = e => {
+		if (nodeDropdown.current.contains(e.target)) {
+		  // inside click
+		  return;
+		}
+		// outside click 
+		showDropDown(false);
+	};
+
+	const handleRemoveModal = () => {
+		updateRemoveModal(true);
+	}
+
+	const handleRenameModal = () => {
+		updateRenameModal(true);
+	}
+
+
+	const filterFolder =()=>{
+		let originDocs = documents;
+		console.log("id", doc)
+        let filteredFolder = originDocs.filter(item=> item[".tag"]==="folder" && item.id !== doc.id);
+        console.log(filteredFolder);
+        updateFolders(filteredFolder)
+    }
+
+	const handleCopyModal =(e)=>{
+		updateCopyModal(true);
+		filterFolder(e);
+	}
+
+	const handleMoveModal = (e) =>{
+		updateMoveModal(true);
+		filterFolder(e);
+	}
+
+	let dropdownClass;
+
+	if (dropDown) {
+		dropdownClass = 'dropDown active';
+	} else {
+		dropdownClass = 'dropDown';
+	}
+
+	const handleFav = (doc) => {
+		toggleFavorite(doc);
+	};
+	
 
 	if (doc) {
 		let button;
@@ -196,7 +198,7 @@ const FileList = ({
 						>
 							Move
 						</button>
-						{showMoveModal && <Move updateMoveModal={updateMoveModal}  documents={documents} updateDocs={updateDocs} />}
+						{showMoveModal && <Move updateMoveModal={updateMoveModal} doc={doc}  documents={documents} updateDocs={updateDocs} folders={folders} />}
 					</div>
 				</div>
 			</li> 

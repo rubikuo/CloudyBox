@@ -6,6 +6,7 @@ import { FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
 import { removeFavoriteByPath } from '../store';
 
+
 const Main = ({
   localToken,
   documents,
