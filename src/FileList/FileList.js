@@ -100,8 +100,6 @@ const FileList = ({
 		}
 	});
 
-
-
 	if (doc) {
 		let button;
 
@@ -123,7 +121,9 @@ const FileList = ({
 							{
 								doc.name.slice(doc.name.length - 3) === "pdf" 
 									? <FaFilePdf size="2rem" className="folderIcon" />
-									: thumbnailUrl ? <img src={thumbnailUrl} alt='' style={{marginRight: '10px'}}/> : <FaFile size="2rem" className="folderIcon" />
+									: thumbnailUrl 
+									? <img src={thumbnailUrl} alt='' style={{marginRight: '10px'}}/> 
+									: <FaFile size="2rem" className="folderIcon" />
 							}
 							<a
 								className="documentLink"
