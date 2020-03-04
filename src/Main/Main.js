@@ -59,7 +59,7 @@ const Main = ({
 					})
 			}
 		},
-		[ location.pathname, localToken, updateDocs ]
+		[ location.pathname, localToken, updateDocs]
 	);
 
 	const showTab = (tabName) => {
@@ -84,8 +84,6 @@ const Main = ({
 			});
 	};
 
-
-
 	let arrayPrint;
 
 	if (tab === "name"){
@@ -101,7 +99,8 @@ const Main = ({
 						updateRename={updateRename}
 						location={location}
 						documents={documents}
-						updateDocs={updateDocs}
+           				updateDocs={updateDocs}
+            			localToken={localToken}
 						tab={tab}
 					/>
 		})
@@ -119,12 +118,11 @@ const Main = ({
 						location={location}
 						documents={documents}
 						updateDocs={updateDocs}
-						tab={tab}
+            			tab={tab}
+            			localToken={localToken}
 					/>
 		})
 	}
-
-
 
 const closeErrorMessages = () => {
 	/* let newPath = location.pathname.slice(5);
@@ -134,7 +132,8 @@ const closeErrorMessages = () => {
 }
 
 if (redirectToHome) {
-	return <Redirect to="/home" />;
+	//return <Redirect to="/home" />;
+	window.location.href = "/home";
 } 
 
 if(errorStatus){
@@ -149,7 +148,7 @@ if(errorStatus){
 					<h5>Error!</h5>
 				</div>
 				<div>
-					<p>The file/folder is not exist or already been removed.</p>
+					<p>The file or folder is not exist or already been removed.</p>
 				</div>
 				<button onClick={closeErrorMessages}>Back to Home</button>
 			</div>

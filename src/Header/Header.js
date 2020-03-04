@@ -7,9 +7,9 @@ import "./Header.css";
 
 const Header = ({logOut, location}) => {
     console.log("location propname", location.pathname)
-    
 
     const parts = location.pathname.substring(6).split("/");
+    console.log(parts)
     let links;
     if (parts[0] !== ""){
         links = parts.map((_, idx) => {
@@ -21,6 +21,7 @@ const Header = ({logOut, location}) => {
         parts[0] = "Home";
         links = ["/home"];
     }
+    console.log(links)
 
     return (
         <div className='header-container'>
