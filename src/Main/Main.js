@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaFolder, FaStar } from 'react-icons/fa';
@@ -20,7 +20,6 @@ const Main = ({
 }) => {
 	const [ tab, updateTab ] = useState('name');
 	const [ errorStatus, updateErrorStatus] = useState(false)
-	const [ redirectToHome, updateRedirectToHome] = useState(false)
 	//console.log(localToken);
 
 	useEffect(
@@ -124,35 +123,23 @@ const Main = ({
 		})
 	}
 
-const closeErrorMessages = () => {
-	/* let newPath = location.pathname.slice(5);
-	removeFavoriteByPath(newPath); */
-	updateErrorStatus(false);
-	updateRedirectToHome(true)
-}
-
-if (redirectToHome) {
-	//return <Redirect to="/home" />;
-	window.location.href = "/home";
-} 
-
-if(errorStatus){
-	return ReactDOM.createPortal(
-		<div className="modalContainer">
-			<div className="modalBox">
-				<div className="modalHeadline">
-					<FaFolder style={{ position: 'relative', top: '0px', color: '#1293D6', marginRight: '3px' }} />
-					<h5>Error!</h5>
+	if(errorStatus){
+		return ReactDOM.createPortal(
+			<div className="modalContainer">
+				<div className="modalBox">
+					<div className="modalHeadline">
+						<FaFolder style={{ position: 'relative', top: '0px', color: '#1293D6', marginRight: '3px' }} />
+						<h5>Error!</h5>
+					</div>
+					<div>
+						<p>The file or folder is not exist or already been removed.</p>
+					</div>
+					<Link to="/home">Back to Home</Link>
 				</div>
-				<div>
-					<p>The file or folder is not exist or already been removed.</p>
-				</div>
-				<button onClick={closeErrorMessages}>Back to Home</button>
-			</div>
-		</div>,
-		document.body
-	);
-}
+			</div>,
+			document.body
+		);
+	}
 
 	return (
 		<main>

@@ -30,6 +30,18 @@ const FileList = ({
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 	const nodeDropdown = useRef();
 
+	const showDropDown = () => {
+		updateDropDown(dropDown ? false : true);
+	}; 
+
+	const handleRemoveModal = () => {
+		updateRemoveModal(true);
+	}
+
+	const handleRenameModal = () => {
+		updateRenameModal(true);
+	}
+
 	const handleClickOutside = useCallback ( (e) => {
 		if (nodeDropdown.current.contains(e.target)) {
 		  // inside click
@@ -37,7 +49,7 @@ const FileList = ({
 		}
 		// outside click 
 		showDropDown(false);
-	});
+	}, [showDropDown]);
 
 	useEffect(() => {
 		//this document.addEventListerner can only be used inside a useEffect
@@ -50,21 +62,7 @@ const FileList = ({
 		return () => {
 		  document.removeEventListener("mousedown", handleClickOutside);
 		};
-	  }, [dropDown]);
-
-
-	const showDropDown = () => {
-		updateDropDown(dropDown ? false : true);
-	}; 
-
-
-	const handleRemoveModal = () => {
-		updateRemoveModal(true);
-	}
-
-	const handleRenameModal = () => {
-		updateRenameModal(true);
-	}
+	  }, [dropDown,handleClickOutside]);
 
 	const filterFolder =()=>{
 		let originDocs = documents;
