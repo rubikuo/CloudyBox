@@ -8,7 +8,7 @@ import { FaFolder } from 'react-icons/fa';
 
 const Copy = (props) => {
 	const [ newPath, updateNewPath ] = useState('');
-	const handleCreateModal = (status) => {
+	const handleCopyModal = (status) => {
 		props.updateCopyModal(status);
 	};
 
@@ -28,7 +28,7 @@ const Copy = (props) => {
 			.catch((error) => {
 				console.log(error);
 			});
-		handleCreateModal();
+		handleCopyModal();
 	};
 
 	return ReactDOM.createPortal(
@@ -54,7 +54,7 @@ const Copy = (props) => {
 				</div>
 
 				<div className="modalsButtonsContainer">
-					<div onClick={() => handleCreateModal(false)} className="modalButtons">
+					<div onClick={() => handleCopyModal(false)} className="modalButtons">
 						Cancel
 					</div>
 					<button
