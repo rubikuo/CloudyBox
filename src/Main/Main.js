@@ -100,8 +100,8 @@ const Main = ({
 						updateRename={updateRename}
 						location={location}
 						documents={documents}
-            updateDocs={updateDocs}
-            localToken={localToken}
+                        updateDocs={updateDocs}
+                       localToken={localToken}
 						tab={tab}
 					/>
 		})
@@ -119,17 +119,17 @@ const Main = ({
 						location={location}
 						documents={documents}
 						updateDocs={updateDocs}
-            tab={tab}
-            localToken={localToken}
+                        tab={tab}
+                        localToken={localToken}
 						errorStatus={errorStatus}
 						updateErrorStatus={updateErrorStatus}
 					/>
 		})
 	}
 
-	if (errorStatus) {
+/* 	if (errorStatus) {
 		return <Redirect to="/home" />;
-	}
+	} */
 
 	return (
 		<main>

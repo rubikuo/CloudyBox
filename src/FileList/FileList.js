@@ -31,8 +31,6 @@ const FileList = ({
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 	const nodeDropdown = useRef();
 
-	
-
 	const handleClickOutside = e => {
 		if (nodeDropdown.current.contains(e.target)) {
 		  // inside click
@@ -100,7 +98,7 @@ const FileList = ({
 		let dropbox = new Dropbox({ accessToken: localToken })
 
 		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
-			doc.name.slice(doc.name.length - 3) === 'jpeg' ||
+			doc.name.slice(doc.name.length - 4) === 'jpeg' ||
 			doc.name.slice(doc.name.length - 3) === 'png') {
 			dropbox
 				.filesGetThumbnail({
@@ -186,7 +184,7 @@ const FileList = ({
 						>
 							Copy
 						</button>
-						{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders}/>}
+						{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
 						<button
 							className="moveBtn"
 						>
