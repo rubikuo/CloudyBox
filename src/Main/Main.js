@@ -4,7 +4,7 @@ import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
-import { toggleFavorite, removeFavoriteByPath } from '../store';
+import { removeFavoriteByPath } from '../store';
 
 const Main = ({
   localToken,
@@ -70,20 +70,18 @@ const Main = ({
     backgroundColor: '#F7F7F7',
     color: 'rgb(34, 138, 208)'
   };
-
-  const getLinkToFile = (path) => {
-    console.log(path);
-    let dropbox = new Dropbox({ accessToken: localToken });
-    dropbox
-      .filesGetTemporaryLink({ path: path })
-      .then((response) => {
-        window.location.href = response.link;
-      })
-      .catch(function (error) {
-        console.error(error, 'Error by downloading file');
-      });
-  };
-
+	const getLinkToFile = (path) => {
+		console.log(path);
+		let dropbox = new Dropbox({ accessToken: localToken });
+		dropbox
+			.filesGetTemporaryLink({ path: path })
+			.then((response) => {
+				window.location.href = response.link;
+			})
+			.catch((error)=> {
+				console.error(error, 'Error by downloading file');
+			});
+	};
 
 
   let arrayPrint;
@@ -177,9 +175,9 @@ const Main = ({
       })
   }
 
-  if (errorStatus) {
+  /*if (errorStatus) {
     return <Redirect to="/home" />;
-  }
+  }*/
 
   return (
     <main>

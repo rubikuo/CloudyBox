@@ -12,7 +12,6 @@ const Create = (props) => {
         props.handleCreateModal(status)
     }
 
-
 	const onChangeInput = (e) => {
 		updatePathName(e.target.value);
 	};
