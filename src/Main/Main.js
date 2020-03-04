@@ -58,7 +58,7 @@ const Main = ({
 					})
 			}
 		},
-		[ location.pathname, localToken, updateDocs ]
+		[ location.pathname, localToken, updateDocs]
 	);
 
 	const showTab = (tabName) => {
@@ -100,7 +100,8 @@ const Main = ({
 						updateRename={updateRename}
 						location={location}
 						documents={documents}
-						updateDocs={updateDocs}
+            updateDocs={updateDocs}
+            localToken={localToken}
 						tab={tab}
 					/>
 		})
@@ -118,7 +119,8 @@ const Main = ({
 						location={location}
 						documents={documents}
 						updateDocs={updateDocs}
-						tab={tab}
+            tab={tab}
+            localToken={localToken}
 						errorStatus={errorStatus}
 						updateErrorStatus={updateErrorStatus}
 					/>
