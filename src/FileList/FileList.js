@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars} from 'react-icons/fa';
+import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars } from 'react-icons/fa';
 import './FileList.css';
 import { convertDate } from './convertDate.js';
 import { convertBytes } from './convertBytes.js';
@@ -21,19 +21,20 @@ const FileList = ({
 	updateDocs,
 	documents,
 }) => {
-	const [ dropDown, updateDropDown ] = useState(false);
-	const [ showRemoveModal, updateRemoveModal] =useState(false);
-	const [ showRenameModal, updateRenameModal] =useState(false);
+	const [dropDown, updateDropDown] = useState(false);
+	const [showRemoveModal, updateRemoveModal] = useState(false);
+	const [showRenameModal, updateRenameModal] = useState(false);
+	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 
 	const showDropDown = (e) => {
 		updateDropDown(dropDown ? false : true);
 	};
 
-	const handleRemoveModal =()=>{
+	const handleRemoveModal = () => {
 		updateRemoveModal(true);
 	}
 
-	const handleRenameModal =()=>{
+	const handleRenameModal = () => {
 		updateRenameModal(true);
 	}
 
@@ -48,65 +49,72 @@ const FileList = ({
 		toggleFavorite(doc);
 	};
 
-	const getFileToThumbnail = (path) => {
-		console.log(path, 'THUMBNAIL');
-		let dropbox = new Dropbox({ accessToken: localToken });
-		dropbox
-		 .filesThumbnail(
-		   {
-			path: path, 
-			format: 'jpeg' | 'png', 
-			size: 'w32h32', //width: 32 height: 32
-			mode: 'strict'
-		  })
-		 .then(response => {
-		   console.log(response, 'THUMBNAIL works');
-		 })
-		 .catch(function(error) {
-		   console.log(error, 'Error by creating thumbnail');
-		 }); 
-	  };
+	useEffect(() => {
+		let dropbox = new Dropbox({ accessToken: localToken })
+
+		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
+			doc.name.slice(doc.name.length - 3) === 'jpeg' ||
+			doc.name.slice(doc.name.length - 3) === 'png') {
+			dropbox
+				.filesGetThumbnail({
+					path: doc.path_lower,
+					size: 'w32h32'
+				})
+				.then(response => {
+					if (response.fileBlob) {
+						const url = URL.createObjectURL(response.fileBlob);
+						updateThumbnailUrl(url);
+					}
+				})
+				.catch(function (error) {
+					console.log(error, 'Error by creating thumbnail');
+				});
+		}
+	});
+
+
 
 	if (doc) {
 		let button;
-      
-        if (favorites.find(x => x.id === doc.id)){
-          button = <FaStar size="20px"  style={{color: "rgb(250, 142, 0)", position:"relative", top: "3px"}}/>
-        } else {
-          button = <FaRegStar size="20px"style={{position:"relative", top: "3px"}}/>
-        }
+
+		if (favorites.find(x => x.id === doc.id)) {
+			button = <FaStar size="20px" style={{ color: "rgb(250, 142, 0)", position: "relative", top: "3px" }} />
+		} else {
+			button = <FaRegStar size="20px" style={{ position: "relative", top: "3px" }} />
+		}
 
 		return (
 			<li className="item">
 				<div className="itemSmlCtn">
-          <span className="starIcon" onClick={() => handleFav(doc)}>
-              <span>{button}</span>
-          </span>
+					<span className="starIcon" onClick={() => handleFav(doc)}>
+						<span>{button}</span>
+					</span>
 					{doc['.tag'] === 'file' ? (
 						<>
-							{doc.name.slice(doc.name.length - 3) === "pdf" ? (<FaFilePdf size="2rem" className="folderIcon"/>) : 
-							//(<FaFile size="2rem" className="folderIcon" />)
-							<img src={doc.path_lower} alt='' onLoad={() => getFileToThumbnail(doc.path_lower)}/>
+							{
+								doc.name.slice(doc.name.length - 3) === "pdf" 
+									? <FaFilePdf size="2rem" className="folderIcon" />
+									: thumbnailUrl ? <img src={thumbnailUrl} alt='' style={{marginRight: '10px'}}/> : <FaFile size="2rem" className="folderIcon" />
 							}
 							<a
-								className="documentLink" 
+								className="documentLink"
 								onClick={() => getLinkToFile(doc.path_lower)}
 							>
 								{doc.name}
 							</a>
 						</>
 					) : (
-						<>
-							<FaFolder size="2rem" className="folderIcon" />
-							<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
-						</>
-					)}
+							<>
+								<FaFolder size="2rem" className="folderIcon" />
+								<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
+							</>
+						)}
 				</div>
 				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
 				<p className="modified">{convertDate(doc.client_modified)}</p>
 				<div className="dropDownCtn">
 					<button onClick={showDropDown} id={doc.id}>
-						<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
+						<FaBars size="14px" style={{ position: "relative", top: "3px", color: "#737373" }} />
 					</button>
 					<div className={dropdownClass}>
 						<button
@@ -115,7 +123,7 @@ const FileList = ({
 						>
 							Delete
 						</button>
-						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents}  />}
+						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents} />}
 
 						<button
 							className="renameBtn"

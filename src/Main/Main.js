@@ -29,7 +29,7 @@ const Main = ({
 					.filesListFolder({ path: '' })
 					.then((response) => {
 						console.log('resonse.entries', response.entries);
-						updateDocs(response.entries); // update in state
+            updateDocs(response.entries); // update in state
 						return response.entries;
 					})
 					.then((docs) => {
@@ -63,7 +63,7 @@ const Main = ({
 					});
 			}
 		},
-		[ location.pathname, localToken, updateDocs ]
+		[ location.pathname, localToken, updateDocs]
 	);
 
 	const showTab = (tabName) => {
@@ -86,8 +86,33 @@ const Main = ({
 				console.error(error, 'Error by downloading file');
 			});
   };
-
-
+    
+  /*
+  const getThumbnail = files => {
+		const paths = files.filter(file => file['.tag'] === 'file')
+		.map(file => ({
+			path: file.path_lower,
+			size: 'w32h32',
+			mode: 'strict'
+		}))
+		let dropbox = new Dropbox({ accessToken: localToken })
+		dropbox
+		 .filesGetThumbnailBatch({
+			 entires: paths
+		 }).then(response => {
+       console.log(response);
+       //copy and save the files in a new array
+       //response.entries.forEach(file => {
+         //let indexToUpdate = files.findeIndex(
+      //propsFile =>...?path.lower === ...?path.lower)
+      //})
+		 })  
+		 .catch(function(error) {
+		   console.log(error, 'Error by creating thumbnail');
+		 }); 
+  };
+  */
+  
 	return (
 		<main>
 			<div className="titleBar">
