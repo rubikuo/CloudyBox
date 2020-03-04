@@ -68,7 +68,7 @@ const Rename = (props) => {
 						onChange={handleRename}
 						style={{ borderRadius: '0.3rem', padding: '2%', border: '1px solid #ddd' }}
 					/>
-					{errorMsg? <span style={{color: "red"}}>Can't have the same name on different files</span> : null}
+					{errorMsg? <span style={{color: "red"}}>Error! The file name already exists, please choose another one! </span> : null}
 					<div className="modalsButtonsContainer">
 						<button onClick={handleRenameModal} className="modalButtons">
 							Cancel

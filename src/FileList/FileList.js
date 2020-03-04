@@ -28,6 +28,15 @@ const FileList = ({
 	const [folders, updateFolders] =useState([]);
 	const nodeDropdown = useRef();
 
+	const handleClickOutside = e => {
+		if (nodeDropdown.current.contains(e.target)) {
+		  // inside click
+		  return;
+		}
+		// outside click 
+		showDropDown(false);
+	};
+
 	useEffect(() => {
 		//this document.addEventListerner can only be used inside a useEffect
 		if (dropDown) {
@@ -41,14 +50,6 @@ const FileList = ({
 		};
 	  }, [dropDown]);
 
-	  const handleClickOutside = e => {
-		if (nodeDropdown.current.contains(e.target)) {
-		  // inside click
-		  return;
-		}
-		// outside click 
-		showDropDown(false);
-	  };
 
 	const showDropDown = () => {
 		updateDropDown(dropDown ? false : true);
@@ -89,8 +90,6 @@ const FileList = ({
 		toggleFavorite(doc);
 	};
 	
-
-
 
 	if (doc) {
 	let button;

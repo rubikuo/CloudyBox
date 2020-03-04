@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import { Dropbox } from 'dropbox';
 import ReactDOM from 'react-dom';
 import { token$ } from '../store';
-import { Link } from 'react-router-dom';
 import './Modals.css';
 import { FaFolder} from 'react-icons/fa';
 
@@ -13,10 +12,10 @@ const Copy = (props) => {
     const handleCreateModal = (status)=>{
         props.updateCopyModal(status)
 	}
-	
+
 	const getNewPath = (item) =>{
 		console.log(props.doc)
-		console.log(item)
+		console.log(item.path_lower)
 		updateNewPath(item.path_lower);
         
 	}
@@ -59,7 +58,7 @@ const Copy = (props) => {
 						<div onClick={()=>handleCreateModal(false)} className="modalButtons">
 							Cancel
 						</div>
-						<button onClick={()=>copyFile(props.doc.path_lower, newPath)} className="modalButtons blueButtons">
+						<button onClick={()=>copyFile(props.doc.path_lower, newPath + "/" + props.doc.name)} className="modalButtons blueButtons">
 							Copy
 						</button>
 					</div>

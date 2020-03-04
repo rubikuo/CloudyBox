@@ -4,7 +4,7 @@ import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
-import { toggleFavorite, removeFavoriteByPath } from '../store';
+import { removeFavoriteByPath } from '../store';
 
 const Main = ({
 	localToken,
