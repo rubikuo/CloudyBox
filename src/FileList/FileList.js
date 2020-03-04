@@ -69,6 +69,10 @@ const FileList = ({
 		updateRenameModal(true);
 	}
 
+	const handleMoveModal = () =>{
+		updateRenameModal(true);
+	}
+
 	const filterFolder =()=>{
 		let originDocs = documents;
 		console.log("id", doc)
@@ -188,10 +192,11 @@ const FileList = ({
 						{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
 						<button
 							className="moveBtn"
+							onClick={handleMoveModal}
 						>
 							Move
 						</button>
-						{/* {showMoveModal && <Move updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs}} */}
+						{showMoveModal && <Move updateMoveModal={updateMoveModal}  documents={documents} updateDocs={updateDocs} />}
 					</div>
 				</div>
 			</li> 
