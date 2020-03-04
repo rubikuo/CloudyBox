@@ -4,7 +4,7 @@ import FileList from '../FileList/FileList';
 import './Main.css';
 import { FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
-import { toggleFavorite, removeFavoriteByPath } from '../store';
+import { removeFavoriteByPath } from '../store';
 
 const Main = ({
 	localToken,
@@ -78,7 +78,7 @@ const Main = ({
 			.then((response) => {
 				window.location.href = response.link;
 			})
-			.catch(function(error) {
+			.catch((error)=> {
 				console.error(error, 'Error by downloading file');
 			});
 	};
@@ -100,8 +100,8 @@ const Main = ({
 						updateRename={updateRename}
 						location={location}
 						documents={documents}
-            updateDocs={updateDocs}
-            localToken={localToken}
+                        updateDocs={updateDocs}
+                       localToken={localToken}
 						tab={tab}
 					/>
 		})
@@ -119,17 +119,17 @@ const Main = ({
 						location={location}
 						documents={documents}
 						updateDocs={updateDocs}
-            tab={tab}
-            localToken={localToken}
+                        tab={tab}
+                        localToken={localToken}
 						errorStatus={errorStatus}
 						updateErrorStatus={updateErrorStatus}
 					/>
 		})
 	}
 
-	if (errorStatus) {
+/* 	if (errorStatus) {
 		return <Redirect to="/home" />;
-	}
+	} */
 
 	return (
 		<main>
