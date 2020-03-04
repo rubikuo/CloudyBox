@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 import { FaAngleRight } from "react-icons/fa";
 import "./Header.css";
 
-const Header = ({logOut, location}) => {
+const Header = ({logOut, location, search, filterSearch}) => {
     console.log("location propname", location.pathname)
     
-
     const parts = location.pathname.substring(6).split("/");
     let links;
     if (parts[0] !== ""){
@@ -40,6 +39,8 @@ const Header = ({logOut, location}) => {
                         placeholder='Search folder'
                         name='search'
                         id='search'
+                        onChange={filterSearch}
+                        value={search}
                     />
                 </div>
 
@@ -61,5 +62,6 @@ const Header = ({logOut, location}) => {
         </div>
     )
 }
+
 
 export default Header;
