@@ -54,7 +54,7 @@
 }
 
 .dropDownCtn > button:hover {
-    color:rgb(34, 98, 208);
+    color:rgb(34, 130, 208);
     cursor: pointer;
 }
 
@@ -82,7 +82,7 @@
 .deleteBtn, .renameBtn, .copyBtn, .moveBtn {
     margin: 2px;
     background-color: rgb(236, 236, 236);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     padding: 6px;
 }
 
@@ -97,8 +97,9 @@
 }
 
 .dropDown .deleteBtn:hover, .dropDown .renameBtn:hover, .dropDown .copyBtn:hover, .dropDown .moveBtn:hover{
-    background-color:rgba(114, 213, 243, 0.673);
+    background-color:rgb(99, 160, 211);
     cursor: pointer;
+    color: #fff;
 }
 
 .documentLink:hover {

@@ -53,7 +53,7 @@
     align-self: flex-start;
     margin-left: 10px;
     padding: 1.3%;
-    width: 101%;
+    width: 100%;
     height: 90%;
     background-color: transparent;
     position: relative;
@@ -106,7 +106,7 @@
 }
 
 .divider {
-    margin: 0 5px 0 10px;
+    margin: 0 0px 0 15px;
 }
 
 .divider:hover {

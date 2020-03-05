@@ -124,7 +124,6 @@ const Main = ({
             documents={documents}
             updateDocs={updateDocs}
             localToken={localToken}
-            tab={tab}
           />
         } else {
           return null
@@ -144,7 +143,6 @@ const Main = ({
           documents={documents}
           updateDocs={updateDocs}
           localToken={localToken}
-          tab={tab}
         />
       })
   } else if (tab === "stared") {
@@ -164,10 +162,7 @@ const Main = ({
           location={location}
           documents={documents}
           updateDocs={updateDocs}
-          tab={tab}
           localToken={localToken}
-          errorStatus={errorStatus}
-          updateErrorStatus={updateErrorStatus}
         />
       } else {
         return null
@@ -186,10 +181,7 @@ const Main = ({
           location={location}
           documents={documents}
           updateDocs={updateDocs}
-          tab={tab}
-          localToken={localToken}
-          errorStatus={errorStatus}
-          updateErrorStatus={updateErrorStatus}
+          localToken={localToken} 
         />
       })
   }

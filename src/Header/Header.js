@@ -13,6 +13,7 @@ const Header = ({logOut, location, search, filterSearch}) => {
     let links;
     if (parts[0] !== ""){
         links = parts.map((_, idx) => {
+            console.log("idx", parts.slice(0, idx + 1))
             return "/home/"  + parts.slice(0, idx + 1).join("/");
         });
         parts.unshift("Home");
@@ -56,7 +57,6 @@ const Header = ({logOut, location, search, filterSearch}) => {
                         {parts.map((part, idx) => {
                             return <div className="paths" key={idx}>
                                         {idx === 0 ? <span><FaHome style={{position: "relative", top:"2px", marginRight: "5px"}} /></span> : null}
-                                       
                                         <Link to={links[idx]} className="pathLink">{part}</Link>
                                         {idx !== parts.length - 1 ? <span className="divider"><FaAngleRight style={{position: 'relative', top: '4px'}}/></span> : null} 
                                   </div>
