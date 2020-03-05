@@ -27,7 +27,8 @@ const Main = ({
     () => {
       console.log('location Name', location.pathname);
 
-      let dropbox = new Dropbox({ accessToken: localToken });
+      let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
+      //let dropbox = new Dropbox({ accessToken: localToken });
 
       if (location.pathname === '/home') {
         dropbox
@@ -92,8 +93,8 @@ const Main = ({
 						<FaFolder style={{ position: 'relative', top: '0px', color: '#1293D6', marginRight: '3px' }} />
 						<h5>Error!</h5>
 					</div>
-					<div>
-						<p>The file or folder is not exist or already been removed.</p>
+					<div className="errorMessages">
+						<p>The requested folder does not exist or has already been removed.</p>
 					</div>
 					<Link to="/home">Back to Home</Link>
 				</div>

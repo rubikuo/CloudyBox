@@ -18,7 +18,7 @@ const Copy = (props) => {
 	};
 
 	const copyFile = (fromPath, toPath) => {
-		let dropbox = new Dropbox({ accessToken: token$.value });
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: token$.value });
 		dropbox
 			.filesCopyV2({ from_path: fromPath, to_path: toPath })
 			.then((response) => {

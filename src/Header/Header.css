@@ -25,28 +25,39 @@
 }
 
 .logo-header {
-    width: 200px;
+    
     margin-top: 50px;
+    min-width: 50%;
+    max-width: 90%;
+}
+
+.search-box {
+    width: calc(80% - 40px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 40px;
 }
 
 .search-field {
     display: flex;
-    width: 40%;
-    align-self: flex-start;
-    position: absolute;
-    top: 10%;
-    left: 30%;
+    width: 50%;
+    height: 30px;
     padding: 0.5%;
     border: 1px solid #ddd;
     border-radius: 0.3rem;
+    margin-top: 40px;
 }
 
 .search-input {
     align-self: flex-start;
-    margin-left: 20px;
+    margin-left: 10px;
     padding: 1.3%;
-    width: 100%;
+    width: 101%;
+    height: 90%;
     background-color: transparent;
+    position: relative;
+    top: -4px;
 }
 
 /*----------second row in the Header: path and logout button --------*/
@@ -59,6 +70,10 @@
     height: 20%;
     align-items: flex-start;
     justify-content: space-between;
+}
+
+.paths {
+    margin-left: 15px;
 }
 
 .header-path {
@@ -91,7 +106,7 @@
 }
 
 .divider {
-    margin: 0 10px;
+    margin: 0 5px 0 10px;
 }
 
 .divider:hover {

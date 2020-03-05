@@ -12,7 +12,7 @@ const Remove = (props) => {
 	const deleteItem = (doc) => {
 		//console.log(path, id);
 		//const root = props.location.pathname.slice(5);
-		let dropbox = new Dropbox({ accessToken: token$.value });
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: token$.value });
 		dropbox
 			.filesDeleteV2({ path: doc.path_lower })
 			.then((response) => {

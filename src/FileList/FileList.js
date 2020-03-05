@@ -30,9 +30,9 @@ const FileList = ({
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 	const nodeDropdown = useRef();
 
-	const showDropDown = () => {
+	const showDropDown = useCallback( () => {
 		updateDropDown(dropDown ? false : true);
-	}; 
+	}, [dropDown]); 
 
 	const handleRemoveModal = () => {
 		updateRemoveModal(true);
@@ -48,8 +48,8 @@ const FileList = ({
 		  return;
 		}
 		// outside click 
-		showDropDown(false);
-	}, [showDropDown]);
+		showDropDown(dropDown);
+	}, [showDropDown, dropDown]);
 
 	useEffect(() => {
 		//this document.addEventListerner can only be used inside a useEffect
@@ -93,7 +93,9 @@ const FileList = ({
 	
 
 	useEffect(() => {
-		let dropbox = new Dropbox({ accessToken: localToken })
+
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
+		//let dropbox = new Dropbox({ accessToken: localToken })
 		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
 			doc.name.slice(doc.name.length - 4) === 'jpeg' ||
 			doc.name.slice(doc.name.length - 3) === 'png') {

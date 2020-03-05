@@ -21,7 +21,7 @@ const Rename = (props) => {
 		e.preventDefault();
 		if (toPath === '') return;
 		let formatedToPath = '/' + toPath;
-		let dropbox = new Dropbox({ accessToken: token$.value });
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: token$.value });
 		dropbox
 			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath })
 			.then((response) => {
