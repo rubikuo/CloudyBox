@@ -8,6 +8,8 @@ import { FaFolder, FaCopy} from 'react-icons/fa';
 
 const Copy = (props) => {
 	const [ newPath, updateNewPath ] = useState('');
+	const [ activeFolderChoosen, updateFolderChoosen] = useState("");
+
 	const handleCreateModal = (status) => {
 		props.updateCopyModal(status);
 	};
@@ -15,6 +17,7 @@ const Copy = (props) => {
 	const getNewPath = (item) => {
 		console.log(item.path_lower);
 		updateNewPath(item.path_lower);
+		updateFolderChoosen(item)
 	};
 
 	const copyFile = (fromPath, toPath) => {
@@ -51,8 +54,14 @@ const Copy = (props) => {
 				<span>CloudyBox Folder</span>
 				<div className="relocateCtn">
 					{props.folders.map((folder) => {
+						let activeClass;
+						if(activeFolderChoosen === folder){
+							activeClass = "folderCtn active"
+						} else {
+							activeClass = "folderCtn"
+						}
 						return (
-							<div key={folder.id} className="folderCtn" onClick={() => getNewPath(folder)}>
+							<div key={folder.id}  className={activeClass} onClick={() => getNewPath(folder)}>
 								<FaFolder size="2rem" style={{marginLeft: "20px"}} className="folderIcon" />
 								<p className="documentLink">
 									{folder.name}

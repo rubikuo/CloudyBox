@@ -146,8 +146,12 @@
     align-items: center;
 }
 
+.folderCtn.active {
+    background-color: rgb(114, 179, 214, 0.3);
+}
+
 .folderCtn:hover{
-    background-color: rgba(181, 180, 180, 0.426);
+    background-color: rgba(226, 226, 226, 0.5);
     cursor: pointer;
 }
 

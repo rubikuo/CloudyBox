@@ -25,7 +25,6 @@
 }
 
 .logo-header {
-    
     margin-top: 50px;
     min-width: 50%;
     max-width: 90%;
@@ -123,6 +122,23 @@
 .pathLink{
     text-decoration: none;
     color: #737373;
+}
+
+@media only screen and (max-width: 900px) {
+
+    .logo-container {
+        width: 30%;
+    }
+    
+    .logo-header {
+        margin-top: 50px;
+        width: 100%;
+    }
+
+    .search-box {
+        width: calc(70% - 40px);
+      
+    }
 }
 
 /*

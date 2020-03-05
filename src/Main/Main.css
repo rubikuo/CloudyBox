@@ -30,6 +30,7 @@ main{
     border-radius: 15px 15px 0px 0px;
     cursor: pointer;
     color: #737373;
+    background-color: rgb(241, 241, 241);
 }
 
 .tabs > p {

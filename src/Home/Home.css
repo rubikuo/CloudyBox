@@ -25,11 +25,11 @@
 }
 
 .sidebar.buttons{
-  width: 15%;
+  width: 20%;
 }
 
 .mainArea {
-    width : 85%;
+    width : 80%;
     height: 100%;
     background-color: white;
 }
@@ -45,7 +45,7 @@
 
 .imageTop-Span {
     width: 98%;
-    height: 30px;
+    height: 23px;
     background: rgb(16,132,192);
     background: linear-gradient(260deg, rgba(16,132,192,1) 27%, rgba(16,107,172,1) 100%);  
     position: absolute;
@@ -60,3 +60,6 @@
     width: 400px;
     height: auto;
 }
+
+
+

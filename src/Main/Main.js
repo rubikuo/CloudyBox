@@ -70,7 +70,7 @@ const Main = ({
 
   let tabActiveStyle = {
     backgroundColor: '#F7F7F7',
-    color: 'rgb(34, 138, 208)'
+    color: 'rgb(34, 138, 208)', 
   };
 	const getLinkToFile = (path) => {
 		console.log(path);
