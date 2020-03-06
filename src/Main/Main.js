@@ -23,46 +23,59 @@ const Main = ({
   const [errorStatus, updateErrorStatus] = useState(false);
   //console.log(localToken);
 
+  function loadFiles() {
+    console.log('location Name', location.pathname);
+
+    let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
+    //let dropbox = new Dropbox({ accessToken: localToken });
+
+    if (location.pathname === '/home') {
+      dropbox
+        .filesListFolder({ path: '' })
+        .then((response) => {
+          console.log('resonse.entries', response.entries);
+          updateDocs(response.entries); // update in state
+          updateErrorStatus(false);
+          updateTab("name");
+          return response.entries;
+        });
+    } else {
+      //console.log('this is not a home, link is', location.pathname);
+      let newPath = location.pathname.slice(5);
+      console.log(newPath);
+      dropbox
+        .filesListFolder({ path: newPath })
+        .then((response) => {
+          // console.log('resonse.entries', response.entries);
+          updateDocs(response.entries); // update in state
+          updateErrorStatus(false);
+          updateTab("name");
+          return response.entries;
+        })
+        .catch((response) => {
+          console.log(response.error.error_summary);
+
+          removeFavoriteByPath(newPath);
+          updateErrorStatus(true)
+        })
+    }
+  }
+
   useEffect(
     () => {
-      console.log('location Name', location.pathname);
-
-      let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
-      //let dropbox = new Dropbox({ accessToken: localToken });
-
-      if (location.pathname === '/home') {
-        dropbox
-          .filesListFolder({ path: '' })
-          .then((response) => {
-            console.log('resonse.entries', response.entries);
-            updateDocs(response.entries); // update in state
-            updateErrorStatus(false);
-            updateTab("name");
-            return response.entries;
-          });
-      } else {
-        //console.log('this is not a home, link is', location.pathname);
-        let newPath = location.pathname.slice(5);
-        console.log(newPath);
-        dropbox
-          .filesListFolder({ path: newPath })
-          .then((response) => {
-            // console.log('resonse.entries', response.entries);
-            updateDocs(response.entries); // update in state
-            updateErrorStatus(false);
-            updateTab("name");
-            return response.entries;
-          })
-          .catch((response) => {
-            console.log(response.error.error_summary);
-
-            removeFavoriteByPath(newPath);
-            updateErrorStatus(true)
-          })
-      }
+      loadFiles();
     },
     [location.pathname, localToken, updateDocs]
   );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("HELLO");
+      loadFiles();
+    }, 20000);
+
+    return () => clearInterval(interval);
+  }, [])
 
   const showTab = (tabName) => {
     updateTab(tabName);

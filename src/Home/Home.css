@@ -44,7 +44,7 @@
 }
 
 .imageTop-Span {
-    width: 98%;
+    width: 100%;
     height: 23px;
     background: rgb(16,132,192);
     background: linear-gradient(260deg, rgba(16,132,192,1) 27%, rgba(16,107,172,1) 100%);  
@@ -59,7 +59,7 @@
     right: -15px;
     width: 400px;
     height: auto;
-}
+} 
 
 
 
