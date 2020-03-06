@@ -4,10 +4,12 @@ import { Dropbox } from 'dropbox';
 import ReactDOM from 'react-dom';
 import { token$ } from '../store';
 import './Modals.css';
-import { FaFolder } from 'react-icons/fa';
+import { FaFolder, FaCopy} from 'react-icons/fa';
 
 const Copy = (props) => {
 	const [ newPath, updateNewPath ] = useState('');
+	const [ activeFolderChoosen, updateFolderChoosen] = useState("");
+
 	const handleCreateModal = (status) => {
 		props.updateCopyModal(status);
 	};
@@ -15,10 +17,11 @@ const Copy = (props) => {
 	const getNewPath = (item) => {
 		console.log(item.path_lower);
 		updateNewPath(item.path_lower);
+		updateFolderChoosen(item)
 	};
 
 	const copyFile = (fromPath, toPath) => {
-		let dropbox = new Dropbox({ accessToken: token$.value });
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: token$.value });
 		dropbox
 			.filesCopyV2({ from_path: fromPath, to_path: toPath })
 			.then((response) => {
@@ -35,16 +38,31 @@ const Copy = (props) => {
 		<div className="modalContainer">
 			<div className="modalBox copyBox">
 				<div className="modalHeadline">
-					<p>
-						Copy <span className="itemCopy">{props.doc.name}</span> to ...
-					</p>
+					<FaCopy
+						style={{
+							position: 'relative',
+							top: '0px',
+							color: '#1293D6',
+							marginRight: '3px'
+						}}
+					/>
+					<h5>Copy File or Folder</h5>
 				</div>
-				<span>Dropbox</span>
+				<p>
+					Copy <span className="itemCopy">{props.doc.name}</span> to ...
+				</p>
+				<span>CloudyBox Folder</span>
 				<div className="relocateCtn">
 					{props.folders.map((folder) => {
+						let activeClass;
+						if(activeFolderChoosen === folder){
+							activeClass = "folderCtn active"
+						} else {
+							activeClass = "folderCtn"
+						}
 						return (
-							<div key={folder.id} className="folderCtn" onClick={() => getNewPath(folder)}>
-								<FaFolder size="2rem" className="folderIcon" />
+							<div key={folder.id}  className={activeClass} onClick={() => getNewPath(folder)}>
+								<FaFolder size="2rem" style={{marginLeft: "20px"}} className="folderIcon" />
 								<p className="documentLink">
 									{folder.name}
 								</p>

@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useRef, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState, useRef, useEffect, useCallback} from 'react';
 import { Link } from 'react-router-dom';
 import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars } from 'react-icons/fa';
 import './FileList.css';
@@ -31,14 +30,26 @@ const FileList = ({
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 	const nodeDropdown = useRef();
 
-	const handleClickOutside = e => {
+	const showDropDown = useCallback( () => {
+		updateDropDown(dropDown ? false : true);
+	}, [dropDown]); 
+
+	const handleRemoveModal = () => {
+		updateRemoveModal(true);
+	}
+
+	const handleRenameModal = () => {
+		updateRenameModal(true);
+	}
+
+	const handleClickOutside = useCallback ( (e) => {
 		if (nodeDropdown.current.contains(e.target)) {
 		  // inside click
 		  return;
 		}
 		// outside click 
-		showDropDown(false);
-	};
+		showDropDown(dropDown);
+	}, [showDropDown, dropDown]);
 
 	useEffect(() => {
 		//this document.addEventListerner can only be used inside a useEffect
@@ -51,21 +62,7 @@ const FileList = ({
 		return () => {
 		  document.removeEventListener("mousedown", handleClickOutside);
 		};
-	  }, [dropDown]);
-
-
-	const showDropDown = () => {
-		updateDropDown(dropDown ? false : true);
-	}; 
-
-
-	const handleRemoveModal = () => {
-		updateRemoveModal(true);
-	}
-
-	const handleRenameModal = () => {
-		updateRenameModal(true);
-	}
+	  }, [dropDown,handleClickOutside]);
 
 	const filterFolder =()=>{
 		let originDocs = documents;
@@ -81,6 +78,7 @@ const FileList = ({
 		filterFolder(e);
 	}
 
+
 	let dropdownClass;
 
 	if (dropDown) {
@@ -95,7 +93,9 @@ const FileList = ({
 	
 
 	useEffect(() => {
-		let dropbox = new Dropbox({ accessToken: localToken })
+
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
+		//let dropbox = new Dropbox({ accessToken: localToken })
 		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
 			doc.name.slice(doc.name.length - 4) === 'jpeg' ||
 			doc.name.slice(doc.name.length - 3) === 'png') {
@@ -117,86 +117,77 @@ const FileList = ({
 	},[doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
 
 	if (doc) {
-		let button;
 
-		if (favorites.find(x => x.id === doc.id)) {
-			button = <FaStar size="20px" style={{ color: "rgb(250, 142, 0)", position: "relative", top: "3px" }} />
-		} else {
-			button = <FaRegStar size="20px" style={{ position: "relative", top: "3px" }} />
-		}
-
-		
-	return (
-		<li className="item">
-			<div className="itemSmlCtn">
-			<span className="starIcon" onClick={() => handleFav(doc)}>
-				<span>{button}</span>
-			</span>
-			{doc['.tag'] === 'file' ? (
-						<>
-							{
-								doc.name.slice(doc.name.length - 3) === "pdf" 
-									? <FaFilePdf size="2rem" className="folderIcon" />
-									: thumbnailUrl 
-									? <img src={thumbnailUrl} alt='' style={{marginRight: '10px'}}/> 
-									: <FaFile size="2rem" className="folderIcon" />
-							}
-							<a
-								className="documentLink"
-								onClick={() => getLinkToFile(doc.path_lower)}
-							>
-								{doc.name}
-							</a>
-						</>
-					) : (
+		return (
+			<li className="item">
+				<div className="itemSmlCtn">
+				<span className="starIcon" onClick={() => handleFav(doc)}>
+					{favorites.find(x => x.id === doc.id) 
+					? <span><FaStar size="20px" style={{ color: "rgb(250, 142, 0)", position: "relative", top: "3px" }} /></span> 
+					: <span><FaRegStar size="20px" style={{ position: "relative", top: "3px" }} /></span>}
+				</span>
+				{doc['.tag'] === 'file' ? (
 							<>
-								<FaFolder size="2rem" className="folderIcon" />
-								<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
+								{
+									doc.name.slice(doc.name.length - 3) === "pdf" 
+										? <FaFilePdf size="2rem" className="folderIcon" />
+										: thumbnailUrl 
+										? <img src={thumbnailUrl} alt='' style={{marginRight: '10px'}}/> 
+										: <FaFile size="2rem" className="folderIcon" />
+								}
+								<a
+									className="documentLink"
+									onClick={() => getLinkToFile(doc.path_lower)}
+								>
+									{doc.name}
+								</a>
 							</>
-						)}
-				</div>
-				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
-				<p className="modified">{convertDate(doc.client_modified)}</p>
-				<div className="dropDownCtn" ref={nodeDropdown}>
-					<button onClick={showDropDown} id={doc.id} >
-						<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
-					</button>
-					<div className={dropdownClass}>
-						<button
-							className="deleteBtn"
-							onClick={handleRemoveModal}
-						>
-							Delete
-						</button>
-						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents} />}
-
-						<button
-							className="renameBtn"
-							onClick={handleRenameModal}
-						>
-							Rename
-						</button>
-						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
-						<button
-							className="copyBtn"
-							onClick={handleCopyModal}
-						>
-							Copy
-						</button>
-						{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
-						<button
-							className="moveBtn"
-						>
-							Move
-						</button>
+						) : (
+								<>
+									<FaFolder size="2rem" className="folderIcon" />
+									<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
+								</>
+							)}
 					</div>
-				</div>
-			</li> 
-		);
-	} 
-	
+					<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
+					<p className="modified">{convertDate(doc.client_modified)}</p>
+					<div className="dropDownCtn" ref={nodeDropdown}>
+						<button onClick={showDropDown} id={doc.id} >
+							<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
+						</button>
+						<div className={dropdownClass}>
+							<button
+								className="deleteBtn"
+								onClick={handleRemoveModal}
+							>
+								Delete
+							</button>
+							{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents} />}
 
-		
+							<button
+								className="renameBtn"
+								onClick={handleRenameModal}
+							>
+								Rename
+							</button>
+							{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
+							<button
+								className="copyBtn"
+								onClick={handleCopyModal}
+							>
+								Copy
+							</button>
+							{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
+							<button
+								className="moveBtn"
+							>
+								Move
+							</button>
+						</div>
+					</div>
+				</li> 
+			);
+	} 	
 };
 
 export default FileList;

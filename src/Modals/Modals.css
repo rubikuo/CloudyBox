@@ -21,10 +21,12 @@
 
 .modalHeadline {
     display: flex;
+
 }
 
 .itemDelete, .itemCopy {
     color: #106BAC;
+    font-weight: bold;
 }
 
 
@@ -51,7 +53,8 @@
     font-size: 14px;
     text-align: left;
     line-height: 25px;
-    margin: 0 0 0 3%
+    margin: 0;
+    color: #737373;
 }
 
 .modalContainer > .modalBox > form > input {
@@ -62,27 +65,37 @@
     color: transparent;
 }
 
+.modalContainer > .modalBox > a {
+    padding: 8px;
+    background-color: #1293D6;
+    width: 150px;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.8rem;
+    align-self: center;
+    margin-top: 40px;
+}
+
+.modalContainer > .modalBox > a:hover {
+    background-color: #106BAC;
+}
+
 .modalContainer > .copyBox {
     height: 300px;
     top: 20vh;
     left: 20vw;
 }
 
-.relocateCtn {
-    height: 320px;
-    width: 450px;
-    border: 1px solid black;
-    overflow: scroll;
+.errorMessages > p {
+    margin: 0;
 }
 
-.folderCtn{
-    display: flex;
-    align-items: center;
-}
-
-.folderCtn:hover{
-    background-color: rgba(181, 180, 180, 0.426);
-
+.rename-error {
+    color: red;
+    padding-top: 10px;
+    font-size: 0.7rem;
 }
 
 .modalsButtonsContainer {
@@ -117,3 +130,34 @@
 .blueButtons:hover {
     background-color: #106BAC;
 }
+
+/* --- Copy Modal --- */
+
+.relocateCtn {
+    height: 450px;
+    width: 450px;
+    border: 1px solid #c5c5c5;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.folderCtn{
+    display: flex;
+    align-items: center;
+}
+
+.folderCtn.active {
+    background-color: rgb(114, 179, 214, 0.3);
+}
+
+.folderCtn:hover{
+    background-color: rgba(226, 226, 226, 0.5);
+    cursor: pointer;
+}
+
+.modalBox.copyBox > span {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #737373;
+}
+
