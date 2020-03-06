@@ -95,6 +95,7 @@ const Copy = (props) => {
 			})
 			.catch((error) => {
 				console.log(error);
+				
 			});
 	};
 
@@ -148,7 +149,6 @@ const Copy = (props) => {
 							})} </nav>
 						<div className="relocateCtn">
 							{allRepo.map((folder, idx) => {
-							// searchChildItem(folder.path_lower)
 								let activeClass;
 								if (activeFolderChoosen === folder) {
 									activeClass = "folderCtn active"

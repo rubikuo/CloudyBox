@@ -177,7 +177,7 @@ const FileList = ({
 						>
 							Rename
 						</button>
-						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
+						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} location={location}/>}
 						<button
 							className="copyBtn"
 							onClick={handleCopyModal}

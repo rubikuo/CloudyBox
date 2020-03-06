@@ -20,10 +20,10 @@ const Rename = (props) => {
 	const submitRename = (fromPath, toPath, e) => {
 		e.preventDefault();
 		if (toPath === '') return;
-		let formatedToPath = '/' + toPath;
+		let formatedToPath = props.location.pathname.slice(5) + '/' + toPath;
 		let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
 		dropbox
-			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath })
+			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath})
 			.then((response) => {
 				console.log(response);
 				let copyDocument = [ ...props.documents ];
