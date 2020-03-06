@@ -31,33 +31,61 @@ const Main = ({
 
     if (location.pathname === '/home') {
       dropbox
-        .filesListFolder({ path: '' })
-        .then((response) => {
-          console.log('resonse.entries', response.entries);
-          updateDocs(response.entries); // update in state
-          updateErrorStatus(false);
-          updateTab("name");
-          return response.entries;
+        .filesListFolderGetLatestCursor({path: "",
+          recursive: false,
+          include_media_info: false,
+          include_deleted: false,
+          include_has_explicit_shared_members:false
+        })
+        .then((res) => {
+          updateLongPoll(res.cursor)
+        })
+        .catch((err) => {
+          console.log(err);
         });
+
+        const updateLongPoll = (cursor) => {
+          dropbox.filesListFolderLongpoll({cursor: cursor, timeout: 5})
+          .then((response) => {
+            console.log('resonse.entries', response.entries);
+            updateDocs(response.entries); // update in state
+            updateErrorStatus(false);
+            updateTab("name");
+          })
+          .catch ((err) => {
+            console.log(err);
+          });
+        }
     } else {
       //console.log('this is not a home, link is', location.pathname);
       let newPath = location.pathname.slice(5);
       console.log(newPath);
       dropbox
-        .filesListFolder({ path: newPath })
-        .then((response) => {
-          // console.log('resonse.entries', response.entries);
-          updateDocs(response.entries); // update in state
-          updateErrorStatus(false);
-          updateTab("name");
-          return response.entries;
-        })
-        .catch((response) => {
-          console.log(response.error.error_summary);
+        .filesListFolderGetLatestCursor({path: newPath,
+            recursive: false,
+            include_media_info: false,
+            include_deleted: false,
+            include_has_explicit_shared_members:false
+          })
+          .then((res) => {
+            updateLongPoll(res.cursor)
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
-          removeFavoriteByPath(newPath);
-          updateErrorStatus(true)
-        })
+          const updateLongPoll = (cursor) => {
+            dropbox.filesListFolderLongpoll({cursor: cursor, timeout: 5})
+            .then((response) => {
+              console.log('resonse.entries', response.entries);
+              updateDocs(response.entries); // update in state
+              updateErrorStatus(false);
+              updateTab("name");
+            })
+            .catch ((err) => {
+              console.log(err);
+            });
+          }
     }
   }, [location, localToken, updateDocs])
 
@@ -68,14 +96,14 @@ const Main = ({
     [loadFiles]
   );
 
-  useEffect(() => {
+  /* useEffect(() => {
     const interval = setInterval(() => {
       console.log("HELLO");
       loadFiles();
     }, 20000);
 
     return () => clearInterval(interval);
-  }, [loadFiles])
+  }, [loadFiles]) */
 
   const showTab = (tabName) => {
     updateTab(tabName);
