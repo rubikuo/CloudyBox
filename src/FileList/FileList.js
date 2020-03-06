@@ -94,7 +94,8 @@ const FileList = ({
 
 	const filterFolders =()=>{
 		let originDocs = documents;
-		console.log("id", doc)
+		console.log("origin", originDocs)
+		// console.log("id", doc)
         let filteredFolder = originDocs.filter(item=> item[".tag"]==="folder" && item.id !== doc.id);
         console.log(filteredFolder);
         updateFolders(filteredFolder)

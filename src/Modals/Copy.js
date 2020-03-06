@@ -16,8 +16,6 @@ const Copy = (props) => {
 	const getNewPath = (item) => {
 		console.log(item.path_lower);
 		updateNewPath(item.path_lower);
-		updateSelectedFolder(selectedFolder? false:true)
-
 	};
 
 	const copyFile = (fromPath, toPath) => {
@@ -46,8 +44,9 @@ const Copy = (props) => {
 				<span>Dropbox</span>
 				<div className="relocateCtn">
 					{props.folders.map((folder) => {
+
 						return (
-							<div key={folder.id} className={selectedFolder? "folderCtn active" : "folderCtn" } onClick={() => getNewPath(folder)}>
+							<div key={folder.id} className="folderCtn" onClick={() => getNewPath(folder)}>
 								<FaFolder size="2rem" className="folderIcon" />
 								<p className="documentLink">
 									{folder.name}
