@@ -22,12 +22,17 @@ const Create = (props) => {
 		const root = props.location.pathname.slice(5);
 
 		let dropbox = new Dropbox({ fetch:fetch, accessToken: props.localToken });
-		//var dbx = new Dropbox({ accessToken: props.localToken });
 		dropbox
 			.filesCreateFolderV2({ path: root + '/' + pathName, autorename: true })
 			.then(function(response) {
-				console.log(response);
-				const newDocuments = [ ...props.documents, response.metadata ];
+				console.log(response)
+				let copyData = [...props.documents];
+              	let newData = {
+					".tag" : "folder",
+					...response.metadata, 
+				  	} 
+				const newDocuments = [ ...copyData, newData ];  
+				console.log(newDocuments);
 				props.updateDocs(newDocuments);
 			})
 			.catch(function(error) {

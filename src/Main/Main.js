@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import FileList from '../FileList/FileList';
@@ -24,7 +24,7 @@ const Main = ({
   const [errorStatus, updateErrorStatus] = useState(false);
   //console.log(localToken);
 
-  function loadFiles() {
+  const loadFiles = useCallback( () => {
     console.log('location Name', location.pathname);
 
     let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
@@ -60,13 +60,13 @@ const Main = ({
           updateErrorStatus(true)
         })
     }
-  }
+  }, [location, localToken, updateDocs])
 
   useEffect(
     () => {
       loadFiles();
     },
-    [location.pathname, localToken, updateDocs]
+    [loadFiles]
   );
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const Main = ({
     }, 20000);
 
     return () => clearInterval(interval);
-  }, [])
+  }, [loadFiles])
 
   const showTab = (tabName) => {
     updateTab(tabName);
