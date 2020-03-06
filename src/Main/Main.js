@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from "react-router-dom";
+import ReactDOM from 'react-dom';
+import { Link } from "react-router-dom";
 import FileList from '../FileList/FileList';
 import './Main.css';
-import { FaStar } from 'react-icons/fa';
+import { FaFolder, FaStar } from 'react-icons/fa';
 import { Dropbox } from 'dropbox';
 import { removeFavoriteByPath } from '../store';
 
@@ -23,45 +24,59 @@ const Main = ({
   const [errorStatus, updateErrorStatus] = useState(false);
   //console.log(localToken);
 
+  function loadFiles() {
+    console.log('location Name', location.pathname);
+
+    let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
+    //let dropbox = new Dropbox({ accessToken: localToken });
+
+    if (location.pathname === '/home') {
+      dropbox
+        .filesListFolder({ path: '' })
+        .then((response) => {
+          console.log('resonse.entries', response.entries);
+          updateDocs(response.entries); // update in state
+          updateErrorStatus(false);
+          updateTab("name");
+          return response.entries;
+        });
+    } else {
+      //console.log('this is not a home, link is', location.pathname);
+      let newPath = location.pathname.slice(5);
+      console.log(newPath);
+      dropbox
+        .filesListFolder({ path: newPath })
+        .then((response) => {
+          // console.log('resonse.entries', response.entries);
+          updateDocs(response.entries); // update in state
+          updateErrorStatus(false);
+          updateTab("name");
+          return response.entries;
+        })
+        .catch((response) => {
+          console.log(response.error.error_summary);
+
+          removeFavoriteByPath(newPath);
+          updateErrorStatus(true)
+        })
+    }
+  }
+
   useEffect(
     () => {
-      console.log('location Name', location.pathname);
-
-      let dropbox = new Dropbox({ accessToken: localToken });
-
-      if (location.pathname === '/home') {
-        dropbox
-          .filesListFolder({ path: '' })
-          .then((response) => {
-            console.log('resonse.entries', response.entries);
-            updateDocs(response.entries); // update in state
-            updateErrorStatus(false);
-            updateTab("name");
-            return response.entries;
-          });
-      } else {
-        //console.log('this is not a home, link is', location.pathname);
-        let newPath = location.pathname.slice(5);
-        console.log(newPath);
-        dropbox
-          .filesListFolder({ path: newPath })
-          .then((response) => {
-            // console.log('resonse.entries', response.entries);
-            updateDocs(response.entries); // update in state
-            updateErrorStatus(false);
-            updateTab("name");
-            return response.entries;
-          })
-          .catch((response) => {
-            console.log(response.error.error_summary);
-
-            removeFavoriteByPath(newPath);
-            updateErrorStatus(true)
-          })
-      }
+      loadFiles();
     },
     [location.pathname, localToken, updateDocs]
   );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("HELLO");
+      loadFiles();
+    }, 20000);
+
+    return () => clearInterval(interval);
+  }, [])
 
   const showTab = (tabName) => {
     updateTab(tabName);
@@ -69,7 +84,7 @@ const Main = ({
 
   let tabActiveStyle = {
     backgroundColor: '#F7F7F7',
-    color: 'rgb(34, 138, 208)'
+    color: 'rgb(34, 138, 208)', 
   };
 	const getLinkToFile = (path) => {
 		console.log(path);
@@ -84,6 +99,23 @@ const Main = ({
 			});
 	};
 
+	if(errorStatus){
+		return ReactDOM.createPortal(
+			<div className="modalContainer">
+				<div className="modalBox">
+					<div className="modalHeadline">
+						<FaFolder style={{ position: 'relative', top: '0px', color: '#1293D6', marginRight: '3px' }} />
+						<h5>Error!</h5>
+					</div>
+					<div className="errorMessages">
+						<p>The requested folder does not exist or has already been removed.</p>
+					</div>
+					<Link to="/home">Back to Home</Link>
+				</div>
+			</div>,
+			document.body
+		);
+	}
 
   let arrayPrint;
 
@@ -106,7 +138,6 @@ const Main = ({
             documents={documents}
             updateDocs={updateDocs}
             localToken={localToken}
-            tab={tab}
           />
         } else {
           return null
@@ -126,7 +157,6 @@ const Main = ({
           documents={documents}
           updateDocs={updateDocs}
           localToken={localToken}
-          tab={tab}
         />
       })
   } else if (tab === "stared") {
@@ -146,10 +176,7 @@ const Main = ({
           location={location}
           documents={documents}
           updateDocs={updateDocs}
-          tab={tab}
           localToken={localToken}
-          errorStatus={errorStatus}
-          updateErrorStatus={updateErrorStatus}
         />
       } else {
         return null
@@ -168,17 +195,10 @@ const Main = ({
           location={location}
           documents={documents}
           updateDocs={updateDocs}
-          tab={tab}
-          localToken={localToken}
-          errorStatus={errorStatus}
-          updateErrorStatus={updateErrorStatus}
+          localToken={localToken} 
         />
       })
   }
-
-  /*if (errorStatus) {
-    return <Redirect to="/home" />;
-  }*/
 
   return (
     <main>

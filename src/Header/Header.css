@@ -25,28 +25,38 @@
 }
 
 .logo-header {
-    width: 200px;
     margin-top: 50px;
+    min-width: 50%;
+    max-width: 90%;
+}
+
+.search-box {
+    width: calc(60% - 40px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 40px;
 }
 
 .search-field {
     display: flex;
-    width: 40%;
-    align-self: flex-start;
-    position: absolute;
-    top: 10%;
-    left: 30%;
+    width: 50%;
+    height: 30px;
     padding: 0.5%;
     border: 1px solid #ddd;
     border-radius: 0.3rem;
+    margin-top: 40px;
 }
 
 .search-input {
     align-self: flex-start;
-    margin-left: 20px;
+    margin-left: 10px;
     padding: 1.3%;
     width: 100%;
+    height: 90%;
     background-color: transparent;
+    position: relative;
+    top: -4px;
 }
 
 /*----------second row in the Header: path and logout button --------*/
@@ -58,11 +68,15 @@
     width: 100%;
     height: 20%;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.paths {
+    margin-left: 15px;
 }
 
 .header-path {
-    width: 87%;
+    width: 82%;
     text-align: left;
 }
 
@@ -82,16 +96,19 @@
 
 .logout-button {
     border: none;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 800;
-    color: #106BAC;
-    background-color: transparent;
-    width: 13%;
-    text-align: left;
+    color: #fff;
+    background-color: orange;
+    width: 130px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+    height: 30px;
 }
 
 .divider {
-    margin: 0 10px;
+    margin: 0 0px 0 15px;
 }
 
 .divider:hover {
@@ -100,14 +117,30 @@
 }
 
 .logout-button:hover {
-    color:#1293D6;
-    text-decoration: underline;
     cursor: pointer;
+    background-color: rgb(255, 136, 0);
 }
 
 .pathLink{
     text-decoration: none;
     color: #737373;
+}
+
+@media only screen and (max-width: 900px) {
+
+    .logo-container {
+        width: 30%;
+    }
+    
+    .logo-header {
+        margin-top: 50px;
+        width: 100%;
+    }
+
+    .search-box {
+        width: calc(70% - 40px);
+      
+    }
 }
 
 /*

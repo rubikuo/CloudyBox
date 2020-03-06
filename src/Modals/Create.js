@@ -21,8 +21,9 @@ const Create = (props) => {
 		console.log(pathName);
 		const root = props.location.pathname.slice(5);
 
-		var dbx = new Dropbox({ accessToken: props.localToken });
-		dbx
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: props.localToken });
+		//var dbx = new Dropbox({ accessToken: props.localToken });
+		dropbox
 			.filesCreateFolderV2({ path: root + '/' + pathName, autorename: true })
 			.then(function(response) {
 				console.log(response);
