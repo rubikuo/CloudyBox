@@ -68,7 +68,7 @@ const FileList = ({
 
 
 	useEffect(() => {
-		let dropbox = new Dropbox({ accessToken: localToken })
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken })
 		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
 			doc.name.slice(doc.name.length - 4) === 'jpeg' ||
 			doc.name.slice(doc.name.length - 3) === 'png') {
@@ -89,7 +89,6 @@ const FileList = ({
 		}
 	},[doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
 
-	
 
 	const filterFolders =()=>{
 		let originDocs = documents;
@@ -172,7 +171,6 @@ const FileList = ({
 							</button>
 							{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents} />}
 
-<<<<<<< HEAD
 						<button
 							className="renameBtn"
 							onClick={handleRenameModal}
@@ -194,28 +192,7 @@ const FileList = ({
 							Move
 						</button>
 						{showMoveModal && <Move updateMoveModal={updateMoveModal} doc={doc}  documents={documents} updateDocs={updateDocs} folders={folders} />}
-=======
-							<button
-								className="renameBtn"
-								onClick={handleRenameModal}
-							>
-								Rename
-							</button>
-							{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
-							<button
-								className="copyBtn"
-								onClick={handleCopyModal}
-							>
-								Copy
-							</button>
-							{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
-							<button
-								className="moveBtn"
-							>
-								Move
-							</button>
-						</div>
->>>>>>> master
+					</div>
 					</div>
 				</li> 
 			);

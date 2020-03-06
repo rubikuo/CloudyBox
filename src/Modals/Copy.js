@@ -1,14 +1,33 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from "react-router-dom";
 import { Dropbox } from 'dropbox';
 import ReactDOM from 'react-dom';
 import { token$ } from '../store';
+import { Dropbox } from 'dropbox';
 import './Modals.css';
 import { FaFolder } from 'react-icons/fa';
 
 const Copy = (props) => {
 	const [ newPath, updateNewPath ] = useState('');
-	const [ selectedFolder, updateSelectedFolder] = useState(false);
+	const [ activeFolderChoosen, updateFolderChoosen] = useState("");
+	const [redirectTo, updateRedirectTo] = useState(null);
+	const [ allRepo, updateAllRepo ] =useState([])
+
+	const getAllRepositories =()=>{
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: token$.value });
+		if (location.pathname === '/home') {
+
+		}
+        
+	}
+
+	useEffect(() => {
+		return () => {
+			cleanup
+		};
+	}, [input])
+
 	const handleCopyModal = (status) => {
 		props.updateCopyModal(status);
 	};
@@ -16,27 +35,29 @@ const Copy = (props) => {
 	const getNewPath = (item) => {
 		console.log(item.path_lower);
 		updateNewPath(item.path_lower);
-		updateSelectedFolder(selectedFolder? false:true)
+		updateFolderChoosen(item);
 
 	};
 
 	const copyFile = (fromPath, toPath) => {
-		let dropbox = new Dropbox({ accessToken: token$.value });
+		let dropbox = new Dropbox({ fetch:fetch, accessToken: token$.value });
 		dropbox
 			.filesCopyV2({ from_path: fromPath, to_path: toPath })
 			.then((response) => {
 				console.log(response);
-				window.location.href = 'home' + newPath;
+				updateRedirectTo('/home' + newPath);
+				// window.location.href = 'home' + newPath;
+				handleCopyModal();
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-		handleCopyModal();
 	};
 
 	return ReactDOM.createPortal(
 
 		<div className="modalContainer">
+			{ redirectTo && <Redirect to={redirectTo} />}
 			<div className="modalBox copyBox">
 				<div className="modalHeadline">
 					<p>
@@ -46,9 +67,14 @@ const Copy = (props) => {
 				<span>Dropbox</span>
 				<div className="relocateCtn">
 					{props.folders.map((folder) => {
-						
+						let activeClass;
+						if(activeFolderChoosen === folder){
+						activeClass = "folderCtn active"
+						} else {
+						activeClass = "folderCtn"
+						}
 						return (
-							<div key={folder.id} className={selectedFolder? "folderCtn active" : "folderCtn" } onClick={() => getNewPath(folder)}>
+						<div key={folder.id} className={activeClass} onClick={() => getNewPath(folder)}>
 								<FaFolder size="2rem" className="folderIcon" />
 								<p className="documentLink">
 									{folder.name}
