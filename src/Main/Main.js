@@ -38,7 +38,6 @@ const Main = ({
           updateDocs(response.entries); // update in state
           updateErrorStatus(false);
           updateTab("name");
-          return response.entries;
         });
     } else {
       //console.log('this is not a home, link is', location.pathname);
@@ -51,11 +50,9 @@ const Main = ({
           updateDocs(response.entries); // update in state
           updateErrorStatus(false);
           updateTab("name");
-          return response.entries;
         })
         .catch((response) => {
           console.log(response.error.error_summary);
-
           removeFavoriteByPath(newPath);
           updateErrorStatus(true)
         })
