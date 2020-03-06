@@ -35,7 +35,7 @@ const Main = ({
         dropbox
           .filesListFolder({ path: '' })
           .then((response) => {
-            console.log('resonse.entries', response.entries);
+            console.log('resonse.entries', response.cursor);
             updateDocs(response.entries); // update in state
             updateErrorStatus(false);
             updateTab("name");
