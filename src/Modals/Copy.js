@@ -8,6 +8,7 @@ import { FaFolder } from 'react-icons/fa';
 
 const Copy = (props) => {
 	const [ newPath, updateNewPath ] = useState('');
+	const [ selectedFolder, updateSelectedFolder] = useState(false);
 	const handleCopyModal = (status) => {
 		props.updateCopyModal(status);
 	};
@@ -15,6 +16,8 @@ const Copy = (props) => {
 	const getNewPath = (item) => {
 		console.log(item.path_lower);
 		updateNewPath(item.path_lower);
+		updateSelectedFolder(selectedFolder? false:true)
+
 	};
 
 	const copyFile = (fromPath, toPath) => {
@@ -32,6 +35,7 @@ const Copy = (props) => {
 	};
 
 	return ReactDOM.createPortal(
+
 		<div className="modalContainer">
 			<div className="modalBox copyBox">
 				<div className="modalHeadline">
@@ -43,7 +47,7 @@ const Copy = (props) => {
 				<div className="relocateCtn">
 					{props.folders.map((folder) => {
 						return (
-							<div key={folder.id} className="folderCtn" onClick={() => getNewPath(folder)}>
+							<div key={folder.id} className={selectedFolder? "folderCtn active" : "folderCtn" } onClick={() => getNewPath(folder)}>
 								<FaFolder size="2rem" className="folderIcon" />
 								<p className="documentLink">
 									{folder.name}
