@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useRef, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars } from 'react-icons/fa';
 import './FileList.css';
@@ -93,7 +92,7 @@ const FileList = ({
 	}
 
 
-	const filterFolder =()=>{
+	const filterFolders =()=>{
 		let originDocs = documents;
 		console.log("id", doc)
         let filteredFolder = originDocs.filter(item=> item[".tag"]==="folder" && item.id !== doc.id);
@@ -101,14 +100,14 @@ const FileList = ({
         updateFolders(filteredFolder)
     }
 
-	const handleCopyModal =(e)=>{
+	const handleCopyModal =()=>{
 		updateCopyModal(true);
-		filterFolder(e);
+		filterFolders();
 	}
 
-	const handleMoveModal = (e) =>{
+	const handleMoveModal = () =>{
 		updateMoveModal(true);
-		filterFolder(e);
+		filterFolders();
 	}
 
 	let dropdownClass;
