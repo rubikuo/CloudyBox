@@ -6,7 +6,7 @@ import { FaAngleRight, FaHome } from "react-icons/fa";
 import "./Header.css";
 
 const Header = ({logOut, location, search, filterSearch}) => {
-    console.log("location propname", location.pathname)
+    // console.log("location propname", location.pathname)
 
     const parts = location.pathname.substring(6).split("/");
     console.log(parts)
@@ -22,8 +22,8 @@ const Header = ({logOut, location, search, filterSearch}) => {
         parts[0] = "Home";
         links = ["/home"];
     }
-    console.log(parts)
-    console.log(links)
+    // console.log("parts", parts)
+    // console.log("links", links)
 
     return (
         <div className='header-container'>
@@ -60,7 +60,8 @@ const Header = ({logOut, location, search, filterSearch}) => {
                                         <Link to={links[idx]} className="pathLink">{part}</Link>
                                         {idx !== parts.length - 1 ? <span className="divider"><FaAngleRight style={{position: 'relative', top: '4px'}}/></span> : null} 
                                   </div>
-                        })}                    </nav>
+                        })}                    
+                    </nav>
                 </div>
                 <button className='logout-button' onClick={logOut}>Log out</button>
             </div>

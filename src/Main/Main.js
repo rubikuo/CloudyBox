@@ -25,7 +25,7 @@ const Main = ({
   //console.log(localToken);
 
   const loadFiles = useCallback( () => {
-    console.log('location Name', location.pathname);
+    // console.log('location Name', location.pathname);
 
     let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
     //let dropbox = new Dropbox({ accessToken: localToken });
@@ -34,7 +34,7 @@ const Main = ({
       dropbox
         .filesListFolder({ path: '' })
         .then((response) => {
-          console.log('resonse.entries', response.entries);
+          // console.log('resonse.entries', response.entries);
           updateDocs(response.entries); // update in state
           updateErrorStatus(false);
           updateTab("name");
@@ -68,7 +68,6 @@ const Main = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("HELLO");
       loadFiles();
     }, 20000);
 
