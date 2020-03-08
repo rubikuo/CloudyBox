@@ -144,6 +144,7 @@
 .folderCtn{
     display: flex;
     align-items: center;
+    padding: 0 10px;
 }
 
 .folderCtn.active {
@@ -160,4 +161,25 @@
     font-size: 0.8rem;
     color: #737373;
 }
+
+
+.copy-path{
+    color: #106BAC;
+    font-weight: 600;
+    font-size: 0.9em;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.copy-path .pathLink {
+    border: none;
+    padding: 0;
+}
+
+.copy-path .pathLink:hover {
+    cursor: pointer;
+    color:#1293D6;
+    text-decoration: underline;
+}
+
 

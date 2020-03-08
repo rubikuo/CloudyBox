@@ -39,7 +39,7 @@ const Rename = (props) => {
 			});
 	};
 
-	//console.log('rename', rename);
+
 
 	return ReactDOM.createPortal(
 		<div className="modalContainer">

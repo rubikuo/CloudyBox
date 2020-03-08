@@ -89,8 +89,8 @@ const Copy = (props) => {
 						Copy <span className="itemCopy">{props.doc.name}</span> to ...
 					</p>
 				</div>
-
-				<nav>
+		
+				<nav className="copy-path">
 					{parts.map((part, idx) => {
 						return (
 							<div className="paths" key={idx}>
@@ -111,6 +111,7 @@ const Copy = (props) => {
 						);
 					})}
 				</nav>
+			
 				<div className="relocateCtn">
 					{allRepo.map((folder, idx) => {
 						let activeClass;
