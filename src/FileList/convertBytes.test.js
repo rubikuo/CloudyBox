@@ -1,10 +1,10 @@
 import { convertBytes } from './convertBytes';
 
-//inPut:
-//outPut:
-
 describe('convertBytes', () => {
-    it('convertBytes returns something', () => {
-      
+    it('convertBytes should return KB if bytes', () => {
+      const inputSize = 7149;
+      const convertedSize = '7 KB';
+
+      expect(convertBytes(inputSize)).toBe(convertedSize);
     }) 
 })
