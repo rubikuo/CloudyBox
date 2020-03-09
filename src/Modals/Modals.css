@@ -92,7 +92,7 @@
     margin: 0;
 }
 
-.rename-error {
+.rename-error{
     color: red;
     padding-top: 10px;
     font-size: 0.7rem;
@@ -144,6 +144,7 @@
 .folderCtn{
     display: flex;
     align-items: center;
+    padding: 0 10px;
 }
 
 .folderCtn.active {
@@ -157,7 +158,29 @@
 
 .modalBox.copyBox > span {
     margin-top: 10px;
-    font-size: 0.8rem;
-    color: #737373;
+    font-size: 0.7rem;
+    color: red;
 }
+
+
+.copy-path{
+    color: #106BAC;
+    font-weight: 600;
+    font-size: 0.9em;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.copy-path .pathLink {
+    border: none;
+    padding: 0;
+}
+
+.copy-path .pathLink:hover {
+    cursor: pointer;
+    color:#1293D6;
+    text-decoration: underline;
+}
+
+
 
