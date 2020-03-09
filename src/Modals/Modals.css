@@ -92,7 +92,7 @@
     margin: 0;
 }
 
-.rename-error {
+.rename-error{
     color: red;
     padding-top: 10px;
     font-size: 0.7rem;
@@ -180,6 +180,11 @@
     cursor: pointer;
     color:#1293D6;
     text-decoration: underline;
+}
+
+.copy-error {
+    color: red;
+    font-size: 0.7rem;
 }
 
 

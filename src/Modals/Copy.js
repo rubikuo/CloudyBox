@@ -13,8 +13,9 @@ const Copy = (props) => {
 	const [ redirectTo, updateRedirectTo ] = useState(null);
 	const [ allRepo, updateAllRepo ] = useState([]);
 	const [ choosenRepo, updateChoosenRepo ] = useState('');
-	const [ parts, updateParts ] = useState([ 'Home' ]);
+	const [ parts, updateParts ] = useState([]);
 	const [ pathLinks, updatePathLinks ] = useState([]);
+	const [ errorMsg, updateErrorMsg ] = useState(false);
 
 	const filterFolders = useCallback(
 		(docs) => {
@@ -26,10 +27,39 @@ const Copy = (props) => {
 
 	useEffect(
 		() => {
+			let paths = props.location.pathname.substring(6).split('/');
+			console.log(parts);
+			let links;
+			if (paths[0] !== '') {
+				paths.unshift('Home');
+				let copyNewParts = [ ...paths ];
+				copyNewParts[0] = '';
+				links = copyNewParts.map((_, idx) => {
+					// console.log('idx', copyNewParts.slice(0, idx + 1));
+					return '' + copyNewParts.slice(0, idx + 1).join('/');
+				});
+				console.log('links', links);
+			} else {
+				paths[0] = 'Home';
+				links =[""];
+				updatePathLinks(links)
+			}
+			updateParts(paths);
+			console.log(paths)
+			updatePathLinks(links)
+			updateChoosenRepo(links[links.length-1]);
+
+		
+		},
+		[ props.location.pathname ]
+	);
+
+	useEffect(
+		() => {
 			let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
 			if (choosenRepo !== null) {
 				dropbox.filesListFolder({ path: choosenRepo }).then((response) => {
-					console.log('resonse.entries', response.entries);
+					console.log('choosen', choosenRepo);
 					filterFolders(response.entries); // update in state
 				});
 				return;
@@ -46,7 +76,7 @@ const Copy = (props) => {
 		let copyNewParts = [ ...newParts ];
 		copyNewParts[0] = '';
 		links = copyNewParts.map((_, idx) => {
-			console.log('idx', copyNewParts.slice(0, idx + 1));
+			// console.log('idx', copyNewParts.slice(0, idx + 1));
 			return '' + copyNewParts.slice(0, idx + 1).join('/');
 		});
 		console.log('links', links);
@@ -71,12 +101,13 @@ const Copy = (props) => {
 		dropbox
 			.filesCopyV2({ from_path: fromPath, to_path: toPath })
 			.then((response) => {
-				// console.log(response);
-				updateRedirectTo('/home' + newPath);
+				console.log('to', toPath);
+				updateRedirectTo('/home' + pathLinks[pathLinks.length - 1]);
 				handleCopyModal();
 			})
 			.catch((error) => {
 				console.log(error);
+				updateErrorMsg(true);
 			});
 	};
 
@@ -89,7 +120,7 @@ const Copy = (props) => {
 						Copy <span className="itemCopy">{props.doc.name}</span> to ...
 					</p>
 				</div>
-		
+
 				<nav className="copy-path">
 					{parts.map((part, idx) => {
 						return (
@@ -111,7 +142,7 @@ const Copy = (props) => {
 						);
 					})}
 				</nav>
-			
+
 				<div className="relocateCtn">
 					{allRepo.map((folder, idx) => {
 						let activeClass;
@@ -128,6 +159,8 @@ const Copy = (props) => {
 						);
 					})}
 				</div>
+
+				{errorMsg ? <span className="copy-error">This item is already in the folder!</span> : null}
 
 				<div className="modalsButtonsContainer">
 					<div onClick={() => handleCopyModal(false)} className="modalButtons">

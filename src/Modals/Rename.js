@@ -68,7 +68,7 @@ const Rename = (props) => {
 					/>
 					{errorMsg ? (
 						<span className="rename-error">
-							Error! The folder with that name is already exists, please choose another one!{' '}
+						   This item name is already used, please choose another one!
 						</span>
 					) : null}
 					<div className="modalsButtonsContainer">
