@@ -38,6 +38,27 @@
     margin-left: 40px;
 }
 
+.username-logout {
+    width: calc(20% - 20px);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.username {
+    color: orange;
+    font-weight: 700;
+    margin-top: 50px;
+}
+
+.username-span {
+    margin-left: 10px;
+    margin-right: 5px;
+    color: #106BAC;
+}
+
 .search-field {
     display: flex;
     width: 50%;
@@ -98,13 +119,9 @@
     border: none;
     font-size: 0.8rem;
     font-weight: 800;
-    color: #fff;
-    background-color: orange;
-    width: 15%;
-    text-align: center;
-    padding: 5px;
-    border-radius: 10px;
-    height: 30px;
+    color: #737373;
+    margin-top: 40px;
+    background-color: transparent;
 }
 
 .divider {
@@ -118,7 +135,7 @@
 
 .logout-button:hover {
     cursor: pointer;
-    background-color: rgb(255, 136, 0);
+    color: rgb(255, 136, 0);
 }
 
 .pathLink{
