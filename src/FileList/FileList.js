@@ -27,7 +27,6 @@ const FileList = ({
 	const [showRenameModal, updateRenameModal] = useState(false);
 	const [showCopyModal, updateCopyModal] = useState(false);
 	const [showMoveModal, updateMoveModal] = useState(false);
-	const [folders] = useState([]);
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 	const nodeDropdown = useRef();
 
@@ -41,6 +40,17 @@ const FileList = ({
 
 	const handleRenameModal = () => {
 		updateRenameModal(true);
+	}
+
+
+	const handleCopyModal = () => {
+		updateCopyModal(true);
+		// filterFolders();
+	}
+
+	const handleMoveModal = () => {
+		updateMoveModal(true);
+		// filterFolders();
 	}
 
 	const handleClickOutside = useCallback((e) => {
@@ -89,18 +99,7 @@ const FileList = ({
 	}, [doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
 
 
-	const handleCopyModal = () => {
-		updateCopyModal(true);
-		// filterFolders();
-	}
-
-	const handleMoveModal = () => {
-		updateMoveModal(true);
-		// filterFolders();
-	}
-
 	let dropdownClass;
-
 	if (dropDown) {
 		dropdownClass = 'dropDown active';
 	} else {
@@ -173,14 +172,14 @@ const FileList = ({
 						>
 							Copy
 						</button>
-						{showCopyModal && <CopyMove method="filesCopyV2" btn="copy" doc={doc} onClose={(e) => updateCopyModal(false)} getLinkToFile={getLinkToFile} folders={folders} location={location} />}
+						{showCopyModal && <CopyMove method="filesCopyV2" option="Copy" doc={doc} onClose={(e) => updateCopyModal(false)} getLinkToFile={getLinkToFile} location={location} />}
 						<button
 							className="moveBtn"
 							onClick={handleMoveModal}
 						>
 							Move
 						</button>
-						{showMoveModal && <CopyMove method="filesMoveV2" btn="move" doc={doc} onClose={(e) => updateMoveModal(false)} getLinkToFile={getLinkToFile} folders={folders} location={location} />}
+						{showMoveModal && <CopyMove method="filesMoveV2" option="Move" doc={doc} onClose={(e) => updateMoveModal(false)} getLinkToFile={getLinkToFile} location={location} />}
 					</div>
 				</div>
 			</li>

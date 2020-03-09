@@ -59,8 +59,6 @@ const Home = ({ location }) => {
         updateToken(null);
     }
 
-    // console.log("local", favorites$.value)
-
     if (!localToken) {
         return <Redirect to='/' />
     }

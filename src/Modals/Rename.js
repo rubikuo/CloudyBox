@@ -6,8 +6,8 @@ import { token$ } from '../store';
 import ReactDOM from 'react-dom';
 
 const Rename = (props) => {
-	const [rename, updateRename] = useState(props.doc.name);
-	const [errorMsg, updateErrorMsg] = useState(false);
+	const [ rename, updateRename ] = useState(props.doc.name);
+	const [ errorMsg, updateErrorMsg ] = useState(false);
 
 	const handleRenameModal = () => {
 		props.updateRenameModal(false);
@@ -25,10 +25,10 @@ const Rename = (props) => {
 		dropbox
 			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath })
 			.then((response) => {
-				console.log(response);
-				let copyDocument = [...props.documents];
+				// console.log(response);
+				let copyDocument = [ ...props.documents ];
 				let replacedIndex = copyDocument.findIndex((doc) => doc.id === response.metadata.id);
-				console.log(replacedIndex);
+				// console.log(replacedIndex);
 				copyDocument[replacedIndex] = response.metadata;
 				props.updateDocs(copyDocument);
 				handleRenameModal();
@@ -38,8 +38,6 @@ const Rename = (props) => {
 				updateErrorMsg(true);
 			});
 	};
-
-
 
 	return ReactDOM.createPortal(
 		<div className="modalContainer">
@@ -67,15 +65,10 @@ const Rename = (props) => {
 						style={{ borderRadius: '0.3rem', padding: '2%', border: '1px solid #ddd', marginBottom: '5px' }}
 					/>
 					{errorMsg ? (
-						<span className="rename-error">
-							This item name is already used, please choose another one!
-						</span>
+						<span className="rename-error">This item name is already used, please choose another one!</span>
 					) : null}
 					<div className="modalsButtonsContainer">
-						<div
-							onClick={handleRenameModal}
-							className="modalButtons"
-						>
+						<div onClick={handleRenameModal} className="modalButtons">
 							Cancel
 						</div>
 						<button type="submit" className="modalButtons blueButtons">

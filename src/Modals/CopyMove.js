@@ -33,17 +33,16 @@ const CopyMove = (props) => {
                 let copyNewParts = [...paths];
                 copyNewParts[0] = '';
                 links = copyNewParts.map((_, idx) => {
-                    // console.log('idx', copyNewParts.slice(0, idx + 1));
                     return '' + copyNewParts.slice(0, idx + 1).join('/');
                 });
-                console.log('links', links);
+                //console.log('links', links);
             } else {
                 paths[0] = 'Home';
                 links = [""];
                 updatePathLinks(links)
             }
             updateParts(paths);
-            console.log(paths)
+            //console.log(paths)
             updatePathLinks(links)
             updateChoosenRepo(links[links.length - 1]);
         },
@@ -55,8 +54,8 @@ const CopyMove = (props) => {
             let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
             if (choosenRepo !== null) {
                 dropbox.filesListFolder({ path: choosenRepo }).then((response) => {
-                    console.log('choosen', choosenRepo);
-                    filterFolders(response.entries); // update in state
+                    // console.log('choosen', choosenRepo);
+                    filterFolders(response.entries); 
                 });
                 return;
             }
@@ -66,7 +65,10 @@ const CopyMove = (props) => {
 
     const chooseCurrentRepo = (item) => {
         updateChoosenRepo(item.path_lower);
-        let newParts = [...parts, item.name];
+        let newParts = item.path_lower.split("/");
+
+        newParts[0] = "Home";
+
         updateParts(newParts);
         let links;
         let copyNewParts = [...newParts];
@@ -74,20 +76,20 @@ const CopyMove = (props) => {
         links = copyNewParts.map((_, idx) => {
             return '' + copyNewParts.slice(0, idx + 1).join('/');
         });
-        console.log('links', links);
+        // console.log('links', links);
         updatePathLinks(links);
     };
 
     const choosePath = (item, idx) => {
-        console.log(item);
+        // console.log(item);
         updateChoosenRepo(item);
         let copyOfParts = [...parts];
         let sliced = copyOfParts.slice(0, idx + 1);
-        console.log(sliced);
+        // console.log("sliced", sliced);
         updateParts(sliced);
     };
 
-    const copyFile = (fromPath, toPath) => {
+    const onSubmit = (fromPath, toPath) => {
         let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
         dropbox[props.method]({ from_path: fromPath, to_path: toPath })
             .then((response) => {
@@ -104,14 +106,14 @@ const CopyMove = (props) => {
     return ReactDOM.createPortal(
         <div className="modalContainer">
             {redirectTo && <Redirect to={redirectTo} />}
-            <div className="modalBox copyBox">
+            <div className="modalBox copyMoveBox">
                 <div className="modalHeadline">
                     <p>
-                        Copy <span className="itemCopy">{props.doc.name}</span> to ...
+                        {props.option} <span className="itemCopyMove">{props.doc.name}</span> to ...
 					</p>
                 </div>
 
-                <nav className="copy-path">
+                <nav className="repo-path">
                     {parts.map((part, idx) => {
                         return (
                             <div className="paths" key={idx}>
@@ -150,17 +152,17 @@ const CopyMove = (props) => {
                     })}
                 </div>
 
-                {errorMsg ? <span className="copy-error">This item is already in the folder!</span> : null}
+                {errorMsg ? <span className="copyMove-error">This item is already in the folder!</span> : null}
 
                 <div className="modalsButtonsContainer">
                     <div onClick={props.onClose} className="modalButtons">
                         Cancel
 					</div>
                     <button
-                        onClick={() => copyFile(props.doc.path_lower, choosenRepo + '/' + props.doc.name)}
+                        onClick={() => onSubmit(props.doc.path_lower, choosenRepo + '/' + props.doc.name)}
                         className="modalButtons blueButtons"
                     >
-                        {props.btn}
+                        {props.option}
                     </button>
                 </div>
             </div>

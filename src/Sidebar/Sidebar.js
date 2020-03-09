@@ -14,7 +14,6 @@ class Sidebar extends React.PureComponent {
       path: "",
       showCreateModal: false,
     };
-
     this.handleCreateModal = this.handleCreateModal.bind(this);
   }
 

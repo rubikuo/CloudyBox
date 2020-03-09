@@ -24,7 +24,7 @@
 
 }
 
-.itemDelete, .itemCopy {
+.itemDelete, .itemCopyMove {
     color: #106BAC;
     font-weight: bold;
 }
@@ -35,7 +35,7 @@
     color: #1293D6;
 }
 
-.modalBox, .copyBox {
+.modalBox, .copyMoveBox {
     position: relative;
     top: 30vh;
     left: 30vw;
@@ -82,7 +82,7 @@
     background-color: #106BAC;
 }
 
-.modalContainer > .copyBox {
+.modalContainer > .copyMoveBox {
     height: 300px;
     top: 20vh;
     left: 20vw;
@@ -156,14 +156,14 @@
     cursor: pointer;
 }
 
-.modalBox.copyBox > span {
+.modalBox.copyMoveBox > span {
     margin-top: 10px;
     font-size: 0.7rem;
     color: red;
 }
 
 
-.copy-path{
+.repo-path{
     color: #106BAC;
     font-weight: 600;
     font-size: 0.9em;
@@ -171,12 +171,12 @@
     flex-flow: row wrap;
 }
 
-.copy-path .pathLink {
+.repo-path .pathLink {
     border: none;
     padding: 0;
 }
 
-.copy-path .pathLink:hover {
+.repo-path .pathLink:hover {
     cursor: pointer;
     color:#1293D6;
     text-decoration: underline;

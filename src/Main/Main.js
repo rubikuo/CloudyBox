@@ -40,7 +40,6 @@ const Main = ({
           updateDocs(response.entries); // update in state
           updateErrorStatus(false);
           updateTab("name");
-          //return response.entries;
         })
 
     } else {
@@ -50,11 +49,9 @@ const Main = ({
       dropbox
         .filesListFolder({ path: newPath })
         .then((response) => {
-          // console.log('resonse.entries', response.entries);
           updateDocs(response.entries); // update in state
           updateErrorStatus(false);
           updateTab("name");
-          //return response.entries;
         })
         .catch((response) => {
           console.log(response.error.error_summary);
@@ -94,8 +91,7 @@ const Main = ({
     const updateLongPoll = (cursor) => {
       dbx.filesListFolderLongpoll({ cursor: cursor, timeout: 50 })
         .then((response) => {
-          console.log('resonse.entries', response);
-
+          // console.log('resonse.entries', response);
           if (response.changes) {
             loadFiles();
           } else {
@@ -111,7 +107,6 @@ const Main = ({
   }, [loadFiles, localToken])
 
   useEffect(() => {
-    console.log("UPDATING LONGPOLL")
     longpoll();
 
   }, [longpoll])
@@ -125,7 +120,7 @@ const Main = ({
     color: 'rgb(34, 138, 208)',
   };
   const getLinkToFile = (path) => {
-    console.log(path);
+    // console.log(path);
     let dropbox = new Dropbox({ accessToken: localToken });
     dropbox
       .filesGetTemporaryLink({ path: path })
