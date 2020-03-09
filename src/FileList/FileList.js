@@ -184,7 +184,7 @@ const FileList = ({
 						>
 							Copy
 						</button>
-						{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
+						{showCopyModal && <Copy method="filesCopyV2" doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
 						<button
 							className="moveBtn"
 							onClick={handleMoveModal}

@@ -94,8 +94,7 @@ const Copy = (props) => {
 
 	const copyFile = (fromPath, toPath) => {
 		let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
-		dropbox
-			.filesCopyV2({ from_path: fromPath, to_path: toPath })
+		dropbox[props.method]({ from_path: fromPath, to_path: toPath })
 			.then((response) => {
 				console.log('to', toPath);
 				updateRedirectTo('/home' + pathLinks[pathLinks.length - 1]);

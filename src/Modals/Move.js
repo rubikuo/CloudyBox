@@ -17,8 +17,6 @@ const Move = (props) =>{
 	};
     
     const moveFile = (fromPath, toPath) => {
-		// if (toPath === '') return;
-		// let formatedToPath = '/' + toPath;
 		let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
 		dropbox
 			.filesMoveV2({ from_path: fromPath, to_path: toPath })
