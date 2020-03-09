@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 import { Dropbox } from 'dropbox';
 import ReactDOM from 'react-dom';
 import { token$ } from '../store';
-import { Dropbox } from 'dropbox';
 import './Modals.css';
 import { FaFolder } from 'react-icons/fa';
 
@@ -12,21 +11,7 @@ const Copy = (props) => {
 	const [ newPath, updateNewPath ] = useState('');
 	const [ activeFolderChoosen, updateFolderChoosen] = useState("");
 	const [redirectTo, updateRedirectTo] = useState(null);
-	const [ allRepo, updateAllRepo ] =useState([])
 
-	const getAllRepositories =()=>{
-		let dropbox = new Dropbox({ fetch:fetch, accessToken: token$.value });
-		if (location.pathname === '/home') {
-
-		}
-        
-	}
-
-	useEffect(() => {
-		return () => {
-			cleanup
-		};
-	}, [input])
 
 	const handleCopyModal = (status) => {
 		props.updateCopyModal(status);
