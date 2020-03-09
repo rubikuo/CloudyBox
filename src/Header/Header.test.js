@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import Header from './Header';
 
-
 describe('Header', () => {
     const location = {
         pathname: '/home/foo/bar'
