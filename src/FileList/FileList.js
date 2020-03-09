@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useRef, useEffect, useCallback} from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFolder, FaStar, FaRegStar, FaFile, FaFilePdf, FaBars } from 'react-icons/fa';
 import './FileList.css';
@@ -22,18 +22,18 @@ const FileList = ({
 	updateDocs,
 	documents,
 }) => {
-	const [ dropDown, updateDropDown ] = useState(false);
-	const [ showRemoveModal, updateRemoveModal ] =useState(false);
-	const [ showRenameModal, updateRenameModal ] =useState(false);
-	const [ showCopyModal, updateCopyModal ] = useState(false);
-	const [ showMoveModal, updateMoveModal ] = useState(false);
-	const [ folders ] =useState([]);
-	const [ thumbnailUrl, updateThumbnailUrl ] = useState(null);
+	const [dropDown, updateDropDown] = useState(false);
+	const [showRemoveModal, updateRemoveModal] = useState(false);
+	const [showRenameModal, updateRenameModal] = useState(false);
+	const [showCopyModal, updateCopyModal] = useState(false);
+	const [showMoveModal, updateMoveModal] = useState(false);
+	const [folders] = useState([]);
+	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
 	const nodeDropdown = useRef();
 
-	const showDropDown = useCallback( () => {
+	const showDropDown = useCallback(() => {
 		updateDropDown(dropDown ? false : true);
-	}, [dropDown]); 
+	}, [dropDown]);
 
 	const handleRemoveModal = () => {
 		updateRemoveModal(true);
@@ -43,10 +43,10 @@ const FileList = ({
 		updateRenameModal(true);
 	}
 
-	const handleClickOutside = useCallback ( (e) => {
+	const handleClickOutside = useCallback((e) => {
 		if (nodeDropdown.current.contains(e.target)) {
-		  // inside click
-		  return;
+			// inside click
+			return;
 		}
 		// outside click 
 		showDropDown(dropDown);
@@ -55,19 +55,19 @@ const FileList = ({
 	useEffect(() => {
 		//this document.addEventListerner can only be used inside a useEffect
 		if (dropDown) {
-		  document.addEventListener("mousedown", handleClickOutside);
+			document.addEventListener("mousedown", handleClickOutside);
 		} else {
-		  document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("mousedown", handleClickOutside);
 		}
-	
+
 		return () => {
-		  document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("mousedown", handleClickOutside);
 		};
-	}, [dropDown,handleClickOutside]);
+	}, [dropDown, handleClickOutside]);
 
 
 	useEffect(() => {
-		let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken })
+		let dropbox = new Dropbox({ fetch: fetch, accessToken: localToken })
 		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
 			doc.name.slice(doc.name.length - 4) === 'jpeg' ||
 			doc.name.slice(doc.name.length - 3) === 'png') {
@@ -86,15 +86,15 @@ const FileList = ({
 					console.log(error, 'Error by creating thumbnail');
 				});
 		}
-	},[doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
+	}, [doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
 
 
-	const handleCopyModal =()=>{
+	const handleCopyModal = () => {
 		updateCopyModal(true);
 		// filterFolders();
 	}
 
-	const handleMoveModal = () =>{
+	const handleMoveModal = () => {
 		updateMoveModal(true);
 		// filterFolders();
 	}
@@ -110,55 +110,55 @@ const FileList = ({
 	const handleFav = (doc) => {
 		toggleFavorite(doc);
 	};
-	
+
 
 	if (doc) {
 
 		return (
 			<li className="item">
 				<div className="itemSmlCtn">
-				<span className="starIcon" onClick={() => handleFav(doc)}>
-					{favorites.find(x => x.id === doc.id) 
-					? <span><FaStar size="20px" style={{ color: "rgb(250, 142, 0)", position: "relative", top: "3px" }} /></span> 
-					: <span><FaRegStar size="20px" style={{ position: "relative", top: "3px" }} /></span>}
-				</span>
-				{doc['.tag'] === 'file' ? (
-							<>
-								{
-									doc.name.slice(doc.name.length - 3) === "pdf" 
-										? <FaFilePdf size="2rem" className="folderIcon" />
-										: thumbnailUrl 
-										? <img src={thumbnailUrl} alt='' style={{marginRight: '10px'}}/> 
+					<span className="starIcon" onClick={() => handleFav(doc)}>
+						{favorites.find(x => x.id === doc.id)
+							? <span><FaStar size="20px" style={{ color: "rgb(250, 142, 0)", position: "relative", top: "3px" }} /></span>
+							: <span><FaRegStar size="20px" style={{ position: "relative", top: "3px" }} /></span>}
+					</span>
+					{doc['.tag'] === 'file' ? (
+						<>
+							{
+								doc.name.slice(doc.name.length - 3) === "pdf"
+									? <FaFilePdf size="2rem" className="folderIcon" />
+									: thumbnailUrl
+										? <img src={thumbnailUrl} alt='' style={{ marginRight: '10px' }} />
 										: <FaFile size="2rem" className="folderIcon" />
-								}
-								<a
-									className="documentLink"
-									onClick={() => getLinkToFile(doc.path_lower)}
-								>
-									{doc.name}
-								</a>
-							</>
-						) : (
-								<>
-									<FaFolder size="2rem" className="folderIcon" />
-									<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
-								</>
-							)}
-					</div>
-					<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
-					<p className="modified">{convertDate(doc.client_modified)}</p>
-					<div className="dropDownCtn" ref={nodeDropdown}>
-						<button onClick={showDropDown} id={doc.id} >
-							<FaBars size="14px" style={{position:"relative", top:"3px", color:"#737373"}}/>
-						</button>
-						<div className={dropdownClass}>
-							<button
-								className="deleteBtn"
-								onClick={handleRemoveModal}
+							}
+							<a
+								className="documentLink"
+								onClick={() => getLinkToFile(doc.path_lower)}
 							>
-								Delete
+								{doc.name}
+							</a>
+						</>
+					) : (
+							<>
+								<FaFolder size="2rem" className="folderIcon" />
+								<Link to={"/home" + doc.path_lower} className="documentLink">{doc.name}</Link>
+							</>
+						)}
+				</div>
+				<p className="metaData">{doc['.tag'] === 'file' ? convertBytes(doc.size) : '--'}</p>
+				<p className="modified">{convertDate(doc.client_modified)}</p>
+				<div className="dropDownCtn" ref={nodeDropdown}>
+					<button onClick={showDropDown} id={doc.id} >
+						<FaBars size="14px" style={{ position: "relative", top: "3px", color: "#737373" }} />
+					</button>
+					<div className={dropdownClass}>
+						<button
+							className="deleteBtn"
+							onClick={handleRemoveModal}
+						>
+							Delete
 							</button>
-							{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents} />}
+						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents} />}
 
 						<button
 							className="renameBtn"
@@ -166,26 +166,26 @@ const FileList = ({
 						>
 							Rename
 						</button>
-						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} location={location}/>}
+						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} location={location} />}
 						<button
 							className="copyBtn"
 							onClick={handleCopyModal}
 						>
 							Copy
 						</button>
-						{showCopyModal && <CopyMove method="filesCopyV2" btn="copy" doc={doc} onClose={(e)=>updateCopyModal(false)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
+						{showCopyModal && <CopyMove method="filesCopyV2" btn="copy" doc={doc} onClose={(e) => updateCopyModal(false)} getLinkToFile={getLinkToFile} folders={folders} location={location} />}
 						<button
 							className="moveBtn"
 							onClick={handleMoveModal}
 						>
 							Move
 						</button>
-						{showMoveModal && <CopyMove method="filesMoveV2" btn="move" doc={doc} onClose={(e)=>updateMoveModal(false)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
+						{showMoveModal && <CopyMove method="filesMoveV2" btn="move" doc={doc} onClose={(e) => updateMoveModal(false)} getLinkToFile={getLinkToFile} folders={folders} location={location} />}
 					</div>
-					</div>
-				</li> 
-			);
-	} 	
+				</div>
+			</li>
+		);
+	}
 };
 
 export default FileList;
