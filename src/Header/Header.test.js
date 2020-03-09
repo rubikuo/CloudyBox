@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from "sinon";
+import sinon from 'sinon';
 import Header from './Header';
 
 
@@ -10,37 +10,36 @@ describe('Header', () => {
     }
 
     function filterSearch() {
-        //const searchItem = e.target.value;
-    }
-   
+    };
+
 
     it('should has the first class header-container', () => {
-        const wrapper = shallow(<Header />);
-        
+        const wrapper = shallow(<Header location={location} filterSearch={filterSearch} search='foo' />);
+
         expect(wrapper.hasClass('header-container')).toBe(true)
     });
 
     it('should have an image', () => {
-        const wrapper = shallow(<Header />);
-       
+        const wrapper = shallow(<Header location={location} filterSearch={filterSearch} search='foo'/>);
+
         expect(wrapper.find('img')).toEqual({}); //img={logo}
     })
 
     it('should have a search field input', () => {
         const wrapper = shallow(<Header location={location} filterSearch={filterSearch} search='foo' />);
         const input = wrapper.find('input');
-        
+
         input.simulate('focus');
-        input.simulate('change', {target: {value: 'foo'}});
+        input.simulate('change', { target: { value: 'foo' } });
     });
 
     it('should have proper props for search field', () => {
         const wrapper = shallow(<Header location={location} filterSearch={filterSearch} search='foo' />);
         const input = wrapper.find('input');
-        
+
         expect(input.props()).toEqual({
             className: "search-input",
-            style: {'border': 'none'},
+            style: { 'border': 'none' },
             type: 'text',
             placeholder: 'Search folder',
             name: 'search',
@@ -52,13 +51,12 @@ describe('Header', () => {
 
 
     it('should have a navigation', () => {
-        const wrapper = shallow(<Header location={location} />);
+        const wrapper = shallow(<Header location={location} filterSearch={filterSearch} search='foo' />);
         expect(wrapper.find('nav').length).toEqual(1);
     });
 
     it('should have the logout function on the button', () => {
-        const wrapper = shallow(<Header />);
-        
+        const wrapper = shallow(<Header location={location} filterSearch={filterSearch} search='foo' />);
         expect(wrapper.find('button')).toEqual({});
     });
 
@@ -78,4 +76,11 @@ describe('Header', () => {
         expect(logOutSpy.calledOnce).toBe(true);
     });
 
-});
+    it('onChange should work correctly in input field', () => {
+        const searchSpy = sinon.spy();
+        const wrapper = shallow(<Header location={location} filterSearch={searchSpy} search='foo' />);     
+        
+        wrapper.find('input').at(0).simulate('change', { target: { name: 'value', value: ' foo'} });
+        expect(searchSpy.returned('foo'));
+    });
+})
