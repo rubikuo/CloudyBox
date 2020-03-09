@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { FaAngleRight, FaHome } from "react-icons/fa";
 import "./Header.css";
 
-const Header = ({logOut, location, search, filterSearch}) => {
-    // console.log("location propname", location.pathname)
+const Header = ({logOut, location, search, filterSearch, userName}) => {
+    console.log("location propname", location.pathname)
 
     const parts = location.pathname.substring(6).split("/");
     console.log(parts)
@@ -48,6 +48,10 @@ const Header = ({logOut, location, search, filterSearch}) => {
                         />
                     </div>
                 </div>
+                <div className="username-logout">
+                    <p className="username">{userName}<span className="username-span">|</span></p>
+                    <button className='logout-button' onClick={logOut}>Log out</button>
+                </div>
             </div>
 
             <div className="path-logout-container">
@@ -63,7 +67,6 @@ const Header = ({logOut, location, search, filterSearch}) => {
                         })}                    
                     </nav>
                 </div>
-                <button className='logout-button' onClick={logOut}>Log out</button>
             </div>
         </div>
     )

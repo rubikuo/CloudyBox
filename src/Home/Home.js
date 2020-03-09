@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { token$, favorites$, clearFavorites, updateToken } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
+import { Dropbox } from 'dropbox';
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import MemoFooter from "../Footer/Footer";
@@ -17,6 +18,7 @@ const Home = ({ location }) => {
     const [itemName, updateItemName] = useState("");
     const [favorites, updateFavorite] = useState(favorites$.value);
     const [search, updateSearch] = useState('');
+    const [userName, updateUserName] = useState("");
 
     const filterSearch = (e) => {
         updateSearch(e.target.value);
@@ -39,6 +41,18 @@ const Home = ({ location }) => {
         },
         [updateFavorite]
     );
+
+    useEffect(() => {
+        const dropbox = new Dropbox({ fetch: fetch, accessToken: localToken });
+        dropbox
+          .usersGetCurrentAccount()
+          .then(function (response) {
+            updateUserName(response.name.given_name);
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      }, [localToken]);
 
     const logOut = () => {
         clearFavorites(null);
@@ -63,6 +77,7 @@ const Home = ({ location }) => {
                     logOut={logOut}
                     location={location}
                     search={search}
+                    userName={userName}
                 />
             </div>
             <div className="content">
