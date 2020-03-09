@@ -20,10 +20,10 @@ const Rename = (props) => {
 	const submitRename = (fromPath, toPath, e) => {
 		e.preventDefault();
 		if (toPath === '') return;
-		let formatedToPath = '/' + toPath;
-		let dropbox = new Dropbox({ fetch:fetch, accessToken: token$.value });
+		let formatedToPath = props.location.pathname.slice(5) + '/' + toPath;
+		let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
 		dropbox
-			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath })
+			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath})
 			.then((response) => {
 				console.log(response);
 				let copyDocument = [ ...props.documents ];
@@ -35,13 +35,11 @@ const Rename = (props) => {
 			})
 			.catch((err) => {
 				console.log(err.response.status);
-		        updateErrorMsg(true);
-
+				updateErrorMsg(true);
 			});
-		
 	};
 
-	//console.log('rename', rename);
+
 
 	return ReactDOM.createPortal(
 		<div className="modalContainer">
@@ -66,14 +64,20 @@ const Rename = (props) => {
 						type="text"
 						value={rename}
 						onChange={handleRename}
-						style={{ borderRadius: '0.3rem', padding: '2%', border: '1px solid #ddd', marginBottom: "5px" }}
+						style={{ borderRadius: '0.3rem', padding: '2%', border: '1px solid #ddd', marginBottom: '5px' }}
 					/>
-					{errorMsg? <span className="rename-error">Error! The folder with that name is already exists, please choose another one! </span> : null}
+					{errorMsg ? (
+						<span className="rename-error">
+						   This item name is already used, please choose another one!
+						</span>
+					) : null}
 					<div className="modalsButtonsContainer">
-						<button onClick={handleRenameModal} className="modalButtons">
+						<div
+							onClick={handleRenameModal}
+							className="modalButtons"
+						>
 							Cancel
-						</button>
-
+						</div>
 						<button type="submit" className="modalButtons blueButtons">
 							Rename
 						</button>

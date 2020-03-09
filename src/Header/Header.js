@@ -22,8 +22,8 @@ const Header = ({logOut, location, search, filterSearch, userName}) => {
         parts[0] = "Home";
         links = ["/home"];
     }
-    console.log(parts)
-    console.log(links)
+    // console.log("parts", parts)
+    // console.log("links", links)
 
     return (
         <div className='header-container'>
