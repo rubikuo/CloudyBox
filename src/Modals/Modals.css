@@ -158,8 +158,8 @@
 
 .modalBox.copyBox > span {
     margin-top: 10px;
-    font-size: 0.8rem;
-    color: #737373;
+    font-size: 0.7rem;
+    color: red;
 }
 
 
@@ -182,9 +182,5 @@
     text-decoration: underline;
 }
 
-.copy-error {
-    color: red;
-    font-size: 0.7rem;
-}
 
 

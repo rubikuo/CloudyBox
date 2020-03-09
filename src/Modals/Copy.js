@@ -1,14 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useCallback } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Dropbox } from 'dropbox';
 import ReactDOM from 'react-dom';
 import { token$ } from '../store';
 import './Modals.css';
-import { FaFolder, FaAngleRight, FaHome, FaIgloo } from 'react-icons/fa';
+import { FaFolder, FaAngleRight, FaHome } from 'react-icons/fa';
 
 const Copy = (props) => {
-	const [ newPath, updateNewPath ] = useState('');
 	const [ activeFolderChoosen, updateFolderChoosen ] = useState('');
 	const [ redirectTo, updateRedirectTo ] = useState(null);
 	const [ allRepo, updateAllRepo ] = useState([]);
@@ -47,8 +46,6 @@ const Copy = (props) => {
 			console.log(paths)
 			updatePathLinks(links)
 			updateChoosenRepo(links[links.length-1]);
-
-		
 		},
 		[ props.location.pathname]
 	);
