@@ -25,7 +25,7 @@ const Main = ({
   //console.log(localToken);
 
   const loadFiles = useCallback( () => {
-    console.log('location Name', location.pathname);
+    // console.log('location Name', location.pathname);
 
     let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
     //let dropbox = new Dropbox({ accessToken: localToken });

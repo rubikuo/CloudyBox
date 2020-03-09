@@ -90,23 +90,23 @@ const FileList = ({
 	},[doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
 
 
-	const filterFolders =()=>{
-		let originDocs = documents;
-		console.log("origin", originDocs)
-		// console.log("id", doc)
-        let filteredFolder = originDocs.filter(item=> item[".tag"]==="folder" && item.id !== doc.id);
-        console.log(filteredFolder);
-        updateFolders(filteredFolder)
-    }
+	// const filterFolders =()=>{
+	// 	let originDocs = documents;
+	// 	console.log("origin", originDocs)
+	// 	// console.log("id", doc)
+    //     let filteredFolder = originDocs.filter(item=> item[".tag"]==="folder" && item.id !== doc.id);
+    //     console.log(filteredFolder);
+    //     updateFolders(filteredFolder)
+    // }
 
 	const handleCopyModal =()=>{
 		updateCopyModal(true);
-		filterFolders();
+		// filterFolders();
 	}
 
 	const handleMoveModal = () =>{
 		updateMoveModal(true);
-		filterFolders();
+		// filterFolders();
 	}
 
 
@@ -177,14 +177,14 @@ const FileList = ({
 						>
 							Rename
 						</button>
-						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} />}
+						{showRenameModal && <Rename doc={doc} updateRenameModal={updateRenameModal} documents={documents} updateDocs={updateDocs} location={location}/>}
 						<button
 							className="copyBtn"
 							onClick={handleCopyModal}
 						>
 							Copy
 						</button>
-						{showCopyModal && <Copy doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
+						{showCopyModal && <Copy method="filesCopyV2" doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
 						<button
 							className="moveBtn"
 							onClick={handleMoveModal}

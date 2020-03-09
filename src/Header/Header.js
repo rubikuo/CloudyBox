@@ -22,8 +22,8 @@ const Header = ({logOut, location, search, filterSearch, userName}) => {
         parts[0] = "Home";
         links = ["/home"];
     }
-    console.log(parts)
-    console.log(links)
+    // console.log("parts", parts)
+    // console.log("links", links)
 
     return (
         <div className='header-container'>
@@ -64,7 +64,8 @@ const Header = ({logOut, location, search, filterSearch, userName}) => {
                                         <Link to={links[idx]} className="pathLink">{part}</Link>
                                         {idx !== parts.length - 1 ? <span className="divider"><FaAngleRight style={{position: 'relative', top: '4px'}}/></span> : null} 
                                   </div>
-                        })}                    </nav>
+                        })}                    
+                    </nav>
                 </div>
             </div>
         </div>
