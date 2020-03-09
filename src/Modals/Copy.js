@@ -28,7 +28,6 @@ const Copy = (props) => {
 	useEffect(
 		() => {
 			let paths = props.location.pathname.substring(6).split('/');
-			console.log(parts);
 			let links;
 			if (paths[0] !== '') {
 				paths.unshift('Home');
@@ -51,7 +50,7 @@ const Copy = (props) => {
 
 		
 		},
-		[ props.location.pathname ]
+		[ props.location.pathname]
 	);
 
 	useEffect(
