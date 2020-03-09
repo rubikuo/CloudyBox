@@ -9,8 +9,7 @@ import { toggleFavorite } from '../store';
 import { Dropbox } from 'dropbox';
 import Remove from "../Modals/Remove";
 import Rename from "../Modals/Rename";
-import Copy from "../Modals/Copy";
-import Move from "../Modals/Move";
+import CopyMove from "../Modals/CopyMove";
 
 const FileList = ({
 	doc,
@@ -28,7 +27,7 @@ const FileList = ({
 	const [ showRenameModal, updateRenameModal ] =useState(false);
 	const [ showCopyModal, updateCopyModal ] = useState(false);
 	const [ showMoveModal, updateMoveModal ] = useState(false);
-	const [ folders, updateFolders ] =useState([]);
+	const [ folders ] =useState([]);
 	const [ thumbnailUrl, updateThumbnailUrl ] = useState(null);
 	const nodeDropdown = useRef();
 
@@ -90,15 +89,6 @@ const FileList = ({
 	},[doc.name, updateThumbnailUrl, doc.path_lower, localToken]);
 
 
-	// const filterFolders =()=>{
-	// 	let originDocs = documents;
-	// 	console.log("origin", originDocs)
-	// 	// console.log("id", doc)
-    //     let filteredFolder = originDocs.filter(item=> item[".tag"]==="folder" && item.id !== doc.id);
-    //     console.log(filteredFolder);
-    //     updateFolders(filteredFolder)
-    // }
-
 	const handleCopyModal =()=>{
 		updateCopyModal(true);
 		// filterFolders();
@@ -108,7 +98,6 @@ const FileList = ({
 		updateMoveModal(true);
 		// filterFolders();
 	}
-
 
 	let dropdownClass;
 
@@ -184,14 +173,14 @@ const FileList = ({
 						>
 							Copy
 						</button>
-						{showCopyModal && <Copy method="filesCopyV2" doc={doc} updateCopyModal={(e)=>updateCopyModal(e)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
+						{showCopyModal && <CopyMove method="filesCopyV2" btn="copy" doc={doc} onClose={(e)=>updateCopyModal(false)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
 						<button
 							className="moveBtn"
 							onClick={handleMoveModal}
 						>
 							Move
 						</button>
-						{showMoveModal && <Move updateMoveModal={updateMoveModal} doc={doc}  documents={documents} updateDocs={updateDocs} folders={folders} />}
+						{showMoveModal && <CopyMove method="filesMoveV2" btn="move" doc={doc} onClose={(e)=>updateMoveModal(false)} getLinkToFile={getLinkToFile} folders={folders} location={location}/>}
 					</div>
 					</div>
 				</li> 
