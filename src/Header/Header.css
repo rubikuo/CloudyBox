@@ -146,7 +146,7 @@
 @media only screen and (max-width: 900px) {
 
     .logo-container {
-        width: 30%;
+        display: none;
     }
     
     .logo-header {
@@ -154,50 +154,25 @@
         width: 100%;
     }
 
+    .logo-search-container {
+        position: relative;
+    }
+
     .search-box {
-        width: calc(70% - 40px);
-      
+        width: calc(100% - 10px);
+        margin-left: 10px;
+        margin-top: 20px;
+    }
+
+    .search-field {
+        width: 100%;
+    }
+
+    .username-logout {
+        width: 100%;
+        position: absolute;
+        top:0;
+        left: 80%;
     }
 }
 
-/*
-.headerContainer {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
-    align-items: center;
-    z-index: 10;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-}
-
-.logoContainer {
-    width: 20%;
-}
-
-.logoHeader {
-    width: 200px;
-    margin: 50px 0 0 -50px;
-}
-
-.headerPathSearchContainer {
-   width: 80%;
-   display: flex;
-   justify-content: space-between;
-   margin: 75px 0 0 10px;
-}
-
-.headerSearchContainer {
-    border-radius: 0.3rem;
-    padding: 1%;
-    width: 200px;
-}
-
-.searchInput {
-    margin-left: 4px;
-}*/
