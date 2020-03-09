@@ -12,6 +12,7 @@
     color: #1293D6;
     border: none;
     padding: 0;
+    background-color: transparent;
 }
 
 
@@ -30,4 +31,10 @@
 
 .menu_list.left > ul {
     margin-left: 80px;
+}
+
+@media only screen and (max-width: 900px) { 
+    .menu_list > ul  {
+        padding: 20px;
+    }
 }

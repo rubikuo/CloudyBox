@@ -6,9 +6,10 @@ import { Dropbox } from 'dropbox';
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import MemoFooter from "../Footer/Footer";
-import topImage from "../Home/image/cloud-header-right.svg";
+import topImage from "../Home/image/clouds.svg";
 import "../Modals/Modals.css";
 import { Redirect } from "react-router-dom";
+import { AiOutlineMenuUnfold, AiOutlineMenuFold } from "react-icons/ai";
 
 const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
@@ -19,6 +20,7 @@ const Home = ({ location }) => {
     const [favorites, updateFavorite] = useState(favorites$.value);
     const [search, updateSearch] = useState('');
     const [userName, updateUserName] = useState("");
+    const [sidebarDropdown, updateSidebarDropdown] = useState(false);
 
     const filterSearch = (e) => {
         updateSearch(e.target.value);
@@ -59,10 +61,24 @@ const Home = ({ location }) => {
         updateToken(null);
     }
 
+    const toggleSidebarDropdown = () => {
+        updateSidebarDropdown(sidebarDropdown === false ? true : false); 
+    }
+
     // console.log("local", favorites$.value)
 
     if (!localToken) {
         return <Redirect to='/' />
+    }
+    let sidebarDropdown_class;
+    let toggleIcon;
+    if(sidebarDropdown) {
+        sidebarDropdown_class = "sb-dropdown active";
+        toggleIcon = <AiOutlineMenuUnfold size="20px"/>
+
+    } else {
+        sidebarDropdown_class = "sb-dropdown"
+        toggleIcon = <AiOutlineMenuFold size="20px"/>
     }
 
     return (<>
@@ -96,8 +112,22 @@ const Home = ({ location }) => {
                         location={location}
                         search={search}
                     />
-                </div>
-                <div className="sidebar buttons">
+                     <div className="sidebar-dropdown" onClick={toggleSidebarDropdown}>
+                        {toggleIcon}
+                        <div className={sidebarDropdown_class}>
+                            <Sidebar
+                                localToken={localToken}
+                                documents={documents}
+                                updateDocs={updateDocs}
+                                choosenFiles={choosenFiles}
+                                updateChoosenFiles={updateChoosenFiles}
+                                location={location}
+                            />
+                    </div>
+            </div>
+            </div>
+           
+            <div className="sidebar buttons">
                     <Sidebar
                         localToken={localToken}
                         documents={documents}

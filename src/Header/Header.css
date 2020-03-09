@@ -22,6 +22,7 @@
 
 .logo-container {
     width: 20%;
+    display: block;
 }
 
 .logo-header {
@@ -45,6 +46,7 @@
     justify-content: flex-start;
     align-items: center;
     font-size: 0.8rem;
+    margin-left: 20px;
 }
 
 .username {
@@ -61,7 +63,7 @@
 
 .search-field {
     display: flex;
-    width: 50%;
+    width: 90%;
     height: 30px;
     padding: 0.5%;
     border: 1px solid #ddd;
@@ -165,14 +167,17 @@
     }
 
     .search-field {
-        width: 100%;
+        width: 70%;
     }
 
     .username-logout {
         width: 100%;
         position: absolute;
-        top:0;
-        left: 80%;
+        top:50px;
+        right: 0%;
+        margin-right: 10px;
+        text-align: right;
+        justify-content: flex-end;
     }
 }
 
