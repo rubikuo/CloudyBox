@@ -22,6 +22,7 @@
 
 .sidebar {
     width: 10%;
+    display: block;
 }
 
 .sidebar.buttons{
@@ -44,7 +45,7 @@
 }
 
 .imageTop-Span {
-    width: 100%;
+    width: 90%;
     height: 23px;
     background: rgb(16,132,192);
     background: linear-gradient(260deg, rgba(16,132,192,1) 27%, rgba(16,107,172,1) 100%);  
@@ -56,10 +57,55 @@
 .imageTop {
     position: absolute;
     top: -12px;
-    right: -35px;
+    right: 0px;
     width: 400px;
     height: auto;
 } 
+
+.sidebar-dropdown {
+    display: none;
+}
+
+@media only screen and (max-width: 900px) { 
+    .mainArea {
+        width : 100%;
+        position: relative;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .sidebar-dropdown {
+        display: block;
+        position: absolute;
+        right: 0px;
+        width: 180px;
+        text-align: right;
+        top: 20px;
+    }
+
+    .sidebar-dropdown > button {
+        border: none;
+        background-color: transparent;
+        color: #106BAC;
+    }
+
+    .sb-dropdown {
+        display: none;
+    }
+
+    .sb-dropdown.active {
+        display: block;
+        background-color: rgb(255, 255, 255);
+        margin-top: 0px;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 5px 29px 1px rgba(0,0,0,0.33);
+        -moz-box-shadow: 0px 5px 29px 1px rgba(0,0,0,0.33);
+        box-shadow: 0px 5px 29px 1px rgba(0,0,0,0.33);
+    }
+
+}
 
 
 

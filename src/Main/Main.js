@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import FileList from '../FileList/FileList';
 import './Main.css';
-import { FaFolder, FaStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
+import { MdError } from 'react-icons/md';
 import { Dropbox } from 'dropbox';
 import { removeFavoriteByPath } from '../store';
 
@@ -132,23 +133,23 @@ const Main = ({
       });
   };
 
-  if (errorStatus) {
-    return ReactDOM.createPortal(
-      <div className="modalContainer">
-        <div className="modalBox">
-          <div className="modalHeadline">
-            <FaFolder style={{ position: 'relative', top: '0px', color: '#1293D6', marginRight: '3px' }} />
-            <h5>Error!</h5>
-          </div>
-          <div className="errorMessages">
-            <p>The requested folder does not exist or has already been removed.</p>
-          </div>
-          <Link to="/home">Back to Home</Link>
-        </div>
-      </div>,
-      document.body
-    );
-  }
+	if(errorStatus){
+		return ReactDOM.createPortal(
+			<div className="modalContainer">
+				<div className="modalBox">
+					<div className="modalHeadline">
+						<MdError size="25px" style={{ position: 'relative', top: '-3px', color: 'red', marginRight: '3px' }} />
+						<h5>Error!</h5>
+					</div>
+					<div className="errorMessages">
+						<p>The requested folder does not exist or has already been removed.</p>
+					</div>
+					<Link to="/home">Back to Home</Link>
+				</div>
+			</div>,
+			document.body
+		);
+	}
 
   let arrayPrint;
 

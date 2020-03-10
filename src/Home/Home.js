@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { token$, favorites$, clearFavorites, updateToken } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
@@ -6,9 +6,10 @@ import { Dropbox } from 'dropbox';
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import MemoFooter from "../Footer/Footer";
-import topImage from "../Home/image/cloud-header-right.svg";
+import topImage from "../Home/image/clouds.svg";
 import "../Modals/Modals.css";
 import { Redirect } from "react-router-dom";
+import { AiOutlineMenuUnfold, AiOutlineMenuFold } from "react-icons/ai";
 
 const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
@@ -19,6 +20,8 @@ const Home = ({ location }) => {
     const [favorites, updateFavorite] = useState(favorites$.value);
     const [search, updateSearch] = useState('');
     const [userName, updateUserName] = useState("");
+    const [dropDown, updateDropDown] = useState(false);
+    const nodeDropdown = useRef();
 
     const filterSearch = (e) => {
         updateSearch(e.target.value);
@@ -42,6 +45,32 @@ const Home = ({ location }) => {
         [updateFavorite]
     );
 
+    const showDropDown = useCallback(() => {
+		updateDropDown(dropDown ? false : true);
+	}, [dropDown]);
+
+    const handleClickOutside = useCallback((e) => {
+		if (nodeDropdown.current.contains(e.target)) {
+			// inside click
+			return;
+		}
+		// outside click 
+		showDropDown(dropDown);
+	}, [showDropDown, dropDown]);
+
+	useEffect(() => {
+		//this document.addEventListerner can only be used inside a useEffect
+		if (dropDown) {
+			document.addEventListener("mousedown", handleClickOutside);
+		} else {
+			document.removeEventListener("mousedown", handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [dropDown, handleClickOutside]);
+
     useEffect(() => {
         const dropbox = new Dropbox({ fetch: fetch, accessToken: localToken });
         dropbox
@@ -59,9 +88,12 @@ const Home = ({ location }) => {
         updateToken(null);
     }
 
+    // console.log("local", favorites$.value)
+
     if (!localToken) {
         return <Redirect to='/' />
     }
+
 
     return (<>
         <div className="image-top">
@@ -94,8 +126,24 @@ const Home = ({ location }) => {
                         location={location}
                         search={search}
                     />
-                </div>
-                <div className="sidebar buttons">
+                     <div className="sidebar-dropdown" ref={nodeDropdown}>
+                        <button onClick={showDropDown} >
+                            {dropDown ? <AiOutlineMenuUnfold size="25px"/> : <AiOutlineMenuFold size="25px"/>}
+                        </button>
+                        <div className={dropDown ? "sb-dropdown active" : "sb-dropdown"}>
+                            <Sidebar
+                                localToken={localToken}
+                                documents={documents}
+                                updateDocs={updateDocs}
+                                choosenFiles={choosenFiles}
+                                updateChoosenFiles={updateChoosenFiles}
+                                location={location}
+                            />
+                    </div>
+            </div>
+            </div>
+           
+            <div className="sidebar buttons">
                     <Sidebar
                         localToken={localToken}
                         documents={documents}
