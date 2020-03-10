@@ -47,14 +47,14 @@ const Home = ({ location }) => {
     useEffect(() => {
         const dropbox = new Dropbox({ fetch: fetch, accessToken: localToken });
         dropbox
-          .usersGetCurrentAccount()
-          .then(function (response) {
-            updateUserName(response.name.given_name);
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
-      }, [localToken]);
+            .usersGetCurrentAccount()
+            .then(function (response) {
+                updateUserName(response.name.given_name);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    }, [localToken]);
 
     const logOut = () => {
         clearFavorites(null);
@@ -88,7 +88,7 @@ const Home = ({ location }) => {
         </div>
         <div className="container">
             <div className="header">
-                <Header 
+                <Header
                     filterSearch={filterSearch}
                     logOut={logOut}
                     location={location}

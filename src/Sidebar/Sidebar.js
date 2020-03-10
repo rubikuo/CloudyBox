@@ -12,20 +12,19 @@ class Sidebar extends React.PureComponent {
     this.state = {
       choosedFiles: [],
       path: "",
-      showCreateModal:false,
+      showCreateModal: false,
     };
-
-   this.handleCreateModal = this.handleCreateModal.bind(this);
+    this.handleCreateModal = this.handleCreateModal.bind(this);
   }
 
-    handleCreateModal(status){
-      this.setState({showCreateModal:status})
-    }
+  handleCreateModal(status) {
+    this.setState({ showCreateModal: status })
+  }
 
 
   uploadFiles = e => {
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
-    let dropBox = new Dropbox({ fetch:fetch, accessToken: token$.value });
+    let dropBox = new Dropbox({ fetch: fetch, accessToken: token$.value });
     //let dropBox = new Dropbox({ accessToken: token$.value });
     let files = Array.from(e.target.files);
 
@@ -52,8 +51,8 @@ class Sidebar extends React.PureComponent {
             ...response,
             ".tag": "file"
           }));
-         const newDocuments = [...this.props.documents, ...files];
-         this.props.updateDocs(newDocuments);
+          const newDocuments = [...this.props.documents, ...files];
+          this.props.updateDocs(newDocuments);
 
         })
         .catch(err => {
@@ -64,47 +63,47 @@ class Sidebar extends React.PureComponent {
 
   render() {
     let elements;
-      elements = (
-        <div className="menu_list">
-          <ul>
-            <li>
-              <label>
-                <MdFileUpload
-                  size="20px"
-                  style={{
-                    position: "relative",
-                    top: "4px",
-                    marginRight: "5px"
-                  }}
-                />
-                Upload files
+    elements = (
+      <div className="menu_list">
+        <ul>
+          <li>
+            <label>
+              <MdFileUpload
+                size="20px"
+                style={{
+                  position: "relative",
+                  top: "4px",
+                  marginRight: "5px"
+                }}
+              />
+              Upload files
                 <input
-                  style={{ display: "none" }}
-                  multiple
-                  onChange={this.uploadFiles}
-                  value={this.state.choosedFile}
-                  type="file"
-                 
-                />
-              </label>
-            </li>
-            <li>
-              <label>
-                <MdCreateNewFolder
-                  size="20px"
-                  style={{
-                    position: "relative",
-                    top: "4px",
-                    marginRight: "5px"
-                  }}
-                />
-                <button onClick={()=>this.handleCreateModal(true)}>Create Folder</button>
-                {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
-              </label>
-            </li>
-          </ul>
-        </div>
-      );
+                style={{ display: "none" }}
+                multiple
+                onChange={this.uploadFiles}
+                value={this.state.choosedFile}
+                type="file"
+
+              />
+            </label>
+          </li>
+          <li>
+            <label>
+              <MdCreateNewFolder
+                size="20px"
+                style={{
+                  position: "relative",
+                  top: "4px",
+                  marginRight: "5px"
+                }}
+              />
+              <button onClick={() => this.handleCreateModal(true)}>Create Folder</button>
+              {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
+            </label>
+          </li>
+        </ul>
+      </div>
+    );
 
     return <>{elements}</>;
   }

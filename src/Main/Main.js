@@ -25,61 +25,62 @@ const Main = ({
   const [errorStatus, updateErrorStatus] = useState(false);
   //console.log(localToken);
 
-  const loadFiles = useCallback( () => {
+  const loadFiles = useCallback(() => {
     // console.log('location Name', location.pathname);
 
-    let dropbox = new Dropbox({ fetch:fetch, accessToken: localToken });
+    let dropbox = new Dropbox({ fetch: fetch, accessToken: localToken });
     //let dropbox = new Dropbox({ accessToken: localToken });
 
 
     if (location.pathname === '/home') {
 
-        dropbox
-          .filesListFolder({ path: '' })
-          .then((response) => {
-            console.log('resonse.entries', response.cursor);
-            updateDocs(response.entries); // update in state
-            updateErrorStatus(false);
-            updateTab("name");
-            //return response.entries;
-          })
+      dropbox
+        .filesListFolder({ path: '' })
+        .then((response) => {
+          console.log('resonse.entries', response.cursor);
+          updateDocs(response.entries); // update in state
+          updateErrorStatus(false);
+          updateTab("name");
+        })
 
-      } else {
-        //console.log('this is not a home, link is', location.pathname);
-        let newPath = location.pathname.slice(5);
-        console.log(newPath);
-        dropbox
-          .filesListFolder({ path: newPath })
-          .then((response) => {
-            // console.log('resonse.entries', response.entries);
-            updateDocs(response.entries); // update in state
-            updateErrorStatus(false);
-            updateTab("name");
-            //return response.entries;
-          })
-          .catch((response) => {
-            console.log(response.error.error_summary);
-            removeFavoriteByPath(newPath);
-            updateErrorStatus(true)
-          })
-      }
-    }, [location.pathname, localToken, updateDocs])
+    } else {
+      //console.log('this is not a home, link is', location.pathname);
+      let newPath = location.pathname.slice(5);
+      console.log(newPath);
+      dropbox
+        .filesListFolder({ path: newPath })
+        .then((response) => {
+          updateDocs(response.entries); // update in state
+          updateErrorStatus(false);
+          updateTab("name");
+        })
+        .catch((response) => {
+          console.log(response.error.error_summary);
+          removeFavoriteByPath(newPath);
+          updateErrorStatus(true)
+        })
+    }
+  }, [location.pathname, localToken, updateDocs])
+  
+
 
   useEffect(
     () => {
       loadFiles();
+    
     },
     [loadFiles]
   );
 
-  const longpoll = useCallback( () => {
-      let dbx = new Dropbox({ fetch:fetch, accessToken: localToken });
-      dbx
-      .filesListFolderGetLatestCursor({path: "",
+  const longpoll = useCallback(() => {
+    let dbx = new Dropbox({ fetch: fetch, accessToken: localToken });
+    dbx
+      .filesListFolderGetLatestCursor({
+        path: "",
         recursive: true,
         include_media_info: false,
         include_deleted: false,
-        include_has_explicit_shared_members:false
+        include_has_explicit_shared_members: false
       })
       .then((res) => {
         updateLongPoll(res.cursor)
@@ -88,12 +89,11 @@ const Main = ({
         console.log(err);
       });
 
-      const updateLongPoll = (cursor) => {
-        dbx.filesListFolderLongpoll({cursor: cursor, timeout: 50})
+    const updateLongPoll = (cursor) => {
+      dbx.filesListFolderLongpoll({ cursor: cursor, timeout: 50 })
         .then((response) => {
-          console.log('resonse.entries', response);
-
-          if(response.changes){
+          // console.log('resonse.entries', response);
+          if (response.changes) {
             loadFiles();
           } else {
             return;
@@ -101,17 +101,16 @@ const Main = ({
 
           longpoll();
         })
-        .catch ((err) => {
+        .catch((err) => {
           console.log(err);
         });
-      }
+    }
   }, [loadFiles, localToken])
 
-  useEffect(() => { 
-      console.log("UPDATING LONGPOLL")
-      longpoll();
+  useEffect(() => {
+    longpoll();
 
- }, [longpoll]) 
+  }, [longpoll])
 
   const showTab = (tabName) => {
     updateTab(tabName);
@@ -119,20 +118,20 @@ const Main = ({
 
   let tabActiveStyle = {
     backgroundColor: '#F7F7F7',
-    color: 'rgb(34, 138, 208)', 
+    color: 'rgb(34, 138, 208)',
   };
-	const getLinkToFile = (path) => {
-		console.log(path);
-		let dropbox = new Dropbox({ accessToken: localToken });
-		dropbox
-			.filesGetTemporaryLink({ path: path })
-			.then((response) => {
-				window.location.href = response.link;
-			})
-			.catch((error)=> {
-				console.error(error, 'Error by downloading file');
-			});
-	};
+  const getLinkToFile = (path) => {
+    // console.log(path);
+    let dropbox = new Dropbox({ accessToken: localToken });
+    dropbox
+      .filesGetTemporaryLink({ path: path })
+      .then((response) => {
+        window.location.href = response.link;
+      })
+      .catch((error) => {
+        console.error(error, 'Error by downloading file');
+      });
+  };
 
 	if(errorStatus){
 		return ReactDOM.createPortal(
@@ -230,7 +229,7 @@ const Main = ({
           location={location}
           documents={documents}
           updateDocs={updateDocs}
-          localToken={localToken} 
+          localToken={localToken}
         />
       })
   }
