@@ -22,21 +22,25 @@
 
 .logo-container {
     width: 20%;
-    display: block;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    padding-top: 25px;
 }
 
 .logo-header {
-    margin-top: 65px;
+    margin-top: 0px;
     min-width: 70%;
     max-width: 85%;
 }
 
 .search-box {
-    width: calc(60% - 40px);
+    width: calc(60% - 20px);
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 .username-logout {
