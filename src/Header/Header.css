@@ -26,9 +26,9 @@
 }
 
 .logo-header {
-    margin-top: 50px;
+    margin-top: 65px;
     min-width: 50%;
-    max-width: 90%;
+    max-width: 100%;
 }
 
 .search-box {
@@ -161,23 +161,52 @@
     }
 
     .search-box {
-        width: calc(100% - 10px);
+        width: calc(70% - 10px);
         margin-left: 10px;
-        margin-top: 20px;
     }
 
     .search-field {
-        width: 70%;
+        width: 100%;
     }
 
     .username-logout {
-        width: 100%;
-        position: absolute;
-        top:50px;
-        right: 0%;
-        margin-right: 10px;
+        width: calc(30% - 20px);
+        margin-right: 0px;
         text-align: right;
         justify-content: flex-end;
+        height: 100%;
+    }
+
+    .path-logout-container {
+        z-index: 1;
     }
 }
 
+
+@media only screen and (max-width: 580px) { 
+    .search-box {
+        width: calc(100% - 10px);
+        margin-left: 10px;
+        order: 2;
+        height: auto;
+        margin-top: -30px;
+    }
+
+    .username-logout {
+        width: calc(100% - 20px);
+        margin-right: 0px;
+        text-align: right;
+        justify-content: flex-end;
+        height: auto;
+        order: 1;
+        margin-top: 50px;
+    }
+
+    .search-field {
+        margin-top: 0;
+    }
+
+    .username, .logout-button {
+        margin: 0;
+    }
+}

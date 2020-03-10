@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { token$, favorites$, clearFavorites, updateToken } from "../store";
 import Main from "../Main/Main";
 import "./Home.css";
@@ -20,7 +20,8 @@ const Home = ({ location }) => {
     const [favorites, updateFavorite] = useState(favorites$.value);
     const [search, updateSearch] = useState('');
     const [userName, updateUserName] = useState("");
-    const [sidebarDropdown, updateSidebarDropdown] = useState(false);
+    const [dropDown, updateDropDown] = useState(false);
+    const nodeDropdown = useRef();
 
     const filterSearch = (e) => {
         updateSearch(e.target.value);
@@ -44,6 +45,32 @@ const Home = ({ location }) => {
         [updateFavorite]
     );
 
+    const showDropDown = useCallback(() => {
+		updateDropDown(dropDown ? false : true);
+	}, [dropDown]);
+
+    const handleClickOutside = useCallback((e) => {
+		if (nodeDropdown.current.contains(e.target)) {
+			// inside click
+			return;
+		}
+		// outside click 
+		showDropDown(dropDown);
+	}, [showDropDown, dropDown]);
+
+	useEffect(() => {
+		//this document.addEventListerner can only be used inside a useEffect
+		if (dropDown) {
+			document.addEventListener("mousedown", handleClickOutside);
+		} else {
+			document.removeEventListener("mousedown", handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [dropDown, handleClickOutside]);
+
     useEffect(() => {
         const dropbox = new Dropbox({ fetch: fetch, accessToken: localToken });
         dropbox
@@ -61,25 +88,12 @@ const Home = ({ location }) => {
         updateToken(null);
     }
 
-    const toggleSidebarDropdown = () => {
-        updateSidebarDropdown(sidebarDropdown === false ? true : false); 
-    }
-
     // console.log("local", favorites$.value)
 
     if (!localToken) {
         return <Redirect to='/' />
     }
-    let sidebarDropdown_class;
-    let toggleIcon;
-    if(sidebarDropdown) {
-        sidebarDropdown_class = "sb-dropdown active";
-        toggleIcon = <AiOutlineMenuUnfold size="20px"/>
 
-    } else {
-        sidebarDropdown_class = "sb-dropdown"
-        toggleIcon = <AiOutlineMenuFold size="20px"/>
-    }
 
     return (<>
         <div className="image-top">
@@ -112,9 +126,11 @@ const Home = ({ location }) => {
                         location={location}
                         search={search}
                     />
-                     <div className="sidebar-dropdown" onClick={toggleSidebarDropdown}>
-                        {toggleIcon}
-                        <div className={sidebarDropdown_class}>
+                     <div className="sidebar-dropdown" ref={nodeDropdown}>
+                        <button onClick={showDropDown} >
+                            {dropDown ? <AiOutlineMenuUnfold size="25px"/> : <AiOutlineMenuFold size="25px"/>}
+                        </button>
+                        <div className={dropDown ? "sb-dropdown active" : "sb-dropdown"}>
                             <Sidebar
                                 localToken={localToken}
                                 documents={documents}

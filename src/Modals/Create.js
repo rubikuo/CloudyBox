@@ -9,6 +9,7 @@ const Create = (props) => {
 	console.log('location propname', props.location.pathname);
 
 	const handleCreateModal = (status) => {
+		console.log(status)
 		props.handleCreateModal(status)
 	}
 

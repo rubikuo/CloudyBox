@@ -88,18 +88,18 @@ class Sidebar extends React.PureComponent {
             </label>
           </li>
           <li>
-            <label>
-              <MdCreateNewFolder
-                size="20px"
-                style={{
-                  position: "relative",
-                  top: "4px",
-                  marginRight: "5px"
-                }}
-              />
-              <button onClick={() => this.handleCreateModal(true)}>Create Folder</button>
-              {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
+            <label onClick={() => this.handleCreateModal(true)}>
+                <MdCreateNewFolder
+                  size="20px"
+                  style={{
+                    position: "relative",
+                    top: "4px",
+                    marginRight: "5px"
+                  }}
+                />
+                Create Folder
             </label>
+            {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
           </li>
         </ul>
       </div>

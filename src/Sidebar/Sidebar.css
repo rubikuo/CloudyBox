@@ -7,26 +7,9 @@
     color: #1293D6;
 }
 
-.menu_list > ul > li > label > button {
-    font-size: 14px;
-    color: #1293D6;
-    border: none;
-    padding: 0;
-    background-color: transparent;
-}
-
-
-
-.menu_list > ul > li:hover, .menu_list > ul > li > label > button:hover, .menu_list > ul > li:hover, .menu_list > ul > li > label:hover {
+.menu_list > ul > li:hover, .menu_list > ul > li > label:hover {
     cursor: pointer;
     color: #106BAC;
-}
-
-.menu_list > ul > li > button  {
-    border: none;
-    background-color: #ffffff;
-    font-size: 14px;
-    color: #1293D6;
 }
 
 .menu_list.left > ul {
@@ -35,6 +18,22 @@
 
 @media only screen and (max-width: 900px) { 
     .menu_list > ul  {
-        padding: 20px;
+        padding: 5px 10px;
     }
+
+    .menu_list > ul > li {
+        border: none;
+        background-color: rgb(236, 236, 236);
+        font-size: 14px;
+        color: #1293D6;
+        margin: 5px 0;
+        padding: 0 10px;
+    }
+
+    .menu_list > ul > li:hover , .menu_list > ul > li > label:hover{
+        background-color: rgb(99, 160, 211);
+        cursor: pointer;
+        color: #fff;
+    }
+
 }
