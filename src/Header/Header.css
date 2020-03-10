@@ -27,8 +27,8 @@
 
 .logo-header {
     margin-top: 65px;
-    min-width: 50%;
-    max-width: 100%;
+    min-width: 70%;
+    max-width: 85%;
 }
 
 .search-box {
@@ -186,7 +186,7 @@
 @media only screen and (max-width: 580px) { 
     .search-box {
         width: calc(100% - 10px);
-        margin-left: 10px;
+        margin-left: 0px;
         order: 2;
         height: auto;
         margin-top: -30px;
