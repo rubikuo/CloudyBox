@@ -35,7 +35,7 @@ const Header = ({ logOut, location, search, filterSearch, userName }) => {
                 </div>
                 <div className="search-box">
                     <div className='search-field' style={{ border: '1px solid #ddd' }}>
-                        <GoSearch style={{ position: "absolute", top: "8px", right: "10px", fontSize: '1.2em', color: "#106BAC" }} />
+                        <GoSearch style={{ position: "absolute", top: "8px", right: "15px", fontSize: '1.2em', color: "#106BAC" }} />
                         <input
                             className="search-input"
                             style={{ border: 'none' }}

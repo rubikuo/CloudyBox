@@ -67,7 +67,7 @@
     height: 30px;
     padding: 0.5%;
     border: 1px solid #ddd;
-    border-radius: 0.3rem;
+    border-radius:25px;
     margin-top: 40px;
     position: relative;
 }
