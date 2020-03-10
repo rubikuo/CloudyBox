@@ -24,9 +24,8 @@ const CopyMove = (props) => {
         [props.doc.id]
     );
 
-    useEffect(
-        () => {
-            let paths = props.location.pathname.substring(6).split('/');
+    const init = useCallback(() =>{
+        let paths = props.location.pathname.substring(6).split('/');
             let links;
             if (paths[0] !== '') {
                 paths.unshift('Home');
@@ -35,22 +34,32 @@ const CopyMove = (props) => {
                 links = copyNewParts.map((_, idx) => {
                     return '' + copyNewParts.slice(0, idx + 1).join('/');
                 });
-                //console.log('links', links);
+             
             } else {
                 paths[0] = 'Home';
                 links = [""];
-                updatePathLinks(links)
+                // updatePathLinks(links)
             }
+             console.log('links', links);
             updateParts(paths);
             //console.log(paths)
             updatePathLinks(links)
-            updateChoosenRepo(links[links.length - 1]);
-        },
-        [props.location.pathname]
-    );
+            console.log(pathLinks)
+            updateChoosenRepo(links[links.length - 1]); // for some reason this cant happen
+    },[props.location.pathname])
+
+    // useEffect(
+    //     () => {
+            
+           
+    //     },
+    //     [props.location.pathname]
+    // );
 
     useEffect(
         () => {
+            init();
+            console.log(choosenRepo)
             let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
             if (choosenRepo !== null) {
                 dropbox.filesListFolder({ path: choosenRepo }).then((response) => {
@@ -60,7 +69,7 @@ const CopyMove = (props) => {
                 return;
             }
         },
-        [choosenRepo, filterFolders]
+        [choosenRepo, filterFolders, init]
     );
 
     const chooseCurrentRepo = (item) => {
@@ -76,7 +85,7 @@ const CopyMove = (props) => {
         links = copyNewParts.map((_, idx) => {
             return '' + copyNewParts.slice(0, idx + 1).join('/');
         });
-        // console.log('links', links);
+        console.log('links', links);
         updatePathLinks(links);
     };
 
