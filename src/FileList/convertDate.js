@@ -1,5 +1,5 @@
-export const convertDate =(isoDate)=> {
-    if(isoDate){
+export const convertDate = (isoDate) => {
+  if (isoDate) {
     let timeStr = isoDate;
     let date = new Date(timeStr);
     let day = date.getDate();
@@ -8,4 +8,4 @@ export const convertDate =(isoDate)=> {
     let dateStr = month + "/" + day + "/" + year;
     return dateStr;
   }
-  }
+}

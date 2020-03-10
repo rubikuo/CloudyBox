@@ -23,12 +23,12 @@ const Rename = (props) => {
 		let formatedToPath = props.location.pathname.slice(5) + '/' + toPath;
 		let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
 		dropbox
-			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath})
+			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath })
 			.then((response) => {
-				console.log(response);
+				// console.log(response);
 				let copyDocument = [ ...props.documents ];
 				let replacedIndex = copyDocument.findIndex((doc) => doc.id === response.metadata.id);
-				console.log(replacedIndex);
+				// console.log(replacedIndex);
 				copyDocument[replacedIndex] = response.metadata;
 				props.updateDocs(copyDocument);
 				handleRenameModal();
@@ -38,8 +38,6 @@ const Rename = (props) => {
 				updateErrorMsg(true);
 			});
 	};
-
-
 
 	return ReactDOM.createPortal(
 		<div className="modalContainer">
@@ -67,15 +65,10 @@ const Rename = (props) => {
 						style={{ borderRadius: '0.3rem', padding: '2%', border: '1px solid #ddd', marginBottom: '5px' }}
 					/>
 					{errorMsg ? (
-						<span className="rename-error">
-						   This item name is already used, please choose another one!
-						</span>
+						<span className="rename-error">This item name is already used, please choose another one!</span>
 					) : null}
 					<div className="modalsButtonsContainer">
-						<div
-							onClick={handleRenameModal}
-							className="modalButtons"
-						>
+						<div onClick={handleRenameModal} className="modalButtons">
 							Cancel
 						</div>
 						<button type="submit" className="modalButtons blueButtons">
