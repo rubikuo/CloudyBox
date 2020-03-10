@@ -34,7 +34,7 @@ const Rename = (props) => {
 				handleRenameModal();
 			})
 			.catch((err) => {
-				console.log(err.response.status);
+				// console.log(err.response.status);
 				updateErrorMsg(true);
 			});
 	};

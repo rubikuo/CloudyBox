@@ -3,184 +3,180 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
 
 * {
-    font-family: "Open Sans", sans-serif;
+	font-family: "Open Sans", sans-serif;
 }
 
 .modalContainer {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100vw;
-    height: 100vh;
-    padding: 3%;
-    background-color: rgb(225,225,225, 0.5);
-    position: absolute;
-    top:0;
-    z-index: 9999999999999;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	width: 100vw;
+	height: 100vh;
+	padding: 3%;
+	background-color: rgb(225, 225, 225, 0.5);
+	position: absolute;
+	top: 0;
+	z-index: 9999999999999;
 }
 
 .modalHeadline {
-    display: flex;
-
+	display: flex;
 }
 
-.itemDelete, .itemCopyMove {
-    color: #106BAC;
-    font-weight: bold;
+.itemDelete,
+.itemCopyMove {
+	color: #106bac;
+	font-weight: bold;
 }
-
 
 .modalHeadline > h5 {
-    margin: 0 0 20px 0;
-    color: #1293D6;
+	margin: 0 0 20px 0;
+	color: #1293d6;
 }
 
-.modalBox, .copyMoveBox {
-    position: relative;
-    top: 30vh;
-    left: 30vw;
-    padding: 4%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 450px;
-    height: 180px;
-    background-color: #fff;
-    border-radius: 0.3rem;
+.modalBox,
+.copyMoveBox {
+	position: relative;
+	top: 30vh;
+	left: 30vw;
+	padding: 4%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 450px;
+	height: 180px;
+	background-color: #fff;
+	border-radius: 0.3rem;
 }
 
 .modalContainer > .modalBox > p {
-    font-size: 14px;
-    text-align: left;
-    line-height: 25px;
-    margin: 0;
-    color: #737373;
+	font-size: 14px;
+	text-align: left;
+	line-height: 25px;
+	margin: 0;
+	color: #737373;
 }
 
 .modalContainer > .modalBox > form > input {
-    width: 95%;
+	width: 95%;
 }
 
 .modalContainer > .modalBox > form > input:focus::placeholder {
-    color: transparent;
+	color: transparent;
 }
 
 .modalContainer > .modalBox > a {
-    padding: 8px;
-    background-color: #1293D6;
-    width: 150px;
-    border-radius: 10px;
-    color: #fff;
-    text-decoration: none;
-    text-align: center;
-    font-size: 0.8rem;
-    align-self: center;
-    margin-top: 40px;
+	padding: 8px;
+	background-color: #1293d6;
+	width: 150px;
+	border-radius: 10px;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	font-size: 0.8rem;
+	align-self: center;
+	margin-top: 40px;
 }
 
 .modalContainer > .modalBox > a:hover {
-    background-color: #106BAC;
+	background-color: #106bac;
 }
 
 .modalContainer > .copyMoveBox {
-    height: 300px;
-    top: 20vh;
-    left: 20vw;
+	height: 300px;
+	top: 20vh;
+	left: 20vw;
 }
 
 .errorMessages > p {
-    margin: 0;
+	margin: 0;
 }
 
-.rename-error{
-    color: red;
-    padding-top: 10px;
-    font-size: 0.7rem;
+.rename-error {
+	color: red;
+	padding-top: 10px;
+	font-size: 0.7rem;
 }
 
 .modalsButtonsContainer {
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .modalButtons {
-    display: flex;
-    font-weight: 500;
-    background-color: rgb(245, 244, 244);
-    letter-spacing: 0.06rem;
-    border: 1px solid #ddd;
-    border-radius: 0.3rem;
-    padding: 2%;
-    margin-top: 7%;
-    font-size: 11px;
+	display: flex;
+	font-weight: 500;
+	background-color: rgb(245, 244, 244);
+	letter-spacing: 0.06rem;
+	border: 1px solid #ddd;
+	border-radius: 0.3rem;
+	padding: 2%;
+	margin-top: 7%;
+	font-size: 11px;
 }
 
 /*---the Create and the Delete buttons on the portals---*/
 .blueButtons {
-    color: #fff;
-    background-color: #1293D6;
-    border: 1px solid #1293D6;
-    margin-left: 5px;
+	color: #fff;
+	background-color: #1293d6;
+	border: 1px solid #1293d6;
+	margin-left: 5px;
 }
 
 .modalButtons:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .blueButtons:hover {
-    background-color: #106BAC;
+	background-color: #106bac;
 }
 
 /* --- Copy Modal --- */
 
 .relocateCtn {
-    height: 450px;
-    width: 450px;
-    border: 1px solid #c5c5c5;
-    overflow-y: auto;
-    margin-top: 10px;
+	height: 450px;
+	width: 450px;
+	border: 1px solid #c5c5c5;
+	overflow-y: auto;
+	margin-top: 10px;
 }
 
-.folderCtn{
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
+.folderCtn {
+	display: flex;
+	align-items: center;
+	padding: 0 10px;
 }
 
 .folderCtn.active {
-    background-color: rgb(114, 179, 214, 0.3);
+	background-color: rgb(114, 179, 214, 0.3);
 }
 
-.folderCtn:hover{
-    background-color: rgba(226, 226, 226, 0.5);
-    cursor: pointer;
+.folderCtn:hover {
+	background-color: rgba(226, 226, 226, 0.5);
+	cursor: pointer;
 }
 
 .modalBox.copyMoveBox > span {
-    margin-top: 10px;
-    font-size: 0.7rem;
-    color: red;
+	margin-top: 10px;
+	font-size: 0.7rem;
+	color: red;
 }
 
-
-.repo-path{
-    color: #106BAC;
-    font-weight: 600;
-    font-size: 0.9em;
-    display: flex;
-    flex-flow: row wrap;
+.repo-path {
+	color: #106bac;
+	font-weight: 600;
+	font-size: 0.9em;
+	display: flex;
+	flex-flow: row wrap;
 }
 
 .repo-path .pathLink {
-    border: none;
-    padding: 0;
+	border: none;
+	padding: 0;
 }
 
 .repo-path .pathLink:hover {
-    cursor: pointer;
-    color:#1293D6;
-    text-decoration: underline;
+	cursor: pointer;
+	color: #1293d6;
+	text-decoration: underline;
 }
-
-
-
