@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { token$, favorites$, clearFavorites, updateToken } from "../store";
 import Main from "../Main/Main";
+import {Helmet} from "react-helmet";
 import "./Home.css";
 import { Dropbox } from 'dropbox';
 import Header from "../Header/Header";
@@ -101,6 +102,9 @@ const Home = ({ location }) => {
             <img className="imageTop" src={topImage} alt="background" />
         </div>
         <div className="container">
+              <Helmet>
+                    <title>CloudyBox - Home</title>
+                </Helmet>
             <div className="header">
                 <Header
                     filterSearch={filterSearch}
