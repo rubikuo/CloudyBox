@@ -69,3 +69,13 @@ main{
     overflow-y: auto;
     background-color:#F7F7F7;
 }
+
+@media only screen and (max-width: 720px) { 
+    .tagCtn {
+        display: none;
+    }
+
+    .tabsCtn {
+        width: 80%;
+    }
+}

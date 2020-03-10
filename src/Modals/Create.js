@@ -5,12 +5,13 @@ import ReactDOM from 'react-dom';
 import './Modals.css';
 
 const Create = (props) => {
-	const [ pathName, updatePathName ] = useState('');
+	const [pathName, updatePathName] = useState('');
 	console.log('location propname', props.location.pathname);
-	
-    const handleCreateModal = (status)=>{
-        props.handleCreateModal(status)
-    }
+
+	const handleCreateModal = (status) => {
+		console.log(status)
+		props.handleCreateModal(status)
+	}
 
 	const onChangeInput = (e) => {
 		updatePathName(e.target.value);
@@ -21,24 +22,24 @@ const Create = (props) => {
 		console.log(pathName);
 		const root = props.location.pathname.slice(5);
 
-		let dropbox = new Dropbox({ fetch:fetch, accessToken: props.localToken });
+		let dropbox = new Dropbox({ fetch: fetch, accessToken: props.localToken });
 		dropbox
 			.filesCreateFolderV2({ path: root + '/' + pathName, autorename: true })
-			.then(function(response) {
+			.then(function (response) {
 				console.log(response)
 				let copyData = [...props.documents];
-              	let newData = {
-					".tag" : "folder",
-					...response.metadata, 
-				  	} 
-				const newDocuments = [ ...copyData, newData ];  
+				let newData = {
+					".tag": "folder",
+					...response.metadata,
+				}
+				const newDocuments = [...copyData, newData];
 				console.log(newDocuments);
 				props.updateDocs(newDocuments);
 			})
-			.catch(function(error) {
+			.catch(function (error) {
 				console.error(error);
-            });
-            handleCreateModal(false);
+			});
+		handleCreateModal(false);
 
 	};
 
@@ -69,7 +70,7 @@ const Create = (props) => {
 						style={{ borderRadius: '0.3rem', padding: '2%', border: '1px solid #ddd' }}
 					/>
 					<div className="modalsButtonsContainer">
-						<div onClick={()=>handleCreateModal(false)} className="modalButtons">
+						<div onClick={() => handleCreateModal(false)} className="modalButtons">
 							Cancel
 						</div>
 						<button type="submit" className="modalButtons blueButtons">

@@ -22,12 +22,13 @@
 
 .logo-container {
     width: 20%;
+    display: block;
 }
 
 .logo-header {
-    margin-top: 50px;
-    min-width: 50%;
-    max-width: 90%;
+    margin-top: 65px;
+    min-width: 70%;
+    max-width: 85%;
 }
 
 .search-box {
@@ -45,6 +46,7 @@
     justify-content: flex-start;
     align-items: center;
     font-size: 0.8rem;
+    margin-left: 20px;
 }
 
 .username {
@@ -61,23 +63,23 @@
 
 .search-field {
     display: flex;
-    width: 50%;
+    width: 95%;
     height: 30px;
     padding: 0.5%;
     border: 1px solid #ddd;
-    border-radius: 0.3rem;
+    border-radius:25px;
     margin-top: 40px;
+    position: relative;
 }
 
 .search-input {
     align-self: flex-start;
-    margin-left: 10px;
-    padding: 1.3%;
     width: 100%;
-    height: 90%;
+    height: 100%;
     background-color: transparent;
     position: relative;
-    top: -4px;
+    top: 0px;
+    padding-left: 10px;
 }
 
 /*----------second row in the Header: path and logout button --------*/
@@ -146,7 +148,7 @@
 @media only screen and (max-width: 900px) {
 
     .logo-container {
-        width: 30%;
+        display: none;
     }
     
     .logo-header {
@@ -154,50 +156,57 @@
         width: 100%;
     }
 
+    .logo-search-container {
+        position: relative;
+    }
+
     .search-box {
-        width: calc(70% - 40px);
-      
+        width: calc(70% - 10px);
+        margin-left: 10px;
+    }
+
+    .search-field {
+        width: 100%;
+    }
+
+    .username-logout {
+        width: calc(30% - 20px);
+        margin-right: 0px;
+        text-align: right;
+        justify-content: flex-end;
+        height: 100%;
+    }
+
+    .path-logout-container {
+        z-index: 1;
     }
 }
 
-/*
-.headerContainer {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
-    align-items: center;
-    z-index: 10;
-}
 
-nav {
-    display: flex;
-    align-items: center;
-}
+@media only screen and (max-width: 580px) { 
+    .search-box {
+        width: calc(100% - 10px);
+        margin-left: 0px;
+        order: 2;
+        height: auto;
+        margin-top: -30px;
+    }
 
-.logoContainer {
-    width: 20%;
-}
+    .username-logout {
+        width: calc(100% - 20px);
+        margin-right: 0px;
+        text-align: right;
+        justify-content: flex-end;
+        height: auto;
+        order: 1;
+        margin-top: 50px;
+    }
 
-.logoHeader {
-    width: 200px;
-    margin: 50px 0 0 -50px;
-}
+    .search-field {
+        margin-top: 0;
+    }
 
-.headerPathSearchContainer {
-   width: 80%;
-   display: flex;
-   justify-content: space-between;
-   margin: 75px 0 0 10px;
+    .username, .logout-button {
+        margin: 0;
+    }
 }
-
-.headerSearchContainer {
-    border-radius: 0.3rem;
-    padding: 1%;
-    width: 200px;
-}
-
-.searchInput {
-    margin-left: 4px;
-}*/
