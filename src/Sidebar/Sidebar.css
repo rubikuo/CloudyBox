@@ -17,8 +17,10 @@
 }
 
 @media only screen and (max-width: 900px) { 
+
     .menu_list > ul  {
         padding: 5px 10px;
+        margin-top: 0px;
     }
 
     .menu_list > ul > li {

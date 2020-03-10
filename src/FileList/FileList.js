@@ -125,7 +125,7 @@ const FileList = ({
 						<>
 							{
 								doc.name.slice(doc.name.length - 3) === "pdf"
-									? <FaFilePdf size="2rem" className="folderIcon" />
+									? <FaFilePdf size="2rem" style={{color: "rgb(34, 130, 208)", marginRight:"10px"}}/>
 									: thumbnailUrl
 										? <img src={thumbnailUrl} alt='' style={{ marginRight: '10px' }} />
 										: <FaFile size="2rem" className="folderIcon" />
