@@ -22,11 +22,14 @@
 
 .logo-container {
     width: 20%;
-    display: block;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo-header {
-    margin-top: 65px;
+    margin-top: 0px;
     min-width: 70%;
     max-width: 85%;
 }
