@@ -14,8 +14,6 @@ import CopyMove from "../Modals/CopyMove";
 const FileList = ({
 	doc,
 	location,
-	itemId,
-	itemName,
 	getLinkToFile,
 	favorites,
 	localToken,
@@ -47,12 +45,10 @@ const FileList = ({
 
 	const handleCopyModal = () => {
 		updateCopyModal(true);
-		// filterFolders();
 	}
 
 	const handleMoveModal = () => {
 		updateMoveModal(true);
-		// filterFolders();
 	}
 
 	const handleClickOutside = useCallback((e) => {
@@ -161,7 +157,7 @@ const FileList = ({
 						>
 							Delete
 							</button>
-						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents} />}
+						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} doc={doc} updateDocs={updateDocs} documents={documents} />}
 
 						<button
 							className="renameBtn"

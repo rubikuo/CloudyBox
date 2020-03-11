@@ -18,16 +18,10 @@ const CopyMove = (props) => {
 
 	const filterFolders = useCallback(
 		(docs) => {
-			let filteredFolder;
-			if (props.option === 'Copy') {
-				filteredFolder = docs.filter((item) => item['.tag'] === 'folder');
-			} else {
-				filteredFolder = docs.filter((item) => item['.tag'] === 'folder' && item.id !== props.doc.id);
-			}
-
+			let filteredFolder = docs.filter((item) => item['.tag'] === 'folder' && item.id !== props.doc.id);
 			updateAllRepo(filteredFolder);
 		},
-		[ props.doc.id, props.option ]
+		[ props.doc.id ]
 	);
 
 	useEffect(
@@ -57,8 +51,8 @@ const CopyMove = (props) => {
 
 	useEffect(
 		() => {
-            let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
-            console.log("copymove")
+			let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
+			console.log('copymove');
 			if (choosenRepo !== null) {
 				// console.log('HELLO', choosenRepo);
 				dropbox.filesListFolder({ path: choosenRepo }).then((response) => {

@@ -25,7 +25,6 @@ class Sidebar extends React.PureComponent {
   uploadFiles = e => {
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
     let dropBox = new Dropbox({ fetch: fetch, accessToken: token$.value });
-    //let dropBox = new Dropbox({ accessToken: token$.value });
     let files = Array.from(e.target.files);
 
     if (files.length === 0) {
