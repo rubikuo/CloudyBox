@@ -28,9 +28,9 @@ const Header = ({ logOut, location, search, filterSearch, userName }) => {
     return (
         <div className='header-container'>
 
-            <div className="logo-search-container">
+            <div className='logo-search-container'>
 
-                <div className="logo-container">
+                <div className='logo-container'>
                     <img src={logo} alt="cloudbox logo uploading files" className="logo-header" />
                 </div>
                 <div className="search-box">

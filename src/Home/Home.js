@@ -16,8 +16,8 @@ const Home = ({ location }) => {
     const [localToken, updateLocalToken] = useState(token$.value);
     const [documents, updateDocs] = useState([]);
     const [choosenFiles, updateChoosenFiles] = useState([]);
-    const [itemId, updateItemId] = useState("");
-    const [itemName, updateItemName] = useState("");
+    //const [itemId, updateItemId] = useState("");
+    //const [itemName, updateItemName] = useState("");
     const [favorites, updateFavorite] = useState(favorites$.value);
     const [search, updateSearch] = useState('');
     const [userName, updateUserName] = useState("");
@@ -121,10 +121,10 @@ const Home = ({ location }) => {
                         documents={documents}
                         updateDocs={updateDocs}
                         choosenFiles={choosenFiles}
-                        itemName={itemName}
-                        updateItemName={updateItemName}
-                        itemId={itemId}
-                        updateItemId={updateItemId}
+                        //itemName={itemName}
+                        //updateItemName={updateItemName}
+                        //itemId={itemId}
+                        //updateItemId={updateItemId}
                         favorites={favorites}
                         updateFavorite={updateFavorite}
                         location={location}

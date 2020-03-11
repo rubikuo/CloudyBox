@@ -9,5 +9,6 @@ export const convertBytes =(bytes)=> {
       }
       
       return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizes[i];
+    
     }
   };
