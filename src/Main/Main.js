@@ -28,7 +28,7 @@ const Main = ({
   console.log("ERROR STATUS",errorStatus)
 
 
-	useEffect(
+/* 	useEffect(
 		() => {
       if (location.pathname === '/home') {
         updateCurrentPath("")
@@ -40,7 +40,7 @@ const Main = ({
       return;
 		},
 		[ location.pathname, updateCurrentPath ]
-  );
+  ); */
   
   const loadFiles = useCallback(() => {
     // console.log('location Name', location.pathname);
@@ -49,11 +49,11 @@ const Main = ({
     //let dropbox = new Dropbox({ accessToken: localToken });
 
     console.log("LOCATION PATHNAME", location.pathname)
-   /*  if (location.pathname === '/home') {
-       */
-      if(theCurrentPath !== null) {
+   if (location.pathname === '/home') {
+     
+     /*  if(theCurrentPath !== null) {  */
         dropbox
-        .filesListFolder({ path: theCurrentPath })
+        .filesListFolder({ path: "" })
         .then((response) => {
           console.log("RENDER from SERVER")
           updateDocs(response.entries); // update in state
@@ -65,9 +65,9 @@ const Main = ({
           removeFavoriteByPath("");
           updateErrorStatus(true)
         })
-      }
+      
      
-   /*  } else {
+ } else {
       //console.log('this is not a home, link is', location.pathname);
       let newPath = location.pathname.slice(5);
       console.log(newPath);
@@ -84,7 +84,7 @@ const Main = ({
           removeFavoriteByPath(newPath);
           updateErrorStatus(true)
         })
-    } */
+    } 
   }, [location.pathname, localToken, updateDocs, theCurrentPath])
   
 
