@@ -28,6 +28,7 @@ const FileList = ({
 	const [showCopyModal, updateCopyModal] = useState(false);
 	const [showMoveModal, updateMoveModal] = useState(false);
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
+	
 	const nodeDropdown = useRef();
 
 	const showDropDown = useCallback(() => {
