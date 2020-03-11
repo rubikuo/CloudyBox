@@ -23,7 +23,6 @@ const Remove = (props) => {
 			});
 
 		handleRemoveModal();
-		// return;
 	};
 
 	return ReactDOM.createPortal(
