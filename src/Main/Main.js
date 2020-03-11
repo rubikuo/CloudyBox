@@ -23,7 +23,7 @@ const Main = ({
 }) => {
   const [tab, updateTab] = useState('name');
   const [errorStatus, updateErrorStatus] = useState(false);
-  const [theCurrentPath, updateCurrentPath] = useState(null);
+  //const [theCurrentPath, updateCurrentPath] = useState(null);
   //console.log(localToken);
   console.log("ERROR STATUS",errorStatus)
 
@@ -55,7 +55,7 @@ const Main = ({
         dropbox
         .filesListFolder({ path: "" })
         .then((response) => {
-          console.log("RENDER from SERVER")
+          console.log("RENDER from HOME")
           updateDocs(response.entries); // update in state
           updateErrorStatus(false);
           updateTab("name");
@@ -85,7 +85,7 @@ const Main = ({
           updateErrorStatus(true)
         })
     } 
-  }, [location.pathname, localToken, updateDocs, theCurrentPath])
+  }, [location.pathname, localToken, updateDocs])
   
 
   useEffect(
