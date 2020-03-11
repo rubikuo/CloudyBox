@@ -24,23 +24,29 @@ const Main = ({
   const [tab, updateTab] = useState('name');
   const [errorStatus, updateErrorStatus] = useState(false);
   //console.log(localToken);
-
+  console.log("ERROR STATUS",errorStatus)
   const loadFiles = useCallback(() => {
     // console.log('location Name', location.pathname);
 
     let dropbox = new Dropbox({ fetch: fetch, accessToken: localToken });
     //let dropbox = new Dropbox({ accessToken: localToken });
 
-
+    console.log("LOCATION PATHNAME", location.pathname)
     if (location.pathname === '/home') {
-
+      
       dropbox
         .filesListFolder({ path: '' })
         .then((response) => {
           console.log('resonse.entries', response.cursor);
+          console.log("RENDER  from HOME")
           updateDocs(response.entries); // update in state
           updateErrorStatus(false);
           updateTab("name");
+        })
+        .catch((response) => {
+          console.log(response.error.error_summary);
+          removeFavoriteByPath("");
+          updateErrorStatus(true)
         })
 
     } else {
@@ -51,6 +57,7 @@ const Main = ({
         .filesListFolder({ path: newPath })
         .then((response) => {
           updateDocs(response.entries); // update in state
+          console.log("RENDER from PATH")
           updateErrorStatus(false);
           updateTab("name");
         })
@@ -74,6 +81,8 @@ const Main = ({
 
   const longpoll = useCallback(() => {
     let dbx = new Dropbox({ fetch: fetch, accessToken: localToken });
+
+    if (location.pathname === '/home') {
     dbx
       .filesListFolderGetLatestCursor({
         path: "",
@@ -88,6 +97,23 @@ const Main = ({
       .catch((err) => {
         console.log(err);
       });
+    } else {
+      let newPath = location.pathname.slice(5);
+      dbx
+      .filesListFolderGetLatestCursor({
+        path: newPath,
+        recursive: true,
+        include_media_info: false,
+        include_deleted: false,
+        include_has_explicit_shared_members: false
+      })
+      .then((res) => {
+        updateLongPoll(res.cursor)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
 
     const updateLongPoll = (cursor) => {
       dbx.filesListFolderLongpoll({ cursor: cursor, timeout: 50 })
@@ -105,9 +131,10 @@ const Main = ({
           console.log(err);
         });
     }
-  }, [loadFiles, localToken])
+  }, [loadFiles, localToken, location.pathname])
 
   useEffect(() => {
+    console.log("LONGPOLL")
     longpoll();
 
   }, [longpoll])
@@ -133,6 +160,7 @@ const Main = ({
       });
   };
 
+
 	if(errorStatus){
 		return ReactDOM.createPortal(
 			<div className="modalContainer">
@@ -155,7 +183,7 @@ const Main = ({
 
   if (tab === "name") {
     arrayPrint = documents
-      .filter(doc => {
+    .filter(doc => {
         if (
           doc.name.toLowerCase().includes(search.toLowerCase())
         ) {
@@ -176,7 +204,7 @@ const Main = ({
         } else {
           return null
         }
-      })
+      }) 
       .map(doc => {
         return <FileList
           key={doc.id}
@@ -194,7 +222,8 @@ const Main = ({
         />
       })
   } else if (tab === "stared") {
-    arrayPrint = favorites.filter(docFav => {
+    arrayPrint = favorites
+    .filter(docFav => {
       if (
         docFav.name.toLowerCase().includes(search.toLowerCase())
       ) {

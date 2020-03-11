@@ -26,6 +26,7 @@ const Rename = (props) => {
 			.filesMoveV2({ from_path: fromPath, to_path: formatedToPath })
 			.then((response) => {
 				// console.log(response);
+				console.log("RENDER from RENAME")
 				let copyDocument = [ ...props.documents ];
 				let replacedIndex = copyDocument.findIndex((doc) => doc.id === response.metadata.id);
 				// console.log(replacedIndex);

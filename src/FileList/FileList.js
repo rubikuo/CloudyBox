@@ -91,6 +91,7 @@ const FileList = ({
 						const url = URL.createObjectURL(response.fileBlob);
 						updateThumbnailUrl(url);
 					}
+					console.log("RENDER from THUMBNAIL")
 				})
 				.catch(function (error) {
 					console.log(error, 'Error by creating thumbnail');
@@ -172,14 +173,14 @@ const FileList = ({
 						>
 							Copy
 						</button>
-						{showCopyModal && <CopyMove method="filesCopyV2" option="Copy" doc={doc} onClose={(e) => updateCopyModal(false)} getLinkToFile={getLinkToFile} location={location} />}
+						{showCopyModal && <CopyMove method="filesCopyV2" option="Copy" doc={doc} onClose={(e) => updateCopyModal()} getLinkToFile={getLinkToFile} location={location} />}
 						<button
 							className="moveBtn"
 							onClick={handleMoveModal}
 						>
 							Move
 						</button>
-						{showMoveModal && <CopyMove method="filesMoveV2" option="Move" doc={doc} onClose={(e) => updateMoveModal(false)} getLinkToFile={getLinkToFile} location={location} />}
+						{showMoveModal && <CopyMove method="filesMoveV2" option="Move" doc={doc} onClose={(e) => updateMoveModal()} getLinkToFile={getLinkToFile} location={location} />}
 					</div>
 				</div>
 			</li>

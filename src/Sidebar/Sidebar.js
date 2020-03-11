@@ -51,6 +51,7 @@ class Sidebar extends React.PureComponent {
             ...response,
             ".tag": "file"
           }));
+          console.log("RENDER from SIDEBAR")
           const newDocuments = [...this.props.documents, ...files];
           this.props.updateDocs(newDocuments);
 

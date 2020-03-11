@@ -16,7 +16,8 @@ const Remove = (props) => {
 			.then((response) => {
 				console.log('deleteResponse', response);
 				const newDocuments = props.documents.filter((x) => x.id !== response.metadata.id);
-				props.updateDocs(newDocuments);
+				props.updateDocs(newDocuments); 
+				console.log("RENDER from REMOVE")
 			})
 			.catch((err) => {
 				console.log(err);
