@@ -74,6 +74,7 @@ const Main = ({
 
   const longpoll = useCallback(() => {
     let dbx = new Dropbox({ fetch: fetch, accessToken: localToken });
+ 
     dbx
       .filesListFolderGetLatestCursor({
         path: "",
@@ -109,6 +110,7 @@ const Main = ({
 
   useEffect(() => {
     longpoll();
+    console.log("long");
 
   }, [longpoll])
 
@@ -133,6 +135,7 @@ const Main = ({
       });
   };
 
+  console.log("here", errorStatus);
 	if(errorStatus){
 		return ReactDOM.createPortal(
 			<div className="modalContainer">
