@@ -6,10 +6,11 @@ import './Modals.css';
 
 const Create = (props) => {
 	const [pathName, updatePathName] = useState('');
-	console.log('location propname', props.location.pathname);
+	//const [redirectTo, updateRedirectTo] = useState(null);
+	//console.log('location propname', props.location.pathname);
 
 	const handleCreateModal = (status) => {
-		console.log(status)
+		//console.log(status)
 		props.handleCreateModal(status)
 	}
 
@@ -19,7 +20,7 @@ const Create = (props) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log(pathName);
+		//console.log(pathName);
 		const root = props.location.pathname.slice(5);
 
 		let dropbox = new Dropbox({ fetch: fetch, accessToken: props.localToken });
@@ -27,14 +28,16 @@ const Create = (props) => {
 			.filesCreateFolderV2({ path: root + '/' + pathName, autorename: true })
 			.then(function (response) {
 				console.log(response)
+				console.log("RENDER from CREATE")
 				let copyData = [...props.documents];
 				let newData = {
 					".tag": "folder",
 					...response.metadata,
 				}
 				const newDocuments = [...copyData, newData];
-				console.log(newDocuments);
+				//console.log(newDocuments);
 				props.updateDocs(newDocuments);
+		
 			})
 			.catch(function (error) {
 				console.error(error);

@@ -8,10 +8,18 @@ import { MdError } from 'react-icons/md';
 import { Dropbox } from 'dropbox';
 import { removeFavoriteByPath } from '../store';
 
-const Main = ({ localToken, documents, updateDocs, favorites, updateFavorite, updateRename, location, search }) => {
-	const [ tab, updateTab ] = useState('name');
-	const [ errorStatus, updateErrorStatus ] = useState(false);
-	//console.log(localToken);
+const Main = ({
+  localToken,
+  documents,
+  updateDocs,
+  favorites,
+  updateFavorite,
+  updateRename,
+  location,
+  search,
+}) => {
+  const [tab, updateTab] = useState('name');
+  const [errorStatus, updateErrorStatus] = useState(false);
 
 	const loadFiles = useCallback(
 		() => {
@@ -115,7 +123,8 @@ const Main = ({ localToken, documents, updateDocs, favorites, updateFavorite, up
 	let tabActiveStyle = {
 		backgroundColor: '#F7F7F7',
 		color: 'rgb(34, 138, 208)'
-	};
+  };
+  
 	const getLinkToFile = (path) => {
 		// console.log(path);
 		let dropbox = new Dropbox({ accessToken: localToken });

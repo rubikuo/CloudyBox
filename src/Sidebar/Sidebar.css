@@ -32,6 +32,14 @@
         padding: 0 10px;
     }
 
+    .menu_list > ul > li:first-of-type {
+        padding: 0;
+    }
+
+    .menu_list > ul > li:first-of-type > label {
+        padding: 8px 47px 8px 10px;
+    }
+
     .menu_list > ul > li:hover , .menu_list > ul > li > label:hover{
         background-color: rgb(99, 160, 211);
         cursor: pointer;

@@ -50,6 +50,7 @@ class Sidebar extends React.PureComponent {
             ...response,
             ".tag": "file"
           }));
+          console.log("RENDER from SIDEBAR")
           const newDocuments = [...this.props.documents, ...files];
           this.props.updateDocs(newDocuments);
 
@@ -86,8 +87,8 @@ class Sidebar extends React.PureComponent {
               />
             </label>
           </li>
-          <li>
-            <label onClick={() => this.handleCreateModal(true)}>
+          <li onClick={() => this.handleCreateModal(true)}>
+            <label>
                 <MdCreateNewFolder
                   size="20px"
                   style={{
@@ -98,8 +99,8 @@ class Sidebar extends React.PureComponent {
                 />
                 Create Folder
             </label>
-            {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
           </li>
+          {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
         </ul>
       </div>
     );

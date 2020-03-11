@@ -6,14 +6,14 @@ import { FaAngleRight, FaHome } from "react-icons/fa";
 import "./Header.css";
 
 const Header = ({ logOut, location, search, filterSearch, userName }) => {
-    console.log("location propname", location.pathname)
+    //console.log("location propname", location.pathname)
 
     const parts = location.pathname.substring(6).split("/");
-    console.log(parts)
+    //console.log(parts)
     let links;
     if (parts[0] !== "") {
         links = parts.map((_, idx) => {
-            console.log("idx", parts.slice(0, idx + 1))
+            //console.log("idx", parts.slice(0, idx + 1))
             return "/home/" + parts.slice(0, idx + 1).join("/");
         });
         parts.unshift("Home");

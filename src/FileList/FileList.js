@@ -76,7 +76,7 @@ const FileList = ({
 
 	useEffect(() => {
 		let dropbox = new Dropbox({ fetch: fetch, accessToken: localToken })
-		console.log("filelist")
+		console.log("TRY TO FETCH THUMBNAIL")
 		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
 			doc.name.slice(doc.name.length - 4) === 'jpeg' ||
 			doc.name.slice(doc.name.length - 3) === 'png') {
@@ -90,6 +90,7 @@ const FileList = ({
 						const url = URL.createObjectURL(response.fileBlob);
 						updateThumbnailUrl(url);
 					}
+					console.log("RENDER from THUMBNAIL")
 				})
 				.catch(function (error) {
 					console.log(error, 'Error by creating thumbnail');
@@ -178,7 +179,7 @@ const FileList = ({
 						>
 							Move
 						</button>
-						{showMoveModal && <CopyMove method="filesMoveV2" option="Move" doc={doc} onClose={(e) => updateMoveModal(false)} getLinkToFile={getLinkToFile} location={location} />}
+						{showMoveModal && <CopyMove method="filesMoveV2" option="Move" doc={doc} onClose={(e) => updateMoveModal()} getLinkToFile={getLinkToFile} location={location} />}
 					</div>
 				</div>
 			</li>
