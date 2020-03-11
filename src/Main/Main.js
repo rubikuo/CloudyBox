@@ -13,8 +13,8 @@ const Main = ({
   localToken,
   documents,
   updateDocs,
-  updateItemName,
-  updateItemId,
+  //updateItemName,
+  //updateItemId,
   favorites,
   updateFavorite,
   updateRename,
@@ -132,6 +132,7 @@ const Main = ({
         console.error(error, 'Error by downloading file');
       });
   };
+console.log('HELLO-BELLO', errorStatus);
 
 	if(errorStatus){
 		return ReactDOM.createPortal(
@@ -163,8 +164,8 @@ const Main = ({
             key={doc.id}
             doc={doc}
             getLinkToFile={getLinkToFile}
-            updateItemId={updateItemId}
-            updateItemName={updateItemName}
+            //updateItemId={updateItemId}
+            //updateItemName={updateItemName}
             favorites={favorites}
             updateFavorite={updateFavorite}
             updateRename={updateRename}
@@ -182,8 +183,8 @@ const Main = ({
           key={doc.id}
           doc={doc}
           getLinkToFile={getLinkToFile}
-          updateItemId={updateItemId}
-          updateItemName={updateItemName}
+          //updateItemId={updateItemId}
+          //updateItemName={updateItemName}
           favorites={favorites}
           updateFavorite={updateFavorite}
           updateRename={updateRename}
@@ -202,8 +203,8 @@ const Main = ({
           key={docFav.id}
           doc={docFav}
           getLinkToFile={getLinkToFile}
-          updateItemId={updateItemId}
-          updateItemName={updateItemName}
+          //updateItemId={updateItemId}
+          //updateItemName={updateItemName}
           favorites={favorites}
           updateFavorite={updateFavorite}
           updateRename={updateRename}
@@ -221,8 +222,8 @@ const Main = ({
           key={docFav.id}
           doc={docFav}
           getLinkToFile={getLinkToFile}
-          updateItemId={updateItemId}
-          updateItemName={updateItemName}
+          //updateItemId={updateItemId}
+          //updateItemName={updateItemName}
           favorites={favorites}
           updateFavorite={updateFavorite}
           updateRename={updateRename}

@@ -14,8 +14,8 @@ import CopyMove from "../Modals/CopyMove";
 const FileList = ({
 	doc,
 	location,
-	itemId,
-	itemName,
+	//itemId,
+	//itemName,
 	getLinkToFile,
 	favorites,
 	localToken,
@@ -157,7 +157,7 @@ const FileList = ({
 						>
 							Delete
 							</button>
-						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} itemId={itemId} itemName={itemName} doc={doc} updateDocs={updateDocs} documents={documents} />}
+						{showRemoveModal && <Remove updateRemoveModal={updateRemoveModal} location={location} /*itemId={itemId}*/ /*itemName={itemName}*/ doc={doc} updateDocs={updateDocs} documents={documents} />}
 
 						<button
 							className="renameBtn"
