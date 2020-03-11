@@ -21,6 +21,7 @@ const Remove = (props) => {
 			.catch((err) => {
 				console.log(err);
 			});
+
 		handleRemoveModal();
 	};
 
