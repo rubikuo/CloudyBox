@@ -28,6 +28,7 @@ const FileList = ({
 	const [showCopyModal, updateCopyModal] = useState(false);
 	const [showMoveModal, updateMoveModal] = useState(false);
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
+
 	
 	const nodeDropdown = useRef();
 
@@ -173,7 +174,7 @@ const FileList = ({
 						>
 							Copy
 						</button>
-						{showCopyModal && <CopyMove method="filesCopyV2" option="Copy" doc={doc} onClose={(e) => updateCopyModal(false)} getLinkToFile={getLinkToFile} location={location} />}
+						{showCopyModal && <CopyMove method="filesCopyV2" option="Copy" doc={doc} onClose={(e) => updateCopyModal(false)}  getLinkToFile={getLinkToFile} location={location} />}
 						<button
 							className="moveBtn"
 							onClick={handleMoveModal}
