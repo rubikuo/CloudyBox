@@ -88,8 +88,8 @@ class Sidebar extends React.PureComponent {
               />
             </label>
           </li>
-          <li>
-            <label onClick={() => this.handleCreateModal(true)}>
+          <li onClick={() => this.handleCreateModal(true)}>
+            <label>
                 <MdCreateNewFolder
                   size="20px"
                   style={{
@@ -100,8 +100,8 @@ class Sidebar extends React.PureComponent {
                 />
                 Create Folder
             </label>
-            {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
           </li>
+          {this.state.showCreateModal && <Create handleCreateModal={this.handleCreateModal} showCreateModal={this.state.showCreateModal} {...this.props} />}
         </ul>
       </div>
     );

@@ -28,6 +28,8 @@ const FileList = ({
 	const [showCopyModal, updateCopyModal] = useState(false);
 	const [showMoveModal, updateMoveModal] = useState(false);
 	const [thumbnailUrl, updateThumbnailUrl] = useState(null);
+
+	
 	const nodeDropdown = useRef();
 
 	const showDropDown = useCallback(() => {
@@ -78,6 +80,7 @@ const FileList = ({
 
 	useEffect(() => {
 		let dropbox = new Dropbox({ fetch: fetch, accessToken: localToken })
+		console.log("TRY TO FETCH THUMBNAIL")
 		if (doc.name.slice(doc.name.length - 3) === 'jpg' ||
 			doc.name.slice(doc.name.length - 4) === 'jpeg' ||
 			doc.name.slice(doc.name.length - 3) === 'png') {
@@ -173,7 +176,7 @@ const FileList = ({
 						>
 							Copy
 						</button>
-						{showCopyModal && <CopyMove method="filesCopyV2" option="Copy" doc={doc} onClose={(e) => updateCopyModal()} getLinkToFile={getLinkToFile} location={location} />}
+						{showCopyModal && <CopyMove method="filesCopyV2" option="Copy" doc={doc} onClose={(e) => updateCopyModal(false)}  getLinkToFile={getLinkToFile} location={location} />}
 						<button
 							className="moveBtn"
 							onClick={handleMoveModal}

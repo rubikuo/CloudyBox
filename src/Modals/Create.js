@@ -27,7 +27,7 @@ const Create = (props) => {
 		dropbox
 			.filesCreateFolderV2({ path: root + '/' + pathName, autorename: true })
 			.then(function (response) {
-				//console.log(response)
+				console.log(response)
 				console.log("RENDER from CREATE")
 				let copyData = [...props.documents];
 				let newData = {

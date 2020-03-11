@@ -22,7 +22,9 @@ const Remove = (props) => {
 			.catch((err) => {
 				console.log(err);
 			});
+
 		handleRemoveModal();
+		return;
 	};
 
 	return ReactDOM.createPortal(

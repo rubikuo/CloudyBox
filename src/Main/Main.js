@@ -37,7 +37,6 @@ const Main = ({
       dropbox
         .filesListFolder({ path: '' })
         .then((response) => {
-          console.log('resonse.entries', response.cursor);
           console.log("RENDER  from HOME")
           updateDocs(response.entries); // update in state
           updateErrorStatus(false);
@@ -136,6 +135,7 @@ const Main = ({
   useEffect(() => {
     console.log("LONGPOLL")
     longpoll();
+    console.log("long");
 
   }, [longpoll])
 
@@ -160,7 +160,7 @@ const Main = ({
       });
   };
 
-
+  console.log("here", errorStatus);
 	if(errorStatus){
 		return ReactDOM.createPortal(
 			<div className="modalContainer">
