@@ -57,10 +57,10 @@ const CopyMove = (props) => {
 
 	useEffect(
 		() => {
-			console.log('choosen', choosenRepo);
-			let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
+            let dropbox = new Dropbox({ fetch: fetch, accessToken: token$.value });
+            console.log("copymove")
 			if (choosenRepo !== null) {
-				console.log('HELLO', choosenRepo);
+				// console.log('HELLO', choosenRepo);
 				dropbox.filesListFolder({ path: choosenRepo }).then((response) => {
 					filterFolders(response.entries);
 				});
