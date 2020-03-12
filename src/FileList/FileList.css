@@ -121,3 +121,9 @@
 	font-size: 0.8rem;
 	width: 20%;
 }
+
+@media only screen and (max-width: 580px) {
+	.starIcon {
+		margin-left: 7px;
+	}
+}
