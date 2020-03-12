@@ -147,6 +147,7 @@
 .pathLink{
     text-decoration: none;
     color: #737373;
+    font-size: 0.8rem;
 }
 
 @media only screen and (max-width: 900px) {
@@ -193,7 +194,7 @@
         margin-left: 0px;
         order: 2;
         height: auto;
-        margin-top: -30px;
+        margin-top: -40px;
     }
 
     .username-logout {
@@ -203,7 +204,7 @@
         justify-content: flex-end;
         height: auto;
         order: 1;
-        margin-top: 50px;
+        margin-top: 40px;
     }
 
     .search-field {
@@ -213,4 +214,19 @@
     .username, .logout-button {
         margin: 0;
     }
+
+    .header-path {
+        width: 100%;
+
+    }
+    .pathLink {
+        font-size: 0.75rem;
+    }
 }
+
+@media only screen and (max-height: 663px) and  (max-width: 580px){ 
+    .username-logout {
+        margin-top: 20px;
+    }
+}
+

@@ -90,7 +90,7 @@ const Main = ({
 					.then((response) => {
 						// console.log('resonse.entries', response);
 						if (response.changes) {
-							console.log('TEST', originalPath, window.location.pathname);
+							//console.log('TEST', originalPath, window.location.pathname);
 							if (originalPath === window.location.pathname) {
 								loadFiles();
 							}

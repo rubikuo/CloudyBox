@@ -57,13 +57,19 @@
 .imageTop {
     position: absolute;
     top: -12px;
-    right: 0px;
+    right: -20px;
     width: 400px;
     height: auto;
 } 
 
 .sidebar-dropdown {
     display: none;
+}
+
+@media only screen and (max-height: 663px) {
+    .imageTop {
+        top: -30px;
+    }
 }
 
 @media only screen and (max-width: 900px) { 
@@ -107,5 +113,16 @@
 
 }
 
+
+@media only screen and (max-width: 580px) { 
+    .imageTop {
+        left: -100px;
+    }
+
+    .imageTop-Span {
+        width: 100%;
+    }
+
+}
 
 

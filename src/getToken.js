@@ -5,6 +5,6 @@ import { Dropbox } from "dropbox";
   // to get token by using getAuthenticationUrl 
   // we will get location.hash 
   // use queryString to parsel the location.hash to get the token;p
- export const tokenUrl = dbx.getAuthenticationUrl("http://localhost:3000/auth");
+ export const tokenUrl = dbx.getAuthenticationUrl("https://cloudybox.surge.sh/auth");
 
 
