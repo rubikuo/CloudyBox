@@ -49,8 +49,7 @@ const Header = ({ logOut, location, search, filterSearch, userName }) => {
                     </div>
                 </div>
                 <div className="username-logout">
-                    <p className="username">{userName}</p>
-                    <span className="username-span">|</span>
+                    <p className="username">{userName}<span className="username-span">|</span></p>
                     <button className='logout-button' onClick={logOut}>Log out</button>
                 </div>
             </div>
