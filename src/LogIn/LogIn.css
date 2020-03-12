@@ -120,9 +120,34 @@
 
   }
 
+  @media only screen and (max-width: 414px) {
+    .logo-login {
+      margin: 50px 0 0 30px;
+      width: 47%;
+    }
+
+    .container-login > h1 {
+      margin: 20px 0 0 30px;
+      font-size: 2.1rem;
+  }
+
+  .container-login > p {
+      font-size: 0.9rem;
+      line-height: 1.5rem;
+      margin: 20px 0 0 30px;
+      width: 80%;
+  }
+
+  .container-login > a {
+      margin: 50px 0 0 30px;
+      padding: 10px;
+      width: 150px;
+  }
+}
+
   @media only screen and (max-width: 375px) {
       .logo-login {
-        margin: 20px 0 0 30px;
+        margin: 40px 0 0 30px;
         width: 50%;
       }
 
@@ -144,3 +169,5 @@
         width: 150px;
     }
   }
+
+
